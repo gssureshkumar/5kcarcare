@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/opensans_semibold"
+        android:text="@string/tell_us_whose_this"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/userNameEdt"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/opensans_medium"
+        android:inputType="text"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:maxLines="1"
+        android:padding="5dp"
+        android:hint="@string/enter_your_name"
+        android:background="@drawable/draw_rounded_gray_view"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hint_text_color" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_selector"
+        android:enabled="true"
+        android:fontFamily="@font/opensans_medium"
+        android:text="@string/update"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/cardview_dark_background"
+        app:cornerRadius="10dp" />
+</LinearLayout>

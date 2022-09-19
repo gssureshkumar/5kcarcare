@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">5KCarCare</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="car_polishing">1. Car Polishing</string>
+    <string name="car_polishing_text">Car Polishing is a product that helps to eliminate surface scratches, swirls, oxidations, dirt..</string>
+    <string name="skip">Skip</string>
+    <string name="our_services">Our Services</string>
+    <string name="done">Done</string>
+    <string name="login_with_mobile_number">Login with mobile number</string>
+    <string name="your_number_will_be_safe_with_us_txt">Your number will be safe with us, We won\'t  share your details with anyone</string>
+    <string name="enter_your_mobile_number">Enter your mobile number</string>
+    <string name="next">Next</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="please_enter_6_digit_code_sent">Please enter 6 digit code sent to your registered mobile number %s</string>
+    <string name="not_your_number"><u>Not Your Number</u></string>
+    <string name="not_received_code">Not received code?</string>
+    <string name="resend">Resend?</string>
+    <string name="submit">Submit</string>
+    <string name="tell_us_whose_this">Tell us whose this!</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="update">Update</string>
+    <string name="ok">Okay</string>
+    <string name="location_error_message">Please enable location permissions to access location.</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBMzMTcg_z8UJLJLE1LDVl5oExTALg_q2s</string>
+    <string name="select_location">Select Location</string>
+    <string name="car_location">Car Location</string>
+    <string name="confirm_location">Confirm Location</string>
+    <string name="loading">Loading</string>
+    <string name="add_vehicle">Add Vehicle</string>
+    <string name="most_trending_services">Most Trending Services</string>
+    <string name="recommended_services">Recommended Services</string>
+    <string name="please_enter_valid_mobile_number">Please enter valid mobile number</string>
+    <string name="please_enter_valid_otp">Please enter valid otp</string>
+    <string name="please_enter_valid_user_name">Please enter vaild user name</string>
+    <string name="otp_send_to_your_registered_mobile">OTP sent to your registered mobile number</string>
+</resources>

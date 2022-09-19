@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/active_dot.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/bg_otp_item.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/button_selector.xml" value="0.1035" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/draw_black_filled_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/draw_rounded_gray_view.xml" value="0.1035" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/draw_rounded_white_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/draw_white_circle_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/ic_broken_image.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/ic_hatchback_car_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/ic_launcher_background.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/ic_location_pin_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/ic_pickup_pin_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/loading_animation.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/loading_image.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/drawable/non_active_dot.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/activity_login.xml" value="0.38809034907597534" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/activity_maps_location.xml" value="0.1796875" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/bottom_sheet_name_update.xml" value="0.17864583333333334" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/custom_progress_view.xml" value="0.1796875" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/fragment_banner.xml" value="0.1796875" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/fragment_home.xml" value="0.4466666666666667" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/fragment_sliding.xml" value="0.16666666666666666" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/item_our_services_view.xml" value="0.1796875" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.106" />
+        <entry key="..\:/Suresh/5KCarCare/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.106" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

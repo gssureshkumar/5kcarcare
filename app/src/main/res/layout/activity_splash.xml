@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/splashView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher"/>
+
+    <RelativeLayout
+        android:id="@+id/promotionContainer"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/skipAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="@color/primary_color"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/opensans_medium"
+            android:text="@string/skip"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/titleAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_below="@+id/skipAction"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/our_services"
+            android:textSize="24sp"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/slidingViewPager"
+            android:layout_below="@+id/titleAction"
+            android:layout_width="match_parent"
+            android:layout_above="@id/slider_dots"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/slider_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="bottom|center_horizontal"
+            android:orientation="horizontal" />
+    </RelativeLayout>
+
+</LinearLayout>

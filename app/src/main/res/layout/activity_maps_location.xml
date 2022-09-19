@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/moveLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_location_pin_icon"/>
+
+    <ImageView
+        android:id="@+id/currentLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/infoView"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/draw_white_circle_view"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_round_my_location_icon"/>
+
+    <LinearLayout
+        android:id="@+id/infoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@string/select_location"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/hint_text_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@string/car_location"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/carLocationTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/loading"
+            android:textSize="20sp"
+            app:drawableStartCompat="@drawable/ic_green_tick_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/hint_text_color" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirmAction"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_selector"
+            android:enabled="true"
+            android:fontFamily="@font/opensans_medium"
+            android:text="@string/confirm_location"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/splash_background"
+            app:cornerRadius="10dp" />
+    </LinearLayout>
+</RelativeLayout>

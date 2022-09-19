@@ -1,0 +1,49 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="Theme.5KCarCare" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_text_color</item>
+        <item name="colorPrimaryVariant">@color/primary_text_color</item>
+        <item name="colorOnPrimary">@color/primary_text_color</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/primary_text_color</item>
+        <item name="colorSecondaryVariant">@color/primary_text_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="Theme.5KCarCare.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="colorControlNormal">@color/primary_text_color</item>
+        <item name="colorControlActivated">@color/primary_text_color</item>
+        <item name="colorControlHighlight">@color/primary_text_color</item>
+    </style>
+
+    <style name="MyTextAppearanceSmall" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/opensans_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/draw_rounded_white_view</item>
+        <item name="colorControlNormal">@color/primary_text_color</item>
+        <item name="colorControlActivated">@color/primary_text_color</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextInputLayoutList" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="colorPrimary">@color/primary_text_color</item>
+        <item name="colorPrimaryVariant">@color/primary_text_color</item>
+        <item name="colorOnPrimary">@color/primary_text_color</item>
+    </style>
+</resources>
