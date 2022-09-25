@@ -31,6 +31,14 @@
         </activity>
 
         <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsCollectionEnabled}" />
+
+        <meta-data
+            android:name="firebase_performance_logcat_enabled"
+            android:value="${crashlyticsCollectionEnabled}" />
+
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity
@@ -48,5 +56,7 @@
             android:name=".ui.authentication.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
+
+
     </application>
 </manifest>

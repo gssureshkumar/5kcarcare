@@ -3,9 +3,11 @@ package com.carcare.ui.authentication
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.carcare.network.RetrofitInstance
+import com.carcare.utils.ErrorResponseParser
 import com.carcare.viewmodel.BaseViewModel
 import com.carcare.viewmodel.request.LoginRequestBodies
-import com.carcare.viewmodel.response.SuccessResponse
+import com.carcare.viewmodel.response.GeneralResponse
+import com.carcare.viewmodel.response.authendication.LoginResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -14,9 +16,9 @@ import io.reactivex.schedulers.Schedulers
 class AuthenticationViewModel(application: Application) : BaseViewModel(application) {
     private val disposable = CompositeDisposable()
 
-    val getOTPResponse = MutableLiveData<SuccessResponse>()
-    val loginResponse = MutableLiveData<SuccessResponse>()
-    val updateUserNameResponse = MutableLiveData<SuccessResponse>()
+    val getOTPResponse = MutableLiveData<GeneralResponse>()
+    val loginResponse = MutableLiveData<LoginResponse>()
+    val updateUserNameResponse = MutableLiveData<GeneralResponse>()
     val errorMessage = MutableLiveData<String?>()
     val isLoading = MutableLiveData<Boolean>()
 
@@ -27,17 +29,16 @@ class AuthenticationViewModel(application: Application) : BaseViewModel(applicat
             RetrofitInstance.api.getOTP(body)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<SuccessResponse>() {
-                    override fun onSuccess(response: SuccessResponse) {
+                .subscribeWith(object : DisposableSingleObserver<GeneralResponse>() {
+                    override fun onSuccess(response: GeneralResponse) {
                         getOTPResponse.value = response
-                        errorMessage.value = null
                         isLoading.value = false
                     }
 
                     override fun onError(e: Throwable) {
                         isLoading.value = false
-                        errorMessage.value = e.message
-                        e.printStackTrace()
+                        errorMessage.value = ErrorResponseParser.getErrorResponse(e)
+
                     }
                 })
         )
@@ -50,17 +51,15 @@ class AuthenticationViewModel(application: Application) : BaseViewModel(applicat
             RetrofitInstance.api.doLogin(body)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<SuccessResponse>() {
-                    override fun onSuccess(response: SuccessResponse) {
+                .subscribeWith(object : DisposableSingleObserver<LoginResponse>() {
+                    override fun onSuccess(response: LoginResponse) {
                         loginResponse.value = response
-                        errorMessage.value = null
                         isLoading.value = false
                     }
 
                     override fun onError(e: Throwable) {
                         isLoading.value = false
-                        errorMessage.value = e.message
-                        e.printStackTrace()
+                        errorMessage.value = ErrorResponseParser.getErrorResponse(e)
                     }
                 })
         )
@@ -72,17 +71,15 @@ class AuthenticationViewModel(application: Application) : BaseViewModel(applicat
             RetrofitInstance.api.updateUserName(body)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<SuccessResponse>() {
-                    override fun onSuccess(response: SuccessResponse) {
+                .subscribeWith(object : DisposableSingleObserver<GeneralResponse>() {
+                    override fun onSuccess(response: GeneralResponse) {
                         updateUserNameResponse.value = response
-                        errorMessage.value = null
                         isLoading.value = false
                     }
 
                     override fun onError(e: Throwable) {
                         isLoading.value = false
-                        errorMessage.value = e.message
-                        e.printStackTrace()
+                        errorMessage.value = ErrorResponseParser.getErrorResponse(e)
                     }
                 })
         )
@@ -91,7 +88,6 @@ class AuthenticationViewModel(application: Application) : BaseViewModel(applicat
 
     override fun onCleared() {
         super.onCleared()
-
         disposable.clear()
     }
 

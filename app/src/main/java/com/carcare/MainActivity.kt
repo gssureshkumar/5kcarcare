@@ -15,6 +15,7 @@ import com.carcare.location.LocationData
 import com.carcare.ui.BaseActivity
 import com.carcare.ui.home.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
 
@@ -33,6 +34,7 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
         easyWayLocation = EasyWayLocation(this, false, this)
 
         val navView: BottomNavigationView = binding.navView
+        navView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView.setupWithNavController(navController)
         getLocationResult()

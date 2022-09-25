@@ -11,11 +11,9 @@ import com.carcare.R
 import com.carcare.app.CarCareApplication
 import com.carcare.databinding.ActivityLoginBinding
 import com.carcare.ui.BaseActivity
-import com.carcare.utils.Logger
 import com.carcare.utils.PreferenceHelper
 import com.carcare.viewmodel.request.LoginRequestBodies
 import java.util.regex.Pattern
-import javax.net.ssl.HttpsURLConnection
 
 
 class LoginActivity : BaseActivity() {
@@ -64,58 +62,66 @@ class LoginActivity : BaseActivity() {
             if (binding.otpView.otp.isNullOrEmpty()) {
                 showToast(getString(R.string.please_enter_valid_otp))
             } else {
-                val body = LoginRequestBodies.LoginRequestBody(binding.phoneNumberEdt.text.toString(),
-                    binding.otpView.otp)
+                val body = LoginRequestBodies.LoginRequestBody(
+                    binding.phoneNumberEdt.text.toString(),
+                    binding.otpView.otp
+                )
                 viewModel.doLogin(body)
             }
         }
 
         viewModel.getOTPResponse.observe(this) { response ->
+            showToast(response.message)
+            binding.otpConfirmTxt.text = getString(R.string.please_enter_6_digit_code_sent, binding.phoneNumberEdt.text)
+            binding.loginContainer.visibility = View.GONE
+            binding.otpContainer.visibility = View.VISIBLE
+            binding.otpView.otp = ""
 
-            if (response.statusCode == HttpsURLConnection.HTTP_OK) {
-                binding.otpConfirmTxt.text = getString(R.string.please_enter_6_digit_code_sent, binding.phoneNumberEdt.text)
-                binding.loginContainer.visibility = View.GONE
-                binding.otpContainer.visibility = View.VISIBLE
-            } else {
-                showToast(response.message)
-            }
         }
 
         viewModel.loginResponse.observe(this) { response ->
 
-            if (response.statusCode == HttpsURLConnection.HTTP_OK) {
+            if (response.data != null && !response.data.name.isNullOrEmpty()) {
+                prefsHelper.intUserIDPref = response.data.userId
+                prefsHelper.intUserNamePref = response.data.name
+            }
                 val fragment =
                     NameUpdateBottomSheetFragment.newInstance(object :
                         NameUpdateBottomSheetFragment.ItemClickListener {
                         override fun onSubmitClick(userName: String) {
-                            prefsHelper.intUserIDPref = userName
+                            prefsHelper.intUserNamePref = userName
                             val body = LoginRequestBodies.UpdateNameBody(
                                 prefsHelper.intUserIDPref!!,
-                                userName)
+                                userName
+                            )
                             viewModel.updateUserName(body)
                         }
                     })
+            fragment.isCancelable = false
                 fragment.show(supportFragmentManager, fragment.tag)
-            } else {
-                showToast(response.message)
-            }
+//            } else if (response.data != null && !response.data.name.isNullOrEmpty()) {
+//                prefsHelper.intUserIDPref = response.data.userId
+//                prefsHelper.intUserNamePref = response.data.name
+//                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//            } else {
+//                showToast(response.message)
+//            }
         }
 
         viewModel.updateUserNameResponse.observe(this) { response ->
+//            prefsHelper.intUserIDPref = response.data.userId
+//                prefsHelper.intUserNamePref = response.data.name
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
 
-            if (response.statusCode == HttpsURLConnection.HTTP_OK) {
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                showToast(response.message)
-            }
         }
         viewModel.isLoading.observe(this) { isLoading ->
             setDialog(isLoading)
         }
         viewModel.errorMessage.observe(this) { errorMessage ->
-            Logger.logDebug("counties -->", "errorMessage $errorMessage")
             showToast(errorMessage.toString())
         }
 

@@ -3,8 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="car_polishing">1. Car Polishing</string>
-    <string name="car_polishing_text">Car Polishing is a product that helps to eliminate surface scratches, swirls, oxidations, dirt..</string>
+    <string name="car_polishing">2. Car Polishing</string>
+    <string name="car_polishing_text">Car polishing is a product that helps to eliminate surface scratches, swirls, oxidation, dirt.</string>
     <string name="skip">Skip</string>
     <string name="our_services">Our Services</string>
     <string name="done">Done</string>
@@ -37,4 +37,28 @@
     <string name="please_enter_valid_otp">Please enter valid otp</string>
     <string name="please_enter_valid_user_name">Please enter vaild user name</string>
     <string name="otp_send_to_your_registered_mobile">OTP sent to your registered mobile number</string>
+    <string name="select_vehicle_type">Selec Vehicle Type</string>
+    <string name="hatch_back">Hatch Back</string>
+    <string name="sedan">Sedan</string>
+    <string name="suv">SUV</string>
+    <string name="model_name">Model Name</string>
+    <string name="car_model">Car Model</string>
+    <string name="registration">Registration</string>
+    <string name="registration_hint">TN 00 XX 0000</string>
+    <string name="save">Save</string>
+    <string name="muv">MUV</string>
+    <string name="please_enter_car_model">Please enter the car model</string>
+    <string name="please_enter_registration_number">Please enter the registration number</string>
+    <string name="primary">Primary</string>
+    <string name="add_new_car">+ Add New Car</string>
+    <string name="car_wash">1. Car Wash</string>
+    <string name="car_wash_description">Simple to premium car wash service that your car deserves.</string>
+    <string name="car_accessories">3. Car Accessories</string>
+    <string name="car_accessories_text">Sunflim, Floor mats, Perfumes, Car cleaning kit</string>
+    <string name="car_maintance">4. Car Maintance</string>
+    <string name="car_maintance_text">Carbon cleaning, Dent removal, Thar removal, Painting Job</string>
+    <string name="ear_700_for_every_friend_you_refer">Earn ₹750 for every friend you refer</string>
+    <string name="get_a_friend_to_start_using_5k_car_care">Get a friend to start \nusing 5K Car Care</string>
+    <string name="refer_now">Refer Now</string>
+    <string name="use_referral_code_txt">Use my referral code %s to earn %s on your first service with 5k Care \n https://play.google.com/store/apps/details?id=com.carcare</string>
 </resources>

@@ -31,6 +31,24 @@
         <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/item_our_services_view.xml" value="0.1796875" />
         <entry key="..\:/Suresh/5KCarCare/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.106" />
         <entry key="..\:/Suresh/5KCarCare/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_black_filled_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_blue_circle_corner_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_red_filled_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_rounded_gray_corner_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_rounded_gray_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_white_circle_gray_corner_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_white_circle_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_white_gray_corner_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_hatchback_car_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/add_vehicle_view.xml" value="0.4466666666666667" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_banner.xml" value="0.1796875" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_our_services_view.xml" value="0.3333333333333333" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/vehicle_model_item.xml" value="0.3333333333333333" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/menu/bottom_nav_menu.xml" value="0.175" />
       </map>
     </option>
   </component>

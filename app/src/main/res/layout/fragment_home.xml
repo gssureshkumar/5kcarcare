@@ -44,11 +44,8 @@
             android:id="@+id/carType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"
-            android:layout_marginBottom="-25dp"
-            android:layout_marginEnd="10dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_hatchback_car_icon" />
+            android:src="@drawable/ic_small_hatch_icon" />
 
         <TextView
             android:id="@+id/addVehicle"
@@ -87,94 +84,151 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/promotionContainer"
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:orientation="vertical"
+            android:layout_height="200dp">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/slidingViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="200dp" />
 
             <LinearLayout
                 android:id="@+id/slider_dots"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:padding="8dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="bottom|center_horizontal"
                 android:orientation="horizontal" />
-        </RelativeLayout>
+        </FrameLayout>
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#EFEFEF"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_marginStart="15dp"
-                android:layout_gravity="clip_vertical"
-                android:fontFamily="@font/opensans_semibold"
-                android:text="@string/our_services"
-                android:textSize="16sp" />
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/ourServiceList" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#EFEFEF"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#EFEFEF"
-            android:gravity="center"
-            android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="15dp"
+                        android:layout_gravity="clip_vertical"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:text="@string/our_services"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_marginStart="15dp"
-                android:layout_gravity="clip_vertical"
-                android:fontFamily="@font/opensans_semibold"
-                android:text="@string/most_trending_services"
-                android:textSize="16sp" />
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ourServiceList" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/trendingServicesList" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#EFEFEF"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#EFEFEF"
-            android:gravity="center"
-            android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="15dp"
+                        android:layout_gravity="clip_vertical"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:text="@string/most_trending_services"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_marginStart="15dp"
-                android:layout_gravity="clip_vertical"
-                android:fontFamily="@font/opensans_semibold"
-                android:text="@string/recommended_services"
-                android:textSize="16sp" />
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/trendingServicesList" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/recommendedList" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#EFEFEF"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="15dp"
+                        android:layout_gravity="clip_vertical"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:text="@string/recommended_services"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recommendedList" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:padding="20dp"
+                    android:background="@drawable/ic_refer_friend_bg_icon"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_gravity="clip_vertical"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:text="@string/ear_700_for_every_friend_you_refer"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_gray"
+                        android:layout_gravity="clip_vertical"
+                        android:fontFamily="@font/opensans_regular"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="30dp"
+                        android:text="@string/get_a_friend_to_start_using_5k_car_care"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:id="@+id/btnReferNow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:background="@drawable/draw_red_filled_view"
+                        android:fontFamily="@font/opensans_regular"
+                        android:text="@string/refer_now"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </LinearLayout>

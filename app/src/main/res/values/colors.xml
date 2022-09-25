@@ -10,8 +10,8 @@
     <color name="light_grey">#f0f1f3</color>
     <color name="text_gray">#828282</color>
     <color name="primary_color">#1D2588</color>
-    <color name="splash_background">#746EDF</color>
-    <color name="primary_text_color">#736DD7</color>
+    <color name="splash_background">#1D2588</color>
+    <color name="primary_text_color">#1D2588</color>
     <color name="hint_text_color">#80252F34</color>
     <color name="line_color">#F5F5F5</color>
 </resources>

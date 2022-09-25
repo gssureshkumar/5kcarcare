@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +15,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.carcare.MainActivity
 import com.carcare.R
+import com.carcare.app.CarCareApplication
 import com.carcare.databinding.FragmentHomeBinding
+import com.carcare.ui.authentication.NameUpdateBottomSheetFragment
+import com.carcare.ui.home.adapter.ServiceListAdapter
 import com.carcare.ui.home.banner.BannerImagesAdapter
 import com.carcare.ui.setaddress.MapsActivity
 import com.carcare.utils.Constants
 import com.carcare.utils.TutorialDataManager
+import com.carcare.viewmodel.request.LoginRequestBodies
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -81,6 +88,58 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), MapsActivity::class.java)
             resultLauncher.launch(intent)
         }
+
+        _binding.addVehicle.setOnClickListener {
+            val fragment =
+                AddCarModelBottomSheetFragment.newInstance(object :
+                    AddCarModelBottomSheetFragment.ItemClickListener {
+                    override fun onSubmitClick(userName: String) {
+
+                    }
+                })
+            fragment.isCancelable = false
+            fragment.show(requireActivity().supportFragmentManager, fragment.tag)
+        }
+
+        _binding.btnReferNow.setOnClickListener {
+            val shareIntent = Intent()
+            shareIntent.action = Intent.ACTION_SEND
+            shareIntent.type="text/plain"
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.use_referral_code_txt, "5KCARCARE", "₹500"));
+            startActivity(Intent.createChooser(shareIntent,getString(R.string.app_name)))
+        }
+
+        _binding.ourServiceList.layoutManager = GridLayoutManager(requireActivity(), 4)
+        _binding.trendingServicesList.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        _binding.recommendedList.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+
+
+        val serviceListAdapter = ServiceListAdapter(emptyList())
+        _binding.ourServiceList.adapter = serviceListAdapter
+        _binding.trendingServicesList.adapter = serviceListAdapter
+        _binding.recommendedList.adapter = serviceListAdapter
+        CarCareApplication.instance.repository.primaryVehicle.observe(requireActivity()) { vehile ->
+
+            if(vehile !=null){
+                when (vehile.carModel) {
+                    getString(R.string.hatch_back) -> {
+                        binding.carType.setImageResource(R.drawable.ic_small_hatch_icon)
+                    }
+                    getString(R.string.sedan) -> {
+                        binding.carType.setImageResource(R.drawable.ic_small_sedan_icon)
+                    }
+                    getString(R.string.suv) -> {
+                        binding.carType.setImageResource(R.drawable.ic_small_suv_icon)
+                    }
+                    getString(R.string.muv) -> {
+                        binding.carType.setImageResource(R.drawable.ic_small_seaters_icon)
+                    }
+                }
+            }else {
+                _binding.addVehicle.performClick()
+            }
+        }
+
     }
 
 
