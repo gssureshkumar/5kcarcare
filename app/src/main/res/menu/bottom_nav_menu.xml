@@ -7,14 +7,14 @@
     <item
         android:id="@+id/navigation_booking"
         android:icon="@drawable/ic_booking_icon"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_booking" />
     <item
         android:id="@+id/navigation_contacts"
         android:icon="@drawable/ic_contacts_icon"
-        android:title="@string/title_notifications" />
+        android:title="@string/title_help" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_profile_icon"
-        android:title="@string/title_notifications" />
+        android:title="@string/title_profile" />
 </menu>

@@ -49,13 +49,14 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
+                android:scrollbars="none"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -173,6 +174,7 @@
                             android:text="@string/muv"
                             android:textSize="16sp" />
                     </LinearLayout>
+
                 </LinearLayout>
             </HorizontalScrollView>
 

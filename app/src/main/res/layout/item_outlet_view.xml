@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <RadioGroup
+        android:id="@+id/radioGrp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/outletName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="10"
+        android:layout_toEndOf="@+id/radioGrp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/opensans_semibold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/outletRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="10"
+        android:layout_toEndOf="@+id/radioGrp"
+        android:layout_below="@+id/outletName"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/opensans_semibold"
+        android:textSize="16sp"
+        app:drawableEndCompat="@drawable/ic_star_icon"
+        app:drawableTint="@color/black" />
+</RelativeLayout>

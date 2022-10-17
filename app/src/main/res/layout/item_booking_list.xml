@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/bookingImage"
+        android:layout_width="80dp"
+        android:layout_centerVertical="true"
+        android:layout_height="80dp"
+        android:src="@drawable/car_wash" />
+
+    <LinearLayout
+        android:id="@+id/userDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/bookingStatusView"
+        android:layout_toEndOf="@+id/bookingImage"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/carModelName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="marquee"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="CarModel"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/localAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="marquee"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="Fun Mall"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_alternate_email_icon" />
+
+        <TextView
+            android:id="@+id/bookedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="marquee"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="25th June"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_calendar_icon" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bookingStatusView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_toStartOf="@+id/moveView"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/bookingStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="marquee"
+            android:layout_gravity="end"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_medium"
+            android:text="@string/inprogress"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="marquee"
+            android:visibility="invisible"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_medium"
+            android:text="@string/inprogress"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bookingPriceTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text_color"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="marquee"
+            android:layout_marginBottom="8dp"
+            android:drawablePadding="10dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="550"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/moveView"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_arrow_right_icon" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/userDetails"
+        android:layout_marginStart="15dp"
+        android:background="@color/line_color"/>
+</RelativeLayout>

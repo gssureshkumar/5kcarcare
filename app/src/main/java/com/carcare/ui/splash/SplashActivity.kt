@@ -2,6 +2,7 @@ package com.carcare.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -16,8 +17,12 @@ import com.carcare.ui.authentication.LoginActivity
 import com.carcare.ui.splash.adapter.SlidingImagesAdapter
 import com.carcare.utils.PreferenceHelper
 import com.carcare.utils.TutorialDataManager
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import kotlin.concurrent.schedule
+
 
 class SplashActivity :BaseActivity() {
     private lateinit var slidingImageDots: Array<ImageView?>
@@ -57,6 +62,7 @@ class SplashActivity :BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FirebaseApp.initializeApp(this@SplashActivity)
         TutorialDataManager.init(this@SplashActivity)
         setUpSlidingViewPager()
 
@@ -66,6 +72,17 @@ class SplashActivity :BaseActivity() {
             startActivity(intent)
             finish()
         }
+
+
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (task.result != null && !TextUtils.isEmpty(task.result)) {
+                        val token = task.result!!
+                        prefsHelper.intDeviceTokenPref = token
+                    }
+                }
+            }
 
         binding.splashView.visibility = View.VISIBLE
         binding.promotionContainer.visibility = View.GONE

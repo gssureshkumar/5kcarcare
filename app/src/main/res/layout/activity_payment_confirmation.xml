@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/backAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_arrow_back_icon" />
+
+        <TextView
+            android:id="@+id/serviceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@string/check_out"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_above="@+id/addCheckoutView"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="@string/payment_method"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/opensans_bold"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGrp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/onlineBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/online"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/opensans_medium"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/codBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cod"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/opensans_medium"
+                    android:checked="false" />
+            </RadioGroup>
+
+            <RelativeLayout
+                android:id="@+id/voucherView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:background="@drawable/draw_vouchers_fill_view">
+
+                <ImageView
+                    android:id="@+id/voucherIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_vouchers_icon" />
+
+                <LinearLayout
+                    android:id="@+id/addressView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/voucherIcon"
+                    android:layout_toStartOf="@+id/forwardArrow"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:ellipsize="marquee"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:text="@string/referral_vouchers_applied"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#8E8E92"
+                        android:ellipsize="marquee"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/opensans_semibold"
+                        android:text="@string/issued_for_successful_referral"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/voucherPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/opensans_bold"
+                        android:text="@string/loading"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/forwardArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_arrow_forward_icon"
+                    app:tint="#8E8E92" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="@string/price_details"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/opensans_bold"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/actual_price"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/actualPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:ellipsize="marquee"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/offer_price"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/offerPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:ellipsize="marquee"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/voucherApplied"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/voucher_applied"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/voucherCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#65C466"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/voucherApplied"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/voucher_applied"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/voucherTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:ellipsize="marquee"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/total_amount"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/totalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:ellipsize="marquee"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/addCheckoutView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@color/primary_text_color"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/orderAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="10"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/opensans_semibold"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/placeOrderAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:text="@string/place_order"
+                android:layout_centerVertical="true"
+                android:gravity="end|center_vertical"
+                android:fontFamily="@font/opensans_semibold"
+                android:layout_marginStart="10dp"
+                android:textAllCaps="true"
+                android:layout_marginEnd="10dp"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

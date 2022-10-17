@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "vehicle_table")
 data class VehicleModel(
-    @PrimaryKey val uid: Long,
-    @ColumnInfo(name = "car_model") val carModel: String?,
+    @PrimaryKey val id: String,
+    @ColumnInfo(name = "type") val type: String?,
     @ColumnInfo(name = "is_primary") var isPrimary: Boolean?,
-    @ColumnInfo(name = "model_name") val modelName: String?,
+    @ColumnInfo(name = "car_model") val carModel: String?,
     @ColumnInfo(name = "registration") val registration: String?
 )

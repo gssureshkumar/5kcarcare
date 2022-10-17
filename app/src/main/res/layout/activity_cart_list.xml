@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/backAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_arrow_back_icon" />
+
+        <TextView
+            android:id="@+id/serviceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@string/my_cart"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#F2F1F6"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:background="@color/white"
+            android:id="@+id/cartList" />
+
+        <RelativeLayout
+            android:id="@+id/addVoiceNotes"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_below="@+id/cartList"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/micIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_mic_icon" />
+
+            <TextView
+                android:id="@+id/addVoiceMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#8D8C91"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_toEndOf="@+id/micIcon"
+                android:layout_toStartOf="@+id/rightIcon"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/opensans_semibold"
+                android:text="@string/add_voice_instruction"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/rightIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_arrow_forward_icon" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/recommendedView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginTop="25dp"
+            android:layout_above="@+id/addCheckoutView"
+            android:layout_below="@+id/addVoiceNotes"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="15dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="clip_vertical"
+                android:fontFamily="@font/opensans_semibold"
+                android:text="@string/recommended"
+                android:textSize="16sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:id="@+id/recommendedList" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/addCheckoutView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@color/primary_text_color"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/priceAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="10"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/opensans_semibold"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/checkOutAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:text="@string/check_out"
+                android:layout_centerVertical="true"
+                android:gravity="end|center_vertical"
+                android:fontFamily="@font/opensans_semibold"
+                android:layout_marginStart="10dp"
+                android:textAllCaps="true"
+                android:layout_marginEnd="10dp"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

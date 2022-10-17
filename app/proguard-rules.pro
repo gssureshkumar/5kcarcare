@@ -106,6 +106,7 @@
 }
 
 -keep class com.carcare.viewmodel** { *; }
+-keep class com.carcare.location** { *; }
 
 
 -keepclassmembers class * {

@@ -21,19 +21,35 @@ import androidx.viewpager2.widget.ViewPager2
 import com.carcare.MainActivity
 import com.carcare.R
 import com.carcare.app.CarCareApplication
+import com.carcare.database.VehicleModel
 import com.carcare.databinding.FragmentHomeBinding
-import com.carcare.ui.authentication.NameUpdateBottomSheetFragment
 import com.carcare.ui.home.adapter.ServiceListAdapter
 import com.carcare.ui.home.banner.BannerImagesAdapter
+import com.carcare.ui.serviceDetails.ServiceDetailsActivity
 import com.carcare.ui.setaddress.MapsActivity
 import com.carcare.utils.Constants
+import com.carcare.utils.Constants.CITY
+import com.carcare.utils.Constants.SERVICE_ID
+import com.carcare.utils.Constants.STATE
+import com.carcare.utils.PreferenceHelper
 import com.carcare.utils.TutorialDataManager
-import com.carcare.viewmodel.request.LoginRequestBodies
+import com.carcare.viewmodel.request.vehicle.VehicleRequest
+import com.carcare.viewmodel.response.LocationInfoData
+import com.carcare.viewmodel.response.services.ServiceData
+import com.google.android.datatransport.cct.internal.LogResponse.fromJson
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
 import java.util.*
 
 class HomeFragment : Fragment() {
 
+    val prefsHelper: PreferenceHelper by lazy {
+        CarCareApplication.prefs!!
+    }
+    private lateinit var homeViewModel: HomeViewModel
     private lateinit var _binding: FragmentHomeBinding
+    private var  infoData :LocationInfoData? = null
+    private var deleteId = ""
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -79,22 +95,31 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpSlidingViewPager()
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+
 
         val address = (activity as MainActivity).getCurrentAddress()
-       updateAddess(address)
+        updateAddress(address)
 
-        _binding.localAddress.setOnClickListener {
+        _binding.addressView.setOnClickListener {
             val intent = Intent(requireActivity(), MapsActivity::class.java)
             resultLauncher.launch(intent)
         }
 
+        _binding.carTypeView.setOnClickListener {
+            _binding.addVehicle.performClick()
+        }
         _binding.addVehicle.setOnClickListener {
             val fragment =
                 AddCarModelBottomSheetFragment.newInstance(object :
                     AddCarModelBottomSheetFragment.ItemClickListener {
-                    override fun onSubmitClick(userName: String) {
+                    override fun onSubmitClick(vehicleModel: VehicleModel) {
+                        homeViewModel.addVehicleRequest(VehicleRequest.AddVehicleRequest(vehicleModel.carModel!!, vehicleModel.type!!, vehicleModel.registration!!, vehicleModel.isPrimary!!, ""))
+                    }
 
+                    override fun deleteVehicle(id: String) {
+                        deleteId = id
+                        homeViewModel.deleteVehicleRequest(VehicleRequest.DeleteVehicleRequest(id))
                     }
                 })
             fragment.isCancelable = false
@@ -104,9 +129,9 @@ class HomeFragment : Fragment() {
         _binding.btnReferNow.setOnClickListener {
             val shareIntent = Intent()
             shareIntent.action = Intent.ACTION_SEND
-            shareIntent.type="text/plain"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.use_referral_code_txt, "5KCARCARE", "₹500"));
-            startActivity(Intent.createChooser(shareIntent,getString(R.string.app_name)))
+            shareIntent.type = "text/plain"
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.use_referral_code_txt, prefsHelper.intRefCodePref, "₹500"));
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.app_name)))
         }
 
         _binding.ourServiceList.layoutManager = GridLayoutManager(requireActivity(), 4)
@@ -114,39 +139,126 @@ class HomeFragment : Fragment() {
         _binding.recommendedList.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
 
 
-        val serviceListAdapter = ServiceListAdapter(emptyList())
-        _binding.ourServiceList.adapter = serviceListAdapter
-        _binding.trendingServicesList.adapter = serviceListAdapter
-        _binding.recommendedList.adapter = serviceListAdapter
+
         CarCareApplication.instance.repository.primaryVehicle.observe(requireActivity()) { vehile ->
 
-            if(vehile !=null){
-                when (vehile.carModel) {
-                    getString(R.string.hatch_back) -> {
+            Log.e("primaryVehicle -->", "onViewCreated: "+ Gson().toJson(vehile))
+            if (vehile?.type != null) {
+                when {
+                    vehile.type.lowercase(Locale.getDefault()).contains("hatch") -> {
                         binding.carType.setImageResource(R.drawable.ic_small_hatch_icon)
                     }
-                    getString(R.string.sedan) -> {
+                    vehile.type.lowercase(Locale.getDefault()).contains(getString(R.string.sedan).lowercase(Locale.getDefault())) -> {
                         binding.carType.setImageResource(R.drawable.ic_small_sedan_icon)
                     }
-                    getString(R.string.suv) -> {
+                    vehile.type.lowercase(Locale.getDefault()).contains(getString(R.string.suv).lowercase(Locale.getDefault())) -> {
                         binding.carType.setImageResource(R.drawable.ic_small_suv_icon)
                     }
-                    getString(R.string.muv) -> {
+                    vehile.type.lowercase(Locale.getDefault()).contains(getString(R.string.muv).lowercase(Locale.getDefault())) -> {
                         binding.carType.setImageResource(R.drawable.ic_small_seaters_icon)
                     }
                 }
-            }else {
+                binding.addVehicle.text = vehile.type
+            } else {
                 _binding.addVehicle.performClick()
             }
         }
 
+        homeViewModel.dashBoardResponse.observe(requireActivity()) { response ->
+
+            if (response != null) {
+                RecommendedServiceResponse.getServiceResponse = response
+                if(response.data.offers.size>0) {
+                    TutorialDataManager.offersList = response.data.offers
+                    setUpSlidingViewPager()
+                    _binding.promotionContainer.visibility = View.VISIBLE
+                }else {
+                    _binding.promotionContainer.visibility = View.GONE
+                }
+                if (response.data.others.isNotEmpty()) {
+                    val serviceListAdapter = ServiceListAdapter(response.data.others, object :ServiceListAdapter.ItemClickListener{
+                        override fun itemClick(data: ServiceData) {
+                            if(infoData !=null) {
+                                val intent = Intent(requireActivity(), ServiceDetailsActivity::class.java)
+                                intent.putExtra(SERVICE_ID, data.id)
+                                intent.putExtra(CITY, infoData!!.city)
+                                intent.putExtra(STATE, infoData!!.state)
+                                startActivity(intent)
+                            }
+                        }
+
+                    })
+                    _binding.ourServiceList.adapter = serviceListAdapter
+                }
+
+                if (response.data.trending.isNotEmpty()) {
+                    val serviceListAdapter = ServiceListAdapter(response.data.trending, object :ServiceListAdapter.ItemClickListener{
+                        override fun itemClick(data: ServiceData) {
+                            if(infoData !=null) {
+                                val intent = Intent(requireActivity(), ServiceDetailsActivity::class.java)
+                                intent.putExtra(SERVICE_ID, data.id)
+                                intent.putExtra(CITY, infoData!!.city)
+                                intent.putExtra(STATE, infoData!!.state)
+                                startActivity(intent)
+                            }
+                        }
+
+                    })
+                    _binding.trendingServicesList.adapter = serviceListAdapter
+                }
+
+                if (response.data.recommended.isNotEmpty()) {
+                    val serviceListAdapter = ServiceListAdapter(response.data.recommended, object :ServiceListAdapter.ItemClickListener{
+                        override fun itemClick(data: ServiceData) {
+                            if(infoData !=null) {
+                                val intent = Intent(requireActivity(), ServiceDetailsActivity::class.java)
+                                intent.putExtra(SERVICE_ID, data.id)
+                                intent.putExtra(CITY, infoData!!.city)
+                                intent.putExtra(STATE, infoData!!.state)
+                                startActivity(intent)
+                            }
+                        }
+
+                    })
+                    _binding.recommendedList.adapter = serviceListAdapter
+                }
+
+
+            }
+
+        }
+
+        homeViewModel.addVehicleResponse.observe(requireActivity()) { response ->
+
+            CarCareApplication.instance.applicationScope.launch {
+                val vehicle = VehicleModel(response.data.id, response.data.type, response.data.primary, response.data.model, response.data.reg_no)
+                CarCareApplication.instance.applicationScope.launch {
+                    CarCareApplication.instance.repository.insert(vehicle)
+                }
+            }
+        }
+        homeViewModel.deleteVehicleResponse.observe(requireActivity()) { response ->
+
+            CarCareApplication.instance.applicationScope.launch {
+                CarCareApplication.instance.repository.delete(deleteId)
+            }
+
+        }
+        homeViewModel.isLoading.observe(requireActivity()) { isLoading ->
+            (activity as MainActivity).setDialog(isLoading)
+        }
+        homeViewModel.errorMessage.observe(requireActivity()) { errorMessage ->
+            (activity as MainActivity).showToast(errorMessage.toString())
+        }
+
+        homeViewModel.fetchDashBoardResponse()
     }
 
 
     private fun setUpSlidingViewPager() {
         timer = Timer()
         handler = Handler()
-        slidingDotsCount = TutorialDataManager.getBannerImage().size
+        slidingDotsCount = TutorialDataManager.getOffersList.size
 
         val landingImagesAdapter =
             BannerImagesAdapter(requireActivity() as AppCompatActivity, slidingDotsCount)
@@ -205,14 +317,16 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun updateAddess(address :String){
+    fun updateAddress(infoData: LocationInfoData?) {
+        this.infoData =infoData
         _binding.localAddress.visibility = View.INVISIBLE
         _binding.loadingView.visibility = View.VISIBLE
-        if(address.isNotEmpty()) {
-            _binding.loadingView.visibility = View.GONE
+        _binding.loadingView.text = getString(R.string.loading)
+        if (infoData !=null) {
             _binding.localAddress.visibility = View.VISIBLE
-            _binding.localAddress.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pickup_pin_icon,0,0,0)
-            _binding.localAddress.text =address
+            _binding.localAddress.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_pickup_pin_icon, 0, 0, 0)
+            _binding.localAddress.text = infoData.locality
+            _binding.loadingView.text = infoData.fullAddress
         }
 
     }
@@ -221,12 +335,15 @@ class HomeFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             // There are no request codes
             val data: Intent? = result.data
-            if(data !=null) {
-               val address = data.getStringExtra(Constants.NEW_ADDRESS_UPDATE)
-                address?.let { updateAddess(it) }
+            if (data != null) {
+                val address = data.getStringExtra(Constants.NEW_ADDRESS_UPDATE)
+                address?.let {
+                    val data = Gson().fromJson(it, LocationInfoData::class.java)
+                    updateAddress(data) }
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
     }

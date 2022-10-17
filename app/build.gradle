@@ -11,10 +11,10 @@ android {
 
     defaultConfig {
         applicationId "com.carcare"
-        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 1
-        versionName "1.0"
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -98,9 +98,13 @@ dependencies {
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:28.3.0')
+    implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-perf'
+    // Audio Recorder
+    implementation 'com.github.AsynctaskCoffee:VoiceRecorder:beta-0.5'
+
 
     implementation "androidx.room:room-runtime:2.4.3"
     kapt "androidx.room:room-compiler:2.4.3"

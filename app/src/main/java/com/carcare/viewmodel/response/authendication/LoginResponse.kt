@@ -1,3 +1,9 @@
 package com.carcare.viewmodel.response.authendication
 
-data class LoginResponse(val message: String, val data: Data?)
+import com.google.gson.annotations.SerializedName
+
+
+data class LoginResponse (
+	@SerializedName("message") val message : String,
+	@SerializedName("data") val data : Data
+)

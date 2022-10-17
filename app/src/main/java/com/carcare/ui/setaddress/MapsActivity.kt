@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.carcare.R
 import com.carcare.databinding.ActivityMapsLocationBinding
-import com.carcare.location.EasyWayLocation
+import com.carcare.location.FetchLocation
 import com.carcare.location.Listener
 import com.carcare.ui.BaseActivity
 import com.carcare.utils.Constants
@@ -16,12 +16,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
 
 
 class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
 
     lateinit var binding: ActivityMapsLocationBinding
-    lateinit var easyWayLocation: EasyWayLocation
+    lateinit var fetchLocation: FetchLocation
     lateinit var driverCurrentLocation: Location
     private lateinit var mMap: GoogleMap
     private var isInitialUpdate :Boolean = false
@@ -34,7 +35,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        easyWayLocation = EasyWayLocation(this, false, this)
+        fetchLocation = FetchLocation(this, false, this)
         setLocation(getString(R.string.loading))
         getLocationResult()
         binding.currentLocation.visibility = View.GONE
@@ -44,7 +45,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
         binding.btnConfirmAction.setOnClickListener {
             if(locationInfoData !=null) {
                 val data = Intent()
-                data.putExtra(Constants.NEW_ADDRESS_UPDATE, locationInfoData.locality)
+                data.putExtra(Constants.NEW_ADDRESS_UPDATE, Gson().toJson(locationInfoData))
                 setResult(RESULT_OK, data)
                 finish()
             }
@@ -55,11 +56,11 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
     fun getLocationResult() {
         checkLocationPermission(object : PermissionListener {
             override fun permissionGranted() {
-                easyWayLocation.startLocation()
+                fetchLocation.startLocation()
             }
 
             override fun permissionDenied() {
-                easyWayLocation.showAlertDialog(getString(R.string.location_error_message))
+                fetchLocation.showAlertDialog(getString(R.string.location_error_message))
             }
 
         })
@@ -79,7 +80,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
 
         mMap.setOnCameraIdleListener {
             val location = mMap.cameraPosition.target
-            locationInfoData = easyWayLocation.getAddress(this@MapsActivity, location.latitude, location.longitude)
+            locationInfoData = fetchLocation.getAddress(this@MapsActivity, location.latitude, location.longitude)
             setLocation(locationInfoData.fullAddress)
         }
 
@@ -114,8 +115,8 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == EasyWayLocation.LOCATION_SETTING_REQUEST_CODE) {
-            easyWayLocation.onActivityResult(resultCode)
+        if (requestCode == FetchLocation.LOCATION_SETTING_REQUEST_CODE) {
+            fetchLocation.onActivityResult(resultCode)
         }
     }
 

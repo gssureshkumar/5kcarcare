@@ -57,6 +57,31 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
 
+        <activity
+            android:name=".ui.serviceDetails.ServiceDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.5KCarCare.NoActionBar" />
+
+        <activity
+            android:name=".ui.cart.CartListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.5KCarCare.NoActionBar" />
+
+        <activity
+            android:name=".ui.checkout.CheckOutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.5KCarCare.NoActionBar" />
+
+        <activity
+            android:name=".ui.checkout.PaymentMethodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.5KCarCare.NoActionBar" />
+
+        <activity
+            android:name=".ui.checkout.VouchersActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.5KCarCare.NoActionBar" />
+
 
     </application>
 </manifest>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#F2F2F6"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="20dp"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/userNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Hello, UserName"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/mobileNumberTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#8E8E92"
+            android:layout_below="@+id/userNameTxt"
+            android:ellipsize="marquee"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_medium"
+            android:text="91 7202686345"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/primaryMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/opensans_regular"
+            android:textAllCaps="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingEnd="10dp"
+            android:background="@drawable/button_selector"
+            android:text="@string/primary"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/draw_rounded_white_view"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/myVehicleTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#8E8E92"
+            android:ellipsize="marquee"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/my_vehicle"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_menu_car_icon" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/line_color"/>
+
+        <TextView
+            android:id="@+id/bookingListTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#8E8E92"
+            android:ellipsize="marquee"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/bookings"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_menu_booking_list_icon" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/line_color"/>
+
+        <TextView
+            android:id="@+id/vouchersTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#8E8E92"
+            android:ellipsize="marquee"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/vouchers"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_menu_dollar_icon" />
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/line_color"/>
+
+        <TextView
+            android:id="@+id/shareTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#8E8E92"
+            android:ellipsize="marquee"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/share"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_menu_upload_icon" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/line_color"/>
+
+        <TextView
+            android:id="@+id/aboutUsTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#8E8E92"
+            android:ellipsize="marquee"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/about_us"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_menu_help_icon" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/line_color"/>
+
+        <TextView
+            android:id="@+id/contactUsTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#8E8E92"
+            android:ellipsize="marquee"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/contact_us"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_men_user_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/line_color"/>
+
+        <TextView
+            android:id="@+id/logoutTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#8E8E92"
+            android:ellipsize="marquee"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/logout"
+            android:textSize="16sp"
+            app:drawableStartCompat="@drawable/ic_menu_logout_icon" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/draw_rounded_white_view"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/appVersionTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:ellipsize="marquee"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/opensans_regular"
+            android:text="@string/app_version"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

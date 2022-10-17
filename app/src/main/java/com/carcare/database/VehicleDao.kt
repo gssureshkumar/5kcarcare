@@ -10,11 +10,14 @@ interface VehicleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vehicle: VehicleModel)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(vehicle: List<VehicleModel>)
+
     @Update
     fun update(vehicle: VehicleModel)
 
-    @Delete
-    fun delete(vehicle: VehicleModel)
+    @Query("DELETE FROM vehicle_table WHERE id = :vehicleId")
+    fun delete(vehicleId: String)
 
     @Query("SELECT * FROM vehicle_table")
     fun getAllVehicles(): LiveData<List<VehicleModel>>

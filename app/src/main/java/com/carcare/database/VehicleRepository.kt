@@ -20,7 +20,12 @@ class VehicleRepository(private val vehicleDao: VehicleDao) {
         vehicleDao.insert(vehicle)
     }
 
-    fun  delete(vehicle: VehicleModel){
-        vehicleDao.delete(vehicle)
+
+    fun insert(vehicle: List<VehicleModel>) {
+        vehicleDao.insert(vehicle)
+    }
+
+    fun  delete(vehicleId: String){
+        vehicleDao.delete(vehicleId)
     }
 }

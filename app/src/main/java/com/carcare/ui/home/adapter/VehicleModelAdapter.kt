@@ -1,17 +1,17 @@
 package com.carcare.ui.home.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.carcare.R
-import com.carcare.app.CarCareApplication
 import com.carcare.database.VehicleModel
 import com.carcare.databinding.VehicleModelItemBinding
-import kotlinx.coroutines.launch
+import java.util.*
 
-class VehicleModelAdapter(private var items: List<VehicleModel>) :
+class VehicleModelAdapter(private var items: List<VehicleModel>, private var itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<VehicleModelAdapter.ItemViewHolder>() {
 
 
@@ -31,7 +31,7 @@ class VehicleModelAdapter(private var items: List<VehicleModel>) :
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        vehicleViewBinding.carModelName.text = items[position].modelName
+        vehicleViewBinding.carModelName.text = items[position].type
         vehicleViewBinding.registrationNum.text = items[position].registration
         if (items[position].isPrimary == true) {
             vehicleViewBinding.primaryMode.visibility = View.VISIBLE
@@ -40,25 +40,31 @@ class VehicleModelAdapter(private var items: List<VehicleModel>) :
         }
 
         vehicleViewBinding.deleteIcon.setOnClickListener {
-            CarCareApplication.instance.applicationScope.launch {
-                CarCareApplication.instance.repository.delete(items[position])
-            }
-            notifyItemRemoved(position)
+
+            itemClickListener.deleteVehicle(items[position].id)
         }
-        when (items[position].carModel) {
-            context.getString(R.string.hatch_back) -> {
+
+        when {
+            items[position].type!!.lowercase(Locale.getDefault()).contains("hatch") -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_hatch_back_icon)
             }
-            context.getString(R.string.sedan) -> {
+            items[position].type!!.lowercase(Locale.getDefault()).contains(context.getString(R.string.sedan).lowercase(Locale.getDefault())) -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_sedan_back_icon)
             }
-            context.getString(R.string.suv) -> {
+            items[position].type!!.lowercase(Locale.getDefault()).contains(context.getString(R.string.suv).lowercase(Locale.getDefault())) -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_suv_back_icon)
             }
-            context.getString(R.string.muv) -> {
+            items[position].type!!.lowercase(Locale.getDefault()).contains(context.getString(R.string.muv).lowercase(Locale.getDefault())) -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_7_rect_seaters_icon)
             }
         }
 
+
     }
+
+    interface ItemClickListener{
+        fun deleteVehicle(id:String)
+    }
+
+
 }

@@ -15,14 +15,13 @@ import com.carcare.ui.home.adapter.VehicleModelAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.launch
 import java.util.*
 
 class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
 
     lateinit var itemClickListener: ItemClickListener
     lateinit var binding: AddVehicleViewBinding
-    var carModel: String = ""
+    var type: String = ""
 
     companion object {
         fun newInstance(itemListener: ItemClickListener): AddCarModelBottomSheetFragment =
@@ -48,7 +47,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.hatchIcon.setOnClickListener {
-            carModel = getString(R.string.hatch_back)
+            type = getString(R.string.hatch_back)
             binding.hatchIcon.setBackgroundResource(R.drawable.draw_blue_circle_corner_view)
             binding.sedanIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
             binding.suvIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
@@ -56,7 +55,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.sedanIcon.setOnClickListener {
-            carModel = getString(R.string.sedan)
+            type = getString(R.string.sedan)
             binding.sedanIcon.setBackgroundResource(R.drawable.draw_blue_circle_corner_view)
             binding.hatchIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
             binding.suvIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
@@ -64,7 +63,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.suvIcon.setOnClickListener {
-            carModel = getString(R.string.suv)
+            type = getString(R.string.suv)
             binding.suvIcon.setBackgroundResource(R.drawable.draw_blue_circle_corner_view)
             binding.sedanIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
             binding.hatchIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
@@ -72,7 +71,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.muvIcon.setOnClickListener {
-            carModel = getString(R.string.muv)
+            type = getString(R.string.muv)
             binding.muvIcon.setBackgroundResource(R.drawable.draw_blue_circle_corner_view)
             binding.sedanIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
             binding.suvIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
@@ -89,10 +88,9 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
                 showToast(getString(R.string.please_enter_registration_number))
             } else {
 
-                val vehicle = VehicleModel(Calendar.getInstance().timeInMillis, carModel, true, binding.carModelTxt.text.toString(), binding.registrationEdt.text.toString())
-                CarCareApplication.instance.applicationScope.launch {
-                    CarCareApplication.instance.repository.insert(vehicle)
-                }
+                val vehicle = VehicleModel(UUID.randomUUID().toString(), type, true, binding.carModelTxt.text.toString(), binding.registrationEdt.text.toString())
+                itemClickListener.onSubmitClick(vehicle)
+
                 dismiss()
             }
 
@@ -113,7 +111,12 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
                     binding.selectVehicleType.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_close_icon,0)
                     binding.vehicleContainer.visibility = View.GONE
                     binding.vehicleListContainer.visibility = View.VISIBLE
-                    val adapter = VehicleModelAdapter(it)
+                    val adapter = VehicleModelAdapter(it, object :VehicleModelAdapter.ItemClickListener{
+                        override fun deleteVehicle(id: String) {
+                            itemClickListener.deleteVehicle(id)
+                        }
+
+                    })
                     binding.vehicleList.adapter = adapter
                     binding.vehicleList.layoutManager = LinearLayoutManager(requireActivity())
                 } else {
@@ -132,7 +135,8 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     interface ItemClickListener {
-        fun onSubmitClick(userName: String)
+        fun onSubmitClick(vehicleModel: VehicleModel)
+        fun deleteVehicle(id :String)
     }
 
     fun showToast(message: String) {

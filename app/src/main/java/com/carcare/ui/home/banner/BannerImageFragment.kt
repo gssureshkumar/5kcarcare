@@ -35,8 +35,8 @@ class BannerImageFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val position = requireArguments().getInt(ARG_POSITION)
-        if (TutorialDataManager.getBannerImage().size > position) {
-            binding.slidingImage.loadImage(TutorialDataManager.getBannerImage()[position])
+        if (TutorialDataManager.getOffersList.size > position) {
+            binding.slidingImage.loadImage(TutorialDataManager.getOffersList[position].banner)
         }
     }
 }
