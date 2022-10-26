@@ -15,7 +15,11 @@ class CartRepository(private val cartDao: CartDao) {
         cartDao.insert(cart)
     }
 
-    fun  delete(cartId: Int){
+    fun delete(cartId: Int) {
         cartDao.delete(cartId)
+    }
+
+    fun deleteAll() {
+        cartDao.deleteAll()
     }
 }

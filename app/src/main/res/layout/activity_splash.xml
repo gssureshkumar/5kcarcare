@@ -10,8 +10,9 @@
         android:id="@+id/splashView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="50dp"
         android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/splash_icon"/>
 
     <RelativeLayout
         android:id="@+id/promotionContainer"
@@ -24,7 +25,7 @@
             android:id="@+id/skipAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="20dp"
             android:textColor="@color/primary_color"
             android:gravity="center"
             android:layout_alignParentEnd="true"
@@ -44,7 +45,7 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/opensans_bold"
             android:text="@string/our_services"
-            android:textSize="24sp"/>
+            android:textSize="26sp"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/slidingViewPager"

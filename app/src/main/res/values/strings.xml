@@ -74,9 +74,9 @@
     <string name="contact_us">Contact Us</string>
     <string name="logout">Logout</string>
     <string name="app_version">App Version : %s</string>
-    <string name="about"><u>About</u></string>
-    <string name="service_included"><u>Service Included</u></string>
-    <string name="customer_review"><u>Customer Review</u></string>
+    <string name="about">About</string>
+    <string name="service_included">Service Included</string>
+    <string name="customer_review">Customer Review</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="mins_taken">%d Mins Taken</string>
     <string name="ro_treated_water">"R.O Treated Water "</string>
@@ -102,4 +102,12 @@
     <string name="total_amount">Total Amount</string>
     <string name="place_order">Place Order</string>
     <string name="no_vouchers_found">No vouchers Found!!</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="please_select_payment_mode">Please select the payment mode</string>
+    <string name="you_have_not_placed_any_order_yet">You have not placed any order yet</string>
+    <string name="book_now">Book Now</string>
+    <string name="k_networks">5K Networks</string>
+    <string name="k_networks_address">54A, Bharathi colony Main Road,\nPeelamedu, Coimbatore - 641004, Tamil Nadu, India.</string>
+    <string name="customer_care_number">+91 9159855555</string>
+    <string name="title_contact">Contacts</string>
 </resources>

@@ -31,7 +31,11 @@ class VehicleModelAdapter(private var items: List<VehicleModel>, private var ite
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        vehicleViewBinding.carModelName.text = items[position].type
+
+        vehicleViewBinding.vehicleView.setOnClickListener {
+            itemClickListener.onItemClick(items[position])
+        }
+        vehicleViewBinding.carModelName.text = items[position].carModel
         vehicleViewBinding.registrationNum.text = items[position].registration
         if (items[position].isPrimary == true) {
             vehicleViewBinding.primaryMode.visibility = View.VISIBLE
@@ -48,13 +52,13 @@ class VehicleModelAdapter(private var items: List<VehicleModel>, private var ite
             items[position].type!!.lowercase(Locale.getDefault()).contains("hatch") -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_hatch_back_icon)
             }
-            items[position].type!!.lowercase(Locale.getDefault()).contains(context.getString(R.string.sedan).lowercase(Locale.getDefault())) -> {
+            items[position].type!!.lowercase(Locale.getDefault()).contains("sedan") -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_sedan_back_icon)
             }
             items[position].type!!.lowercase(Locale.getDefault()).contains(context.getString(R.string.suv).lowercase(Locale.getDefault())) -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_suv_back_icon)
             }
-            items[position].type!!.lowercase(Locale.getDefault()).contains(context.getString(R.string.muv).lowercase(Locale.getDefault())) -> {
+            items[position].type!!.lowercase(Locale.getDefault()).contains("7Seater") -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_7_rect_seaters_icon)
             }
         }
@@ -64,6 +68,7 @@ class VehicleModelAdapter(private var items: List<VehicleModel>, private var ite
 
     interface ItemClickListener{
         fun deleteVehicle(id:String)
+        fun onItemClick(vehicleModel: VehicleModel)
     }
 
 

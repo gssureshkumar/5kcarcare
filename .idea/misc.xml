@@ -31,24 +31,61 @@
         <entry key="..\:/Suresh/5KCarCare/app/src/main/res/layout/item_our_services_view.xml" value="0.1796875" />
         <entry key="..\:/Suresh/5KCarCare/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.106" />
         <entry key="..\:/Suresh/5KCarCare/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/button_selector.xml" value="0.106" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_black_filled_view.xml" value="0.106" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_blue_circle_corner_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_date_light_blue_fill_view.xml" value="0.1015" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_pick_up_fill_red_view.xml" value="0.106" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_red_filled_view.xml" value="0.106" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_rounded_gray_corner_view.xml" value="0.106" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_rounded_gray_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_vouchers_fill_view.xml" value="0.1015" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_white_circle_gray_corner_view.xml" value="0.106" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_white_circle_view.xml" value="0.106" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/draw_white_gray_corner_view.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_alternate_email_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_arrow_right_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_calendar_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_close_icon.xml" value="0.1015" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_hatchback_car_icon.xml" value="0.106" />
-        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_launcher_background.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_men_user_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_menu_logout_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_star_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_tick_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/ic_timer_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/image_background_icon.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/drawable/tour_header_line.xml" value="0.1015" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_booking_details.xml" value="0.24031007751937986" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_cart_list.xml" value="0.1" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_check_out_view.xml" value="0.25" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_login.xml" value="0.1791907514450867" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/add_vehicle_view.xml" value="0.4466666666666667" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_payment_confirmation.xml" value="0.14749893116716545" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_splash.xml" value="0.22" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/activity_vouchers.xml" value="0.1466438648995297" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/add_vehicle_view.xml" value="0.25" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_banner.xml" value="0.1796875" />
-        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
-        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_dashboard.xml" value="0.16666666666666666" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_home.xml" value="0.5" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_outlet_view.xml" value="0.14749893116716545" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/fragment_sliding.xml" value="0.14749893116716545" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_booking_list.xml" value="0.25" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_cart_view.xml" value="0.1466438648995297" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_home_outlet_view.xml" value="0.14749893116716545" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_other_services_view.xml" value="0.14749893116716545" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_our_services_view.xml" value="0.3333333333333333" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_outlet_view.xml" value="0.14749893116716545" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_preferred_date_view.xml" value="0.1466438648995297" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_rating_view.xml" value="0.1466438648995297" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_service_include_view.xml" value="0.22" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_time_slot_view.xml" value="0.14749893116716545" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/item_voucher_view.xml" value="0.14749893116716545" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/layout/vehicle_model_item.xml" value="0.3333333333333333" />
         <entry key="..\:/Suresh/5kcarcare/app/src/main/res/menu/bottom_nav_menu.xml" value="0.175" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.106" />
+        <entry key="..\:/Suresh/5kcarcare/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>

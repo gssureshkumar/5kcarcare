@@ -1,5 +1,6 @@
 package com.carcare.database
 
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
@@ -17,8 +18,10 @@ class VehicleRepository(private val vehicleDao: VehicleDao) {
                  vehicleDao.insert(model)
              }
          }
+         vehicle.isPrimary = true
         vehicleDao.insert(vehicle)
     }
+
 
 
     fun insert(vehicle: List<VehicleModel>) {

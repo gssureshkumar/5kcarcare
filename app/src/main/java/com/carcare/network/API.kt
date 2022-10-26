@@ -1,10 +1,13 @@
 package com.carcare.network
 
 import com.carcare.viewmodel.request.LoginRequestBodies
+import com.carcare.viewmodel.request.booking.AddBookingRequest
 import com.carcare.viewmodel.request.vehicle.VehicleRequest
 import com.carcare.viewmodel.response.GeneralResponse
+import com.carcare.viewmodel.response.addBookingResponse.AddBookingResponse
 import com.carcare.viewmodel.response.addVehicleResponse.AddVehicleResponse
 import com.carcare.viewmodel.response.authendication.LoginResponse
+import com.carcare.viewmodel.response.bookingList.BookingListResponse
 import com.carcare.viewmodel.response.outlets.OutletsResponse
 import com.carcare.viewmodel.response.services.DashboardResponse
 import com.carcare.viewmodel.response.servicesDetailsResponse.ServiceDetailsResponse
@@ -48,5 +51,16 @@ interface API {
     @GET("user/vouchers")
     fun fetchVouchers(): Single<VouchersResponse>
 
+    @POST("booking")
+    fun addBookingRequest(@Body body: AddBookingRequest.BookingRequest): Single<AddBookingResponse>
+
+    @POST("paymentStatus")
+    fun paymentStatusRequest(@Body body: AddBookingRequest.PaymentStatusRequest): Single<GeneralResponse>
+
+    @GET("bookings")
+    fun getBookingList(): Single<BookingListResponse>
+
+    @PUT("primaryVehicle")
+    fun primaryVehicle(@Body body: VehicleRequest.primaryVehicle): Single<GeneralResponse>
 
 }

@@ -7,5 +7,12 @@ object Constants {
     const val STATE ="state"
     const val ORDER_PRICE ="order_price"
     const val VOUCHER ="voucher"
+    const val OUTLET_ID ="outletId"
+    const val TIME_SLOT ="timesolt"
+    const val PICK_UP_REQUIRED ="pickupRequired"
+    const val VOUCHER_CODE ="voucherCode"
+    const val BOOKING_DATE ="bookingDate"
+    const val LONG ="long"
+    const val ADDRESS ="address"
 
 }

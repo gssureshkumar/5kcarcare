@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/navigation_contacts"
-        android:name="com.carcare.ui.notifications.NotificationsFragment"
+        android:name="com.carcare.ui.outlet.OutletListFragment"
         android:label="@string/title_help"
         tools:layout="@layout/fragment_notifications" />
 

@@ -58,25 +58,27 @@
 
             <ImageView
                 android:id="@+id/carType"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_gravity="center"
-                android:layout_height="wrap_content" />
+                android:layout_height="40dp" />
 
             <TextView
                 android:id="@+id/addVehicle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:layout_marginTop="2dp"
                 android:gravity="center"
                 android:paddingTop="3dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_gravity="center"
                 android:paddingBottom="3dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:background="@drawable/draw_black_filled_view"
                 android:fontFamily="@font/opensans_regular"
-                android:text="@string/add_vehicle"
+                android:text="@string/suv"
                 android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>

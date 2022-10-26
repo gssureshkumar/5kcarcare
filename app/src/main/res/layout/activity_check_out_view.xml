@@ -63,6 +63,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/pickupHint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/red"
@@ -94,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:layout_centerVertical="true"
+                    android:visibility="gone"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_arrow_forward_icon"
                     app:tint="@color/red" />
@@ -105,7 +107,6 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:layout_marginTop="10dp"
-                android:clickable="false"
                 android:text="@string/free_pick_up_drop_service" />
 
             <LinearLayout
@@ -130,7 +131,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/preferredDateList" />
             </LinearLayout>
 
@@ -157,7 +159,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/pickTimeList" />
             </LinearLayout>
 
@@ -183,7 +186,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/nearByOutletsList" />
             </LinearLayout>
         </LinearLayout>
@@ -195,7 +199,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="15dp"
         android:background="@color/primary_text_color"
         android:layout_alignParentBottom="true">
 

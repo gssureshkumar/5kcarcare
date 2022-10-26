@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#8E8E92"
                 android:ellipsize="marquee"
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/opensans_semibold"
                 android:text="@string/issued_for_successful_referral"

@@ -18,7 +18,7 @@
         android:fontFamily="@font/opensans_bold"
         android:text="@string/select_vehicle_type"
         android:textSize="16sp"
-        app:drawableEndCompat="@drawable/ic_close_icon" />
+        app:drawableEndCompat="@drawable/ic_no_background_close_icon" />
 
     <View
         android:layout_width="match_parent"

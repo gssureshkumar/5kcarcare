@@ -15,7 +15,11 @@ object ErrorResponseParser {
                 val errorResponse: ErrorResponse =
                     Gson().fromJson(errorBody, ErrorResponse::class.java)
                 if (errorResponse.statusCode == 400) {
-                    return errorResponse.message
+                    if((errorResponse.message is String)) {
+                        return errorResponse.message
+                    }else if((errorResponse.message is Array<*>)) {
+                        return errorResponse.message[0].toString()
+                    }
                 }
             }
         }

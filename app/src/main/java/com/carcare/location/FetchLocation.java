@@ -19,7 +19,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.carcare.R;
 import com.carcare.viewmodel.response.LocationInfoData;
@@ -573,24 +572,22 @@ public class FetchLocation {
     }
 
     public LocationInfoData getAddress(Context context, Double latitude, Double longitude) {
-        LocationInfoData data;
-        Geocoder geoCoder = new Geocoder(((Activity) context).getBaseContext(), Locale.getDefault());
         try {
+            Geocoder geoCoder = new Geocoder(((Activity) context).getBaseContext(), Locale.getDefault());
             List<Address> addresses = geoCoder.getFromLocation(latitude, longitude, 1);
 
             if (addresses.size() > 0) {
                 String fullAddress = addresses.get(0).getAddressLine(0);
                 String cityName = addresses.get(0).getLocality();
+                String subAdmin = addresses.get(0).getSubAdminArea();
                 String stateName = addresses.get(0).getAdminArea();
                 String countryName = addresses.get(0).getCountryName();
                 String locality = addresses.get(0).getLocality();
-                if(locality !=null) {
-                    data = new LocationInfoData(fullAddress, locality, latitude, longitude, cityName, stateName, countryName);
-                }else {
-                    data = new LocationInfoData(fullAddress, cityName, latitude, longitude, cityName, stateName, countryName);
-
+                if (fullAddress != null && locality != null && cityName != null && stateName != null && countryName != null) {
+                    return new LocationInfoData(fullAddress, locality, latitude, longitude, cityName, stateName, countryName);
+                } else if (fullAddress != null && subAdmin != null && stateName != null && countryName != null) {
+                    return new LocationInfoData(fullAddress, subAdmin, latitude, longitude, subAdmin, stateName, countryName);
                 }
-                return data;
             }
 
 

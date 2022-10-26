@@ -25,8 +25,8 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
     lateinit var fetchLocation: FetchLocation
     lateinit var driverCurrentLocation: Location
     private lateinit var mMap: GoogleMap
-    private var isInitialUpdate :Boolean = false
-    lateinit var locationInfoData: LocationInfoData
+    private var isInitialUpdate: Boolean = false
+    private var locationInfoData: LocationInfoData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
             animateCamera(LatLng(driverCurrentLocation.latitude, driverCurrentLocation.longitude))
         }
         binding.btnConfirmAction.setOnClickListener {
-            if(locationInfoData !=null) {
+            if (locationInfoData != null) {
                 val data = Intent()
                 data.putExtra(Constants.NEW_ADDRESS_UPDATE, Gson().toJson(locationInfoData))
                 setResult(RESULT_OK, data)
@@ -81,7 +81,9 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
         mMap.setOnCameraIdleListener {
             val location = mMap.cameraPosition.target
             locationInfoData = fetchLocation.getAddress(this@MapsActivity, location.latitude, location.longitude)
-            setLocation(locationInfoData.fullAddress)
+            if (locationInfoData != null) {
+                setLocation(locationInfoData!!.fullAddress)
+            }
         }
 
     }
@@ -91,7 +93,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
         try {
             location?.let {
                 driverCurrentLocation = it
-                if(!isInitialUpdate) {
+                if (!isInitialUpdate) {
                     binding.currentLocation.visibility = View.VISIBLE
                     animateCamera(LatLng(location.latitude, location.longitude))
                     isInitialUpdate = true
@@ -123,10 +125,10 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener {
     fun setLocation(location: String) {
         binding.carLocationTxt.text = location
         if (location.isEmpty() || location == getString(R.string.loading)) {
-            binding.btnConfirmAction.isEnabled =false
+            binding.btnConfirmAction.isEnabled = false
             binding.carLocationTxt.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
         } else {
-            binding.btnConfirmAction.isEnabled =true
+            binding.btnConfirmAction.isEnabled = true
             binding.carLocationTxt.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_green_tick_icon, 0, 0, 0)
         }
 

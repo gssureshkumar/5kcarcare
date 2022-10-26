@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#EFEFEF"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text_color"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="clip_vertical"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/recommended_services"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        card_view:cardElevation="8dp"
+        card_view:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="15dp"
+                android:layout_gravity="clip_vertical"
+                android:fontFamily="@font/opensans_bold"
+                android:text="@string/k_networks"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/homeAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="top"
+                android:fontFamily="@font/opensans_regular"
+                android:layout_marginTop="5dp"
+                android:drawablePadding="10dp"
+                android:text="@string/k_networks_address"
+                android:textSize="16sp"
+                card_view:drawableStartCompat="@drawable/ic_baseline_map_icon" />
+
+            <TextView
+                android:id="@+id/customerCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text_color"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="clip_vertical"
+                android:fontFamily="@font/opensans_bold"
+                android:padding="5dp"
+                android:autoLink="phone"
+                android:drawablePadding="10dp"
+                android:text="@string/customer_care_number"
+                android:textSize="16sp"
+                card_view:drawableStartCompat="@drawable/ic_baseline_phone_icon" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#EFEFEF"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text_color"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="clip_vertical"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/near_by_outlets"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/outletList" />
+</LinearLayout>

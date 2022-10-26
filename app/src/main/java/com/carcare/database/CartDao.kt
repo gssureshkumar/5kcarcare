@@ -18,6 +18,9 @@ interface CartDao {
     @Query("DELETE FROM cart_table WHERE serviceId = :cartId")
     fun delete(cartId: Int)
 
+    @Query("DELETE FROM cart_table")
+    fun deleteAll()
+
     @Query("SELECT * FROM cart_table")
     fun getAllCartData(): LiveData<List<CartModelData>>
 

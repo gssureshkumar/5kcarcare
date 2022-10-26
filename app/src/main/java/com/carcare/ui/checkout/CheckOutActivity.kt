@@ -3,6 +3,8 @@ package com.carcare.ui.checkout
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Color.red
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,6 +12,7 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carcare.R
@@ -38,6 +41,7 @@ class CheckOutActivity : BaseActivity() {
     lateinit var selectDate: Calendar
     var timesolt: Int = 0
     var orderPrice = ""
+    var bookedDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,19 +59,40 @@ class CheckOutActivity : BaseActivity() {
 
 
         binding.priceAmount.text = orderPrice
-        binding.addressView.setOnClickListener {
-            val intent = Intent(this@CheckOutActivity, MapsActivity::class.java)
-            resultLauncher.launch(intent)
-        }
+//        binding.addressView.setOnClickListener {
+//            val intent = Intent(this@CheckOutActivity, MapsActivity::class.java)
+//            resultLauncher.launch(intent)
+//        }
 
         binding.checkOutAction.setOnClickListener {
             if(timesolt>0) {
                 val intent = Intent(this@CheckOutActivity, PaymentMethodActivity::class.java)
+                intent.putExtra(Constants.OUTLET_ID, outletId)
+                intent.putExtra(Constants.TIME_SLOT, timesolt)
+                intent.putExtra(Constants.PICK_UP_REQUIRED, binding.freePickUp.isChecked)
+                intent.putExtra(Constants.BOOKING_DATE,bookedDate)
                 startActivity(intent)
             }else{
                 showToast("Please select the timeslot")
             }
         }
+
+        binding.freePickUp.setOnClickListener {
+            if(binding.freePickUp.isChecked){
+                binding.pickView.setBackgroundResource(R.drawable.draw_pick_up_fill_red_view)
+                binding.pickupHint.setTextColor(Color.parseColor("#d32f2f"))
+                binding.localAddress.setTextColor(Color.parseColor("#000000"))
+                binding.forwardArrow.setColorFilter(Color.parseColor("#d32f2f"), PorterDuff.Mode.SRC_ATOP)
+            }else {
+                binding.pickView.setBackgroundResource(R.drawable.draw_rounded_gray_view)
+                binding.pickupHint.setTextColor(Color.parseColor("#828282"))
+                binding.localAddress.setTextColor(Color.parseColor("#828282"))
+                binding.forwardArrow.setColorFilter(Color.parseColor("#828282"), PorterDuff.Mode.SRC_ATOP)
+            }
+
+        }
+
+
         binding.localAddress.text = CarCareApplication.instance.locationInfoData.fullAddress
 
         var preferredDateList = mutableListOf<PreferredDate>()
@@ -92,6 +117,7 @@ class CheckOutActivity : BaseActivity() {
                 for (i in response.data.indices) {
                     if (i == 0) {
                         val item = response.data[i]
+                        outletId = item.id
                         item.selected = true
                         response.data[i] = item
                         getTimeSlots()
@@ -168,11 +194,11 @@ class CheckOutActivity : BaseActivity() {
     }
 
     fun getTimeSlots() {
-        val formatter = SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
-        val output: String = formatter.format(selectDate.time)
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        bookedDate = formatter.format(selectDate.time)
         val query = HashMap<String, Any>()
         query["outletId"] = outletId
-        query["date"] = output
+        query["date"] = bookedDate
         checkOutViewModel.fetchTimeSlots(query)
     }
 }

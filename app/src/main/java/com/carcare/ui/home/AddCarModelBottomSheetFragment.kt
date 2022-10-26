@@ -47,7 +47,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.hatchIcon.setOnClickListener {
-            type = getString(R.string.hatch_back)
+            type = "Hatch"
             binding.hatchIcon.setBackgroundResource(R.drawable.draw_blue_circle_corner_view)
             binding.sedanIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
             binding.suvIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
@@ -55,7 +55,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.sedanIcon.setOnClickListener {
-            type = getString(R.string.sedan)
+            type = "Sedan"
             binding.sedanIcon.setBackgroundResource(R.drawable.draw_blue_circle_corner_view)
             binding.hatchIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
             binding.suvIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
@@ -71,7 +71,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.muvIcon.setOnClickListener {
-            type = getString(R.string.muv)
+            type = "7Seater"
             binding.muvIcon.setBackgroundResource(R.drawable.draw_blue_circle_corner_view)
             binding.sedanIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
             binding.suvIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
@@ -108,12 +108,16 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
             binding.mainContainer.visibility = View.VISIBLE
             vehiles.let {
                 if (it.isNotEmpty()) {
-                    binding.selectVehicleType.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_close_icon,0)
+                    binding.selectVehicleType.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_no_background_close_icon,0)
                     binding.vehicleContainer.visibility = View.GONE
                     binding.vehicleListContainer.visibility = View.VISIBLE
                     val adapter = VehicleModelAdapter(it, object :VehicleModelAdapter.ItemClickListener{
                         override fun deleteVehicle(id: String) {
                             itemClickListener.deleteVehicle(id)
+                        }
+
+                        override fun onItemClick(vehicleModel: VehicleModel) {
+                            itemClickListener.onItemClick(vehicleModel)
                         }
 
                     })
@@ -136,6 +140,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
 
     interface ItemClickListener {
         fun onSubmitClick(vehicleModel: VehicleModel)
+        fun onItemClick(vehicleModel: VehicleModel)
         fun deleteVehicle(id :String)
     }
 

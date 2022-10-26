@@ -1,3 +1,3 @@
 package com.carcare.viewmodel.response
 
-data class ErrorResponse(val statusCode:Int,val message:String,val error:String)
+data class ErrorResponse(val statusCode:Int,val message:Any,val error:String)

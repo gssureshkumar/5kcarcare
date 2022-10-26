@@ -28,6 +28,11 @@ class ServiceDetailsActivity : BaseActivity() {
     private lateinit var serviceDetailsViewModel: ServiceDetailsViewModel
     private lateinit var serviceDetailsResponse: ServiceDetailsResponse
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        finish()
+        startActivity(intent)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBookingDetailsBinding.inflate(layoutInflater)
@@ -50,6 +55,7 @@ class ServiceDetailsActivity : BaseActivity() {
                 }
             }
             val intent = Intent(this@ServiceDetailsActivity, CartListActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             startActivity(intent)
         }
         binding.servicesList.layoutManager = LinearLayoutManager(this)
@@ -59,6 +65,7 @@ class ServiceDetailsActivity : BaseActivity() {
         serviceDetailsViewModel.serviceDetailsResponse.observe(this) { response ->
 
             if (response != null) {
+                binding.addCartView.visibility = View.VISIBLE
                 serviceDetailsResponse = response
                 binding.bannerImage.loadImage(response.data.banner)
                 binding.serviceName.text = response.data.name
@@ -81,13 +88,25 @@ class ServiceDetailsActivity : BaseActivity() {
 
 
                 if(response.data.includes !=null &&response.data.includes.isNotEmpty()){
+                    binding.serviceIncluded.visibility =View.VISIBLE
+                    binding.servicesList.visibility =View.VISIBLE
                     val serviceListAdapter = ServiceIncludedAdapter(response.data.includes)
                     binding.servicesList.adapter = serviceListAdapter
+                }else {
+                    binding.serviceIncluded.visibility =View.GONE
+                    binding.servicesList.visibility =View.GONE
                 }
 
                 if(response.data.reviews !=null && response.data.reviews.isNotEmpty()){
+                    binding.customReview.visibility =View.VISIBLE
+                    binding.reviewList.visibility =View.VISIBLE
+                    binding.customReviewLine.visibility =View.VISIBLE
                     val reviewAdapter = RatingListAdapter(response.data.reviews)
                     binding.reviewList.adapter = reviewAdapter
+                }else{
+                    binding.customReview.visibility =View.GONE
+                    binding.reviewList.visibility =View.GONE
+                    binding.customReviewLine.visibility =View.GONE
                 }
 
             }
@@ -103,7 +122,7 @@ class ServiceDetailsActivity : BaseActivity() {
         val query = HashMap<String, Any>()
         query["id"] = serviceId!!
         query["city"] = city!!
-        query["state"] = state!!
+        query["state"] = "TN"
 
         serviceDetailsViewModel.fetchDetailsResponse(query)
 

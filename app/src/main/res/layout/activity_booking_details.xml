@@ -11,7 +11,6 @@
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_marginBottom="10dp"
-        android:visibility="gone"
         android:layout_above="@+id/addCartView">
 
         <LinearLayout
@@ -23,11 +22,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="200dp">
 
-
                 <ImageView
                     android:id="@+id/bannerImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+
                 <ImageView
                     android:id="@+id/backIcon"
                     android:layout_width="wrap_content"
@@ -52,17 +51,31 @@
                     android:textSize="25sp" />
             </RelativeLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/about"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:textSize="20sp" />
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/about"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#B2BEB5" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/timeTaken"
@@ -74,7 +87,7 @@
                 android:text="@string/about"
                 android:drawablePadding="10dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="20dp"
                 android:textSize="20sp"
                 app:drawableStartCompat="@drawable/ic_timer_icon" />
@@ -89,7 +102,7 @@
                 android:text="@string/about"
                 android:drawablePadding="10dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="20dp"
                 android:textSize="20sp"
                 app:drawableStartCompat="@drawable/ic_security_icon" />
@@ -104,7 +117,7 @@
                 android:text="@string/about"
                 android:drawablePadding="10dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="20dp"
                 android:textSize="20sp"
                 app:drawableStartCompat="@drawable/ic_thumbs_up_icon"
@@ -120,22 +133,38 @@
                 android:text="@string/about"
                 android:drawablePadding="10dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="20dp"
                 android:textSize="20sp"
                 app:drawableStartCompat="@drawable/ic_free_pick_icon" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/service_included"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:textSize="20sp" />
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/serviceIncluded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/service_included"
+                    android:layout_marginStart="10dp"
+                    android:drawablePadding="3dp"
+                    app:drawableBottomCompat="@drawable/tour_header_line"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#B2BEB5" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -145,17 +174,32 @@
                 android:layout_marginEnd="10dp"
                 android:id="@+id/servicesList" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/customer_review"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:textSize="20sp" />
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/customReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/customer_review"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="20sp" />
+
+                <View
+                    android:id="@+id/customReviewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#B2BEB5" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -172,38 +216,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="15dp"
         android:background="@color/primary_text_color"
         android:layout_alignParentBottom="true">
 
-        <TextView
-            android:id="@+id/priceAmount"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="10"
             android:layout_alignParentStart="true"
-            android:layout_gravity="center"
-            android:gravity="center_vertical"
-            android:fontFamily="@font/opensans_semibold"
+            android:gravity="center"
             android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:textSize="20sp" />
+            android:layout_toStartOf="@+id/addToCart"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/offerAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_weight="1"
-            android:text="10"
-            android:layout_below="@+id/priceAmount"
-            android:layout_gravity="center"
-            android:gravity="center_vertical"
-            android:fontFamily="@font/opensans_semibold"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/priceAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/opensans_semibold"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/offerAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/opensans_semibold"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/addToCart"

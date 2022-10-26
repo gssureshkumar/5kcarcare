@@ -23,6 +23,7 @@ import com.carcare.R
 import com.carcare.app.CarCareApplication
 import com.carcare.database.VehicleModel
 import com.carcare.databinding.FragmentHomeBinding
+import com.carcare.ui.home.adapter.OtherServicesAdapter
 import com.carcare.ui.home.adapter.ServiceListAdapter
 import com.carcare.ui.home.banner.BannerImagesAdapter
 import com.carcare.ui.serviceDetails.ServiceDetailsActivity
@@ -86,9 +87,6 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -98,7 +96,7 @@ class HomeFragment : Fragment() {
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
 
-        val address = (activity as MainActivity).getCurrentAddress()
+        val address =  (activity as? MainActivity)?.getCurrentAddress()
         updateAddress(address)
 
         _binding.addressView.setOnClickListener {
@@ -110,20 +108,7 @@ class HomeFragment : Fragment() {
             _binding.addVehicle.performClick()
         }
         _binding.addVehicle.setOnClickListener {
-            val fragment =
-                AddCarModelBottomSheetFragment.newInstance(object :
-                    AddCarModelBottomSheetFragment.ItemClickListener {
-                    override fun onSubmitClick(vehicleModel: VehicleModel) {
-                        homeViewModel.addVehicleRequest(VehicleRequest.AddVehicleRequest(vehicleModel.carModel!!, vehicleModel.type!!, vehicleModel.registration!!, vehicleModel.isPrimary!!, ""))
-                    }
-
-                    override fun deleteVehicle(id: String) {
-                        deleteId = id
-                        homeViewModel.deleteVehicleRequest(VehicleRequest.DeleteVehicleRequest(id))
-                    }
-                })
-            fragment.isCancelable = false
-            fragment.show(requireActivity().supportFragmentManager, fragment.tag)
+             (activity as? MainActivity)?.showMyVehicle()
         }
 
         _binding.btnReferNow.setOnClickListener {
@@ -141,24 +126,22 @@ class HomeFragment : Fragment() {
 
 
         CarCareApplication.instance.repository.primaryVehicle.observe(requireActivity()) { vehile ->
-
-            Log.e("primaryVehicle -->", "onViewCreated: "+ Gson().toJson(vehile))
             if (vehile?.type != null) {
                 when {
                     vehile.type.lowercase(Locale.getDefault()).contains("hatch") -> {
                         binding.carType.setImageResource(R.drawable.ic_small_hatch_icon)
                     }
-                    vehile.type.lowercase(Locale.getDefault()).contains(getString(R.string.sedan).lowercase(Locale.getDefault())) -> {
+                    vehile.type.lowercase(Locale.getDefault()).contains("sedan") -> {
                         binding.carType.setImageResource(R.drawable.ic_small_sedan_icon)
                     }
                     vehile.type.lowercase(Locale.getDefault()).contains(getString(R.string.suv).lowercase(Locale.getDefault())) -> {
                         binding.carType.setImageResource(R.drawable.ic_small_suv_icon)
                     }
-                    vehile.type.lowercase(Locale.getDefault()).contains(getString(R.string.muv).lowercase(Locale.getDefault())) -> {
+                    vehile.type.lowercase(Locale.getDefault()).contains("7Seater") -> {
                         binding.carType.setImageResource(R.drawable.ic_small_seaters_icon)
                     }
                 }
-                binding.addVehicle.text = vehile.type
+                binding.addVehicle.text = vehile.carModel
             } else {
                 _binding.addVehicle.performClick()
             }
@@ -192,7 +175,7 @@ class HomeFragment : Fragment() {
                 }
 
                 if (response.data.trending.isNotEmpty()) {
-                    val serviceListAdapter = ServiceListAdapter(response.data.trending, object :ServiceListAdapter.ItemClickListener{
+                    val serviceListAdapter = OtherServicesAdapter(response.data.trending, object :OtherServicesAdapter.ItemClickListener{
                         override fun itemClick(data: ServiceData) {
                             if(infoData !=null) {
                                 val intent = Intent(requireActivity(), ServiceDetailsActivity::class.java)
@@ -208,7 +191,7 @@ class HomeFragment : Fragment() {
                 }
 
                 if (response.data.recommended.isNotEmpty()) {
-                    val serviceListAdapter = ServiceListAdapter(response.data.recommended, object :ServiceListAdapter.ItemClickListener{
+                    val serviceListAdapter = OtherServicesAdapter(response.data.recommended, object :OtherServicesAdapter.ItemClickListener{
                         override fun itemClick(data: ServiceData) {
                             if(infoData !=null) {
                                 val intent = Intent(requireActivity(), ServiceDetailsActivity::class.java)
@@ -228,27 +211,12 @@ class HomeFragment : Fragment() {
 
         }
 
-        homeViewModel.addVehicleResponse.observe(requireActivity()) { response ->
 
-            CarCareApplication.instance.applicationScope.launch {
-                val vehicle = VehicleModel(response.data.id, response.data.type, response.data.primary, response.data.model, response.data.reg_no)
-                CarCareApplication.instance.applicationScope.launch {
-                    CarCareApplication.instance.repository.insert(vehicle)
-                }
-            }
-        }
-        homeViewModel.deleteVehicleResponse.observe(requireActivity()) { response ->
-
-            CarCareApplication.instance.applicationScope.launch {
-                CarCareApplication.instance.repository.delete(deleteId)
-            }
-
-        }
         homeViewModel.isLoading.observe(requireActivity()) { isLoading ->
-            (activity as MainActivity).setDialog(isLoading)
+             (activity as? MainActivity)?.setDialog(isLoading)
         }
         homeViewModel.errorMessage.observe(requireActivity()) { errorMessage ->
-            (activity as MainActivity).showToast(errorMessage.toString())
+             (activity as? MainActivity)?.showToast(errorMessage.toString())
         }
 
         homeViewModel.fetchDashBoardResponse()

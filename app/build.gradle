@@ -14,7 +14,7 @@ android {
         minSdk 23
         targetSdk 32
         versionCode 1
-        versionName "1.2"
+        versionName "1.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,6 +39,7 @@ android {
     buildTypes {
         debug {
             manifestPlaceholders = [crashlyticsCollectionEnabled: false]
+            buildConfigField "String", "RAZOR_KEY", RazorPayKey
             signingConfig signingConfigs.debug
             minifyEnabled false
             debuggable true
@@ -47,6 +48,7 @@ android {
         }
         release {
             manifestPlaceholders = [crashlyticsCollectionEnabled: true]
+            buildConfigField "String", "RAZOR_KEY", RazorPRODKey
             signingConfig signingConfigs.release
             minifyEnabled true
             debuggable false
@@ -104,7 +106,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf'
     // Audio Recorder
     implementation 'com.github.AsynctaskCoffee:VoiceRecorder:beta-0.5'
-
+   // razorpay
+    implementation 'com.razorpay:checkout:1.6.20'
 
     implementation "androidx.room:room-runtime:2.4.3"
     kapt "androidx.room:room-compiler:2.4.3"

@@ -1,8 +1,11 @@
 package com.carcare.ui.authentication
 
+import `in`.aabhasjindal.otptextview.OTPListener
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.ViewModelProvider
@@ -51,6 +54,19 @@ class LoginActivity : BaseActivity() {
             }
         }
 
+        binding.phoneNumberEdt.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.btnLogin.isEnabled = p0.toString().length==10
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
+
         binding.termAction.setOnClickListener {
             loadCustomTabs("https://loremipsum.io/privacy-policy/")
         }
@@ -60,6 +76,17 @@ class LoginActivity : BaseActivity() {
         }
         binding.resendAction.setOnClickListener {
             binding.btnLogin.performClick()
+        }
+
+        binding.otpView.otpListener = object :OTPListener{
+            override fun onInteractionListener() {
+                binding.btnSubmit.isEnabled = false
+            }
+
+            override fun onOTPComplete(otp: String?) {
+                binding.btnSubmit.isEnabled = true
+            }
+
         }
         binding.btnSubmit.setOnClickListener {
             if (binding.otpView.otp.isNullOrEmpty()) {

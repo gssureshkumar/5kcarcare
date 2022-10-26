@@ -33,6 +33,12 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
     )
     private var permissionCode = 20
     private var permissionToRecordAccepted = false
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        finish()
+        startActivity(intent)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCartListBinding.inflate(layoutInflater)
@@ -84,6 +90,8 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
 
                 binding.priceAmount.text = "₹ $totalPrice"
 
+            }else {
+                finish()
             }
         }
 
@@ -91,6 +99,7 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
             val serviceListAdapter = ServiceListAdapter(RecommendedServiceResponse.getServiceResponse.data.recommended, object : ServiceListAdapter.ItemClickListener {
                 override fun itemClick(data: ServiceData) {
                     val intent = Intent(this@CartListActivity, ServiceDetailsActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     intent.putExtra(Constants.SERVICE_ID, data.id)
                     intent.putExtra(Constants.CITY, "Coimbatore")
                     intent.putExtra(Constants.STATE, "TN")

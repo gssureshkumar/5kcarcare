@@ -3,11 +3,13 @@ package com.carcare
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.carcare.app.CarCareApplication
+import com.carcare.database.VehicleModel
 import com.carcare.databinding.ActivityMainBinding
 import com.carcare.location.FetchLocation
 import com.carcare.location.FetchLocation.LOCATION_SETTING_REQUEST_CODE
@@ -16,12 +18,15 @@ import com.carcare.location.Listener
 import com.carcare.location.LocationData
 import com.carcare.ui.BaseActivity
 import com.carcare.ui.authentication.NameUpdateBottomSheetFragment
+import com.carcare.ui.home.AddCarModelBottomSheetFragment
 import com.carcare.ui.home.HomeFragment
 import com.carcare.utils.PreferenceHelper
 import com.carcare.viewmodel.request.LoginRequestBodies
+import com.carcare.viewmodel.request.vehicle.VehicleRequest
 import com.carcare.viewmodel.response.LocationInfoData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
     val prefsHelper: PreferenceHelper by lazy {
@@ -31,9 +36,12 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
     private lateinit var binding: ActivityMainBinding
     private lateinit var fetchLocation: FetchLocation
     private lateinit var getLocationDetail: GetLocationDetail
+    private lateinit var navView: BottomNavigationView
+    private var vehicleModel: VehicleModel? = null
     private var currentAddress = ""
-    private  var locationInfoData : LocationInfoData? = null
+    private var locationInfoData: LocationInfoData? = null
     private var userName = ""
+    private var deleteId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +53,9 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
         getLocationDetail = GetLocationDetail(this, this)
         fetchLocation = FetchLocation(this, false, this)
 
-        val navView: BottomNavigationView = binding.navView
+        navView = binding.navView
         navView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
+
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView.setupWithNavController(navController)
         getLocationResult()
@@ -71,6 +80,35 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
         mainViewModel.updateUserNameResponse.observe(this) { response ->
             prefsHelper.intUserNamePref = userName
         }
+
+        mainViewModel.addVehicleResponse.observe(this) { response ->
+
+            CarCareApplication.instance.applicationScope.launch {
+                val vehicle = VehicleModel(response.data.id, response.data.type, response.data.primary, response.data.model, response.data.reg_no)
+                CarCareApplication.instance.applicationScope.launch {
+                    CarCareApplication.instance.repository.insert(vehicle)
+                }
+            }
+        }
+        mainViewModel.deleteVehicleResponse.observe(this) { response ->
+
+            CarCareApplication.instance.applicationScope.launch {
+                CarCareApplication.instance.repository.delete(deleteId)
+            }
+
+        }
+
+        mainViewModel.updatePrimaryVehicleResponse.observe(this) { response ->
+            if (response != null) {
+                CarCareApplication.instance.applicationScope.launch {
+                    vehicleModel?.let {
+                        vehicleModel!!.isPrimary = true
+                        CarCareApplication.instance.repository.insert(it)
+                    }
+                }
+            }
+
+        }
         mainViewModel.isLoading.observe(this) { isLoading ->
             setDialog(isLoading)
         }
@@ -93,6 +131,12 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
         })
     }
 
+
+    fun moveToNext(selectedItemId: Int) {
+        navView.selectedItemId = selectedItemId
+    }
+
+
     override fun locationOn() {
         getLocationResult()
     }
@@ -101,8 +145,8 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
         if (location != null) {
             if (currentAddress.isEmpty()) {
                 locationInfoData = fetchLocation.getAddress(this@MainActivity, location.latitude, location.longitude)
-                CarCareApplication.instance.locationInfoData = locationInfoData!!
-                if(locationInfoData !=null) {
+                if (locationInfoData != null) {
+                    CarCareApplication.instance.locationInfoData = locationInfoData!!
                     currentAddress = locationInfoData!!.fullAddress
                     val fragment = getForegroundFragment()
                     if (fragment is HomeFragment) {
@@ -143,7 +187,7 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
     }
 
     fun getCurrentAddress(): LocationInfoData? {
-        if(locationInfoData !=null && currentAddress.isNotEmpty()) {
+        if (locationInfoData != null && currentAddress.isNotEmpty()) {
             return locationInfoData!!
         }
         return null
@@ -153,5 +197,30 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
         val navHostFragment: Fragment? =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
         return navHostFragment?.childFragmentManager?.fragments?.get(0)!!
+    }
+
+    fun showMyVehicle() {
+        val fragment =
+            AddCarModelBottomSheetFragment.newInstance(object :
+                AddCarModelBottomSheetFragment.ItemClickListener {
+                override fun onSubmitClick(vehicleModel: VehicleModel) {
+                    mainViewModel.addVehicleRequest(VehicleRequest.AddVehicleRequest(vehicleModel.carModel!!, vehicleModel.type!!, vehicleModel.registration!!, vehicleModel.isPrimary!!, ""))
+                }
+
+                override fun onItemClick(model: VehicleModel) {
+                    model.isPrimary = true
+                    vehicleModel = model
+                    Log.e("vehicle -->", "insert: " + vehicleModel!!.isPrimary)
+                    val body = VehicleRequest.primaryVehicle(model.id)
+                    mainViewModel.updatePrimaryVehicle(body)
+                }
+
+                override fun deleteVehicle(id: String) {
+                    deleteId = id
+                    mainViewModel.deleteVehicleRequest(VehicleRequest.DeleteVehicleRequest(id))
+                }
+            })
+        fragment.isCancelable = false
+        fragment.show(supportFragmentManager, fragment.tag)
     }
 }
