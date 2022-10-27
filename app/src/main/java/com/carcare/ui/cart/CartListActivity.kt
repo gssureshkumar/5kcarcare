@@ -17,6 +17,7 @@ import com.carcare.ui.BaseActivity
 import com.carcare.ui.cart.adapter.CartListAdapter
 import com.carcare.ui.checkout.CheckOutActivity
 import com.carcare.ui.home.RecommendedServiceResponse
+import com.carcare.ui.home.adapter.OtherServicesAdapter
 import com.carcare.ui.home.adapter.ServiceListAdapter
 import com.carcare.ui.serviceDetails.ServiceDetailsActivity
 import com.carcare.utils.Constants
@@ -96,7 +97,7 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
         }
 
         if (RecommendedServiceResponse.getServiceResponse.data.recommended.isNotEmpty()) {
-            val serviceListAdapter = ServiceListAdapter(RecommendedServiceResponse.getServiceResponse.data.recommended, object : ServiceListAdapter.ItemClickListener {
+            val serviceListAdapter = OtherServicesAdapter(RecommendedServiceResponse.getServiceResponse.data.recommended, object : OtherServicesAdapter.ItemClickListener {
                 override fun itemClick(data: ServiceData) {
                     val intent = Intent(this@CartListActivity, ServiceDetailsActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)

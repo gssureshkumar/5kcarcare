@@ -7,9 +7,10 @@
 
     <ImageView
         android:id="@+id/bookingImage"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_centerVertical="true"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/car_wash" />
 
     <LinearLayout
@@ -29,11 +30,11 @@
             android:textColor="@color/black"
             android:layout_marginEnd="20dp"
             android:ellipsize="marquee"
-            android:maxLines="1"
+            android:maxLines="2"
             android:layout_marginTop="3dp"
             android:fontFamily="@font/opensans_semibold"
             android:text="CarModel"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/localAddress"
@@ -42,12 +43,12 @@
             android:textColor="@color/black"
             android:layout_marginEnd="20dp"
             android:ellipsize="marquee"
-            android:drawablePadding="10dp"
+            android:drawablePadding="5dp"
             android:maxLines="1"
             android:layout_marginTop="3dp"
             android:fontFamily="@font/opensans_semibold"
             android:text="Fun Mall"
-            android:textSize="16sp"
+            android:textSize="15sp"
             app:drawableStartCompat="@drawable/ic_alternate_email_icon" />
 
         <TextView
@@ -57,12 +58,14 @@
             android:textColor="@color/black"
             android:layout_marginEnd="20dp"
             android:ellipsize="marquee"
-            android:drawablePadding="10dp"
+            android:drawablePadding="5dp"
             android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/opensans_semibold"
             android:text="25th June"
-            android:textSize="16sp"
+            android:textSize="15sp"
             app:drawableStartCompat="@drawable/ic_calendar_icon" />
     </LinearLayout>
 
@@ -71,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_alignParentEnd="true"
         android:layout_toStartOf="@+id/moveView"
         android:layout_centerVertical="true"
         android:orientation="vertical">
@@ -87,7 +91,7 @@
             android:maxLines="1"
             android:fontFamily="@font/opensans_medium"
             android:text="@string/inprogress"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
 
         <TextView
@@ -100,7 +104,7 @@
             android:layout_marginTop="3dp"
             android:fontFamily="@font/opensans_medium"
             android:text="@string/inprogress"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/bookingPriceTxt"
@@ -115,7 +119,7 @@
             android:layout_marginTop="3dp"
             android:fontFamily="@font/opensans_bold"
             android:text="550"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -126,6 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_alignParentEnd="true"
         android:src="@drawable/ic_arrow_right_icon" />
 

@@ -66,7 +66,7 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
                 showToast(getString(R.string.please_select_payment_mode))
             } else {
 
-                val body = if (pickUpRequired!!) {
+                val body = if (pickUpRequired!! && binding.voucherCode.text.toString().isNotEmpty()) {
                     AddBookingRequest.BookingRequest(
                         serviceIds, outletId!!, timeSlot!!,
                         paymentMethod, bookingDate!!, vehicleId, pickUpRequired, binding.voucherCode.text.toString(),
@@ -112,10 +112,10 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
                     serviceIds.add(item.serviceId)
                     priceAmount += item.price
                     if (item.offer > 0) {
-                        offerAmount += (item.price - item.offer)
+                        offerAmount += item.offer
                     }
                 }
-                totalAmount = priceAmount - offerAmount
+                totalAmount = offerAmount
                 binding.actualPrice.text = "₹ $priceAmount"
                 binding.offerPrice.text = "₹ $offerAmount"
                 checkOutViewModel.fetchVouchers()

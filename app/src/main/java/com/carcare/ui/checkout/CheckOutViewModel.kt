@@ -92,6 +92,9 @@ class CheckOutViewModel(application: Application) : BaseViewModel(application) {
 
     fun addBookingRequest(body: AddBookingRequest.BookingRequest) {
         isLoading.value = true
+        if(body.voucherCode != null && body.voucherCode!!.isEmpty()  ){
+            body.voucherCode = null
+        }
         disposable.add(
             RetrofitInstance.api.addBookingRequest(body)
                 .subscribeOn(Schedulers.newThread())

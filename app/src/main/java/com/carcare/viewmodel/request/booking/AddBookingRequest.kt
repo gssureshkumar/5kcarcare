@@ -10,7 +10,7 @@ object AddBookingRequest {
         val bookingDate: String,
         val vehicleId: String,
         val pickupRequired: Boolean,
-        val voucherCode: String,
+        var voucherCode: String?,
         val lat: Double,
         val long: Double,
         val address: String

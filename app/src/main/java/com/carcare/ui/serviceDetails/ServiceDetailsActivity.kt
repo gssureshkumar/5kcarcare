@@ -77,7 +77,7 @@ class ServiceDetailsActivity : BaseActivity() {
                 binding.offerAmount.visibility = View.GONE
                 if(response.data.offer>0){
                     binding.offerAmount.visibility = View.VISIBLE
-                    binding.priceAmount.text ="₹ "+ response.data.offer
+                    binding.priceAmount.text =getString(R.string.offer)+"₹ "+ response.data.offer
                     binding.offerAmount.apply {
                             paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                             text = "₹ "+ response.data.actual
