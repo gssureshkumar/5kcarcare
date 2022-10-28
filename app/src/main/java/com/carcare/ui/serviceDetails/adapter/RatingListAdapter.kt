@@ -28,12 +28,19 @@ class RatingListAdapter(private var items: List<Reviews>) :
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-
-        binding.raterName.text = items[position].name
         binding.commentsTxt.text = items[position].review
         binding.ratingCount.rating = items[position].rating
-        val firstLetter = items[position].name.substring(0, 1).toUpperCase()
-        binding.profileTxt.text = firstLetter
+
+        if(items[position].name.isNullOrEmpty()) {
+            binding.raterName.visibility= View.GONE
+            binding.profileTxt.visibility= View.GONE
+        }else {
+            binding.raterName.visibility= View.VISIBLE
+            binding.profileTxt.visibility= View.VISIBLE
+            binding.raterName.text = items[position].name
+            val firstLetter = items[position].name.substring(0, 1).toUpperCase()
+            binding.profileTxt.text = firstLetter
+        }
     }
 
 }

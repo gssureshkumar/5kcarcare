@@ -25,6 +25,7 @@ import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import kotlin.math.roundToInt
 
 
 class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
@@ -116,8 +117,8 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
                     }
                 }
                 totalAmount = offerAmount
-                binding.actualPrice.text = "₹ $priceAmount"
-                binding.offerPrice.text = "₹ $offerAmount"
+                binding.actualPrice.text = "₹ ${priceAmount.roundToInt()}"
+                binding.offerPrice.text = "₹ ${offerAmount.roundToInt()}"
                 checkOutViewModel.fetchVouchers()
 
             }
@@ -183,8 +184,8 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
         if (totalAmount < 0) {
             totalAmount = 0.0
         }
-        binding.totalPrice.text = "₹ $totalAmount"
-        binding.orderAmount.text = "₹ $totalAmount"
+        binding.totalPrice.text = "₹ ${totalAmount.roundToInt()}"
+        binding.orderAmount.text = "₹ ${totalAmount.roundToInt()}"
     }
 
     private fun startPayment() {
@@ -202,7 +203,7 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
             options.put("theme.color", "#0E2D61");
             options.put("currency", "INR");
 //            options.put("order_id", addBookingResponse.data.id);
-            options.put("amount", totalAmount)
+            options.put("amount", totalAmount*100)
 //            options.put("amount", 100)
             val retryObj = JSONObject();
             retryObj.put("enabled", true);

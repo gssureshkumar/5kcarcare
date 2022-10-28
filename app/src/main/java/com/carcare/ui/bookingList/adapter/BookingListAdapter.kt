@@ -12,6 +12,7 @@ import com.carcare.viewmodel.response.bookingList.Bookings
 import com.carcare.viewmodel.response.bookingList.Services
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class BookingListAdapter(private var items: List<Bookings>) :
     RecyclerView.Adapter<BookingListAdapter.ItemViewHolder>() {
@@ -49,7 +50,11 @@ class BookingListAdapter(private var items: List<Bookings>) :
         binding.localAddress.text = item.name
         updateDate(item.bookingDate, binding.bookedDate)
         binding.bookingStatus.text = item.status
-        binding.bookingPriceTxt.text = "₹ " + item.finalPrice
+        if(item.offer>0) {
+            binding.bookingPriceTxt.text = "₹ " + item.offer.roundToInt()
+        }else {
+            binding.bookingPriceTxt.text = "₹ " + item.actual.roundToInt()
+        }
 
     }
 

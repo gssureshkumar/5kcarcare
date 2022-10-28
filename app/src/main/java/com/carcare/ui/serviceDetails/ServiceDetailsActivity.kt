@@ -18,6 +18,7 @@ import com.carcare.utils.Constants
 import com.carcare.utils.Constants.CITY
 import com.carcare.utils.Constants.SERVICE_ID
 import com.carcare.utils.Constants.STATE
+import com.carcare.utils.Constants.VEHICLE_TYPE
 import com.carcare.utils.loadImage
 import com.carcare.viewmodel.response.servicesDetailsResponse.ServiceDetailsResponse
 import kotlinx.coroutines.launch
@@ -41,6 +42,7 @@ class ServiceDetailsActivity : BaseActivity() {
         val serviceId = intent.extras?.getInt(SERVICE_ID)
         val city = intent.extras?.getString(CITY)
         val state = intent.extras?.getString(STATE)
+        val vehicleType = intent.extras?.getString(VEHICLE_TYPE)
 
         serviceDetailsViewModel = ViewModelProvider(this)[ServiceDetailsViewModel::class.java]
         binding.backIcon.setOnClickListener {
@@ -123,6 +125,7 @@ class ServiceDetailsActivity : BaseActivity() {
         query["id"] = serviceId!!
         query["city"] = city!!
         query["state"] = "TN"
+        query["vehicleType"] = vehicleType!!
 
         serviceDetailsViewModel.fetchDetailsResponse(query)
 

@@ -96,7 +96,7 @@ class CheckOutActivity : BaseActivity() {
         binding.localAddress.text = CarCareApplication.instance.locationInfoData.fullAddress
 
         var preferredDateList = mutableListOf<PreferredDate>()
-        for (i in 0..5) {
+        for (i in 0..3) {
             val calendar = getCalculatedDate(i)
             preferredDateList.add(PreferredDate(calendar, calendar.get(Calendar.DATE).toString(), days[calendar.get(Calendar.DAY_OF_WEEK) - 1], i == 0))
 

@@ -32,6 +32,7 @@ import com.carcare.utils.Constants
 import com.carcare.utils.Constants.CITY
 import com.carcare.utils.Constants.SERVICE_ID
 import com.carcare.utils.Constants.STATE
+import com.carcare.utils.Constants.VEHICLE_TYPE
 import com.carcare.utils.PreferenceHelper
 import com.carcare.utils.TutorialDataManager
 import com.carcare.viewmodel.request.vehicle.VehicleRequest
@@ -50,7 +51,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var _binding: FragmentHomeBinding
     private var  infoData :LocationInfoData? = null
-    private var deleteId = ""
+    private var vehicleType = ""
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -127,6 +128,7 @@ class HomeFragment : Fragment() {
 
         CarCareApplication.instance.repository.primaryVehicle.observe(requireActivity()) { vehile ->
             if (vehile?.type != null) {
+                vehicleType = vehile.type
                 when {
                     vehile.type.lowercase(Locale.getDefault()).contains("hatch") -> {
                         binding.carType.setImageResource(R.drawable.ic_small_hatch_icon)
@@ -137,7 +139,7 @@ class HomeFragment : Fragment() {
                     vehile.type.lowercase(Locale.getDefault()).contains(getString(R.string.suv).lowercase(Locale.getDefault())) -> {
                         binding.carType.setImageResource(R.drawable.ic_small_suv_icon)
                     }
-                    vehile.type.lowercase(Locale.getDefault()).contains("7Seater") -> {
+                    vehile.type.lowercase(Locale.getDefault()).contains("7seater") -> {
                         binding.carType.setImageResource(R.drawable.ic_small_seaters_icon)
                     }
                 }
@@ -166,6 +168,7 @@ class HomeFragment : Fragment() {
                                 intent.putExtra(SERVICE_ID, data.id)
                                 intent.putExtra(CITY, infoData!!.city)
                                 intent.putExtra(STATE, infoData!!.state)
+                                intent.putExtra(VEHICLE_TYPE, vehicleType)
                                 startActivity(intent)
                             }
                         }
@@ -182,6 +185,7 @@ class HomeFragment : Fragment() {
                                 intent.putExtra(SERVICE_ID, data.id)
                                 intent.putExtra(CITY, infoData!!.city)
                                 intent.putExtra(STATE, infoData!!.state)
+                                intent.putExtra(VEHICLE_TYPE, vehicleType)
                                 startActivity(intent)
                             }
                         }
@@ -198,6 +202,7 @@ class HomeFragment : Fragment() {
                                 intent.putExtra(SERVICE_ID, data.id)
                                 intent.putExtra(CITY, infoData!!.city)
                                 intent.putExtra(STATE, infoData!!.state)
+                                intent.putExtra(VEHICLE_TYPE, vehicleType)
                                 startActivity(intent)
                             }
                         }

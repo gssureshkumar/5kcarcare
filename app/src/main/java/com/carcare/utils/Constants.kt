@@ -5,6 +5,7 @@ object Constants {
     const val SERVICE_ID ="service_id"
     const val CITY ="city"
     const val STATE ="state"
+    const val VEHICLE_TYPE ="vehicleType"
     const val ORDER_PRICE ="order_price"
     const val VOUCHER ="voucher"
     const val OUTLET_ID ="outletId"

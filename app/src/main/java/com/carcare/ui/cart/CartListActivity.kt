@@ -18,11 +18,11 @@ import com.carcare.ui.cart.adapter.CartListAdapter
 import com.carcare.ui.checkout.CheckOutActivity
 import com.carcare.ui.home.RecommendedServiceResponse
 import com.carcare.ui.home.adapter.OtherServicesAdapter
-import com.carcare.ui.home.adapter.ServiceListAdapter
 import com.carcare.ui.serviceDetails.ServiceDetailsActivity
 import com.carcare.utils.Constants
 import com.carcare.viewmodel.response.services.ServiceData
 import kotlinx.coroutines.launch
+import java.util.*
 
 class CartListActivity : BaseActivity(), AudioRecordListener {
 
@@ -34,6 +34,7 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
     )
     private var permissionCode = 20
     private var permissionToRecordAccepted = false
+    private var vehicleType = ""
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -67,6 +68,11 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
         binding.cartList.layoutManager = LinearLayoutManager(this)
         binding.recommendedList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+        CarCareApplication.instance.repository.primaryVehicle.observe(this) { vehile ->
+            if (vehile?.type != null) {
+                vehicleType = vehile.type
+            }
+        }
         CarCareApplication.instance.cartRepository.cartList.observe(this) { cartList ->
             if (cartList != null && cartList.isNotEmpty()) {
                 val cartAdapter = CartListAdapter(cartList, object : CartListAdapter.ItemClickListener {
@@ -102,8 +108,9 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
                     val intent = Intent(this@CartListActivity, ServiceDetailsActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     intent.putExtra(Constants.SERVICE_ID, data.id)
-                    intent.putExtra(Constants.CITY, "Coimbatore")
+                    intent.putExtra(Constants.CITY, CarCareApplication.instance.locationInfoData.city)
                     intent.putExtra(Constants.STATE, "TN")
+                    intent.putExtra(Constants.VEHICLE_TYPE, vehicleType)
                     startActivity(intent)
                 }
             })
