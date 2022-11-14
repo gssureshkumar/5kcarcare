@@ -113,11 +113,7 @@ class HomeFragment : Fragment() {
         }
 
         _binding.btnReferNow.setOnClickListener {
-            val shareIntent = Intent()
-            shareIntent.action = Intent.ACTION_SEND
-            shareIntent.type = "text/plain"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.use_referral_code_txt, prefsHelper.intRefCodePref, "₹500"));
-            startActivity(Intent.createChooser(shareIntent, getString(R.string.app_name)))
+            (activity as MainActivity).shareToOtherApp()
         }
 
         _binding.ourServiceList.layoutManager = GridLayoutManager(requireActivity(), 4)
@@ -139,7 +135,7 @@ class HomeFragment : Fragment() {
                     vehile.type.lowercase(Locale.getDefault()).contains(getString(R.string.suv).lowercase(Locale.getDefault())) -> {
                         binding.carType.setImageResource(R.drawable.ic_small_suv_icon)
                     }
-                    vehile.type.lowercase(Locale.getDefault()).contains("7seater") -> {
+                    vehile.type.lowercase(Locale.getDefault()).contains("premium") -> {
                         binding.carType.setImageResource(R.drawable.ic_small_seaters_icon)
                     }
                 }

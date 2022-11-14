@@ -16,6 +16,7 @@ data class Data (
 	@SerializedName("address") val address : String,
 	@SerializedName("userId") val userId : String,
 	@SerializedName("actual") val actual : Double,
+	@SerializedName("rzpOrderId") val rzpOrderId : String,
 	@SerializedName("offer") val offer : Double,
 	@SerializedName("membership") val membership : Double,
 	@SerializedName("voucher") val voucher : Double,

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">5KCarCare</string>
+    <string name="app_name" translatable="false">5KCarCare</string>
     <string name="title_home">Home</string>
     <string name="title_booking">Booking</string>
     <string name="title_help">Help</string>
@@ -39,16 +39,16 @@
     <string name="please_enter_valid_otp">Please enter valid otp</string>
     <string name="please_enter_valid_user_name">Please enter vaild user name</string>
     <string name="otp_send_to_your_registered_mobile">OTP sent to your registered mobile number</string>
-    <string name="select_vehicle_type">Selec Vehicle Type</string>
+    <string name="select_vehicle_type">Select Vehicle Type</string>
     <string name="hatch_back">HATCHBACK</string>
     <string name="sedan">SEDAN</string>
     <string name="suv">SUV</string>
     <string name="model_name">Model Name</string>
     <string name="car_model">Car Model</string>
     <string name="registration">Registration</string>
-    <string name="registration_hint">TN 00 XX 0000</string>
+    <string name="registration_hint" translatable="false">TN 00 XX 0000</string>
     <string name="save">Save</string>
-    <string name="muv">7Seaters</string>
+    <string name="muv">Premium</string>
     <string name="please_enter_car_model">Please enter the car model</string>
     <string name="please_enter_registration_number">Please enter the registration number</string>
     <string name="primary">Primary</string>
@@ -57,12 +57,12 @@
     <string name="car_wash_description">Simple to premium car wash service that your car deserves.</string>
     <string name="car_accessories">3. Car Accessories</string>
     <string name="car_accessories_text">Sunflim, Floor mats, Perfumes, Car cleaning kit</string>
-    <string name="car_maintance">4. Car Maintance</string>
+    <string name="car_maintance">4. Car Maintenance</string>
     <string name="car_maintance_text">Carbon cleaning, Dent removal, Thar removal, Painting Job</string>
     <string name="ear_700_for_every_friend_you_refer">Earn ₹750 for every friend you refer</string>
     <string name="get_a_friend_to_start_using_5k_car_care">Get a friend to start \nusing 5K Car Care</string>
     <string name="refer_now">Refer Now</string>
-    <string name="use_referral_code_txt">Use my referral code %s to earn %s on your first service with 5k Care \n https://play.google.com/store/apps/details?id=com.carcare</string>
+    <string name="use_referral_code_txt">I’m inviting you to use 5K Car Care App, \n Get premium car care service from nearest 5K outlet now. Get a voucher worth %s on registering to 5K app by using below link \n %s</string>
     <string name="inprogress">Inprogress</string>
     <string name="no_data_found">No Data Found</string>
     <string name="my_bookings">My Bookings</string>
@@ -79,7 +79,7 @@
     <string name="customer_review">Customer Review</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="mins_taken">%d Mins Taken</string>
-    <string name="ro_treated_water">"R.O Treated Water "</string>
+    <string name="ro_treated_water">R.O Treated Water</string>
     <string name="free_pick_up_drop"><![CDATA[Free Pick-up & Drop]]></string>
     <string name="add_voice_instruction">Add Voice Instruction</string>
     <string name="check_out">Checkout</string>
@@ -101,7 +101,7 @@
     <string name="voucher_applied">Voucher Applied</string>
     <string name="total_amount">Total Amount</string>
     <string name="place_order">Place Order</string>
-    <string name="no_vouchers_found">No vouchers Found!!</string>
+    <string name="no_vouchers_found">You have no vouchers. \nRefer a friend to earn exiting Gift Vouchers</string>
     <string name="pay_now">Pay Now</string>
     <string name="please_select_payment_mode">Please select the payment mode</string>
     <string name="you_have_not_placed_any_order_yet">You have not placed any order yet</string>
@@ -111,4 +111,33 @@
     <string name="customer_care_number">+91 9159855555</string>
     <string name="title_contact">Contacts</string>
     <string name="offer">OFFER:</string>
+    <string name="cancel">Cancel</string>
+    <string name="job_status">Job Status</string>
+    <string name="feed_back">Feedback</string>
+    <string name="provide_your_valuable_feedback">Provide your valuable feedback to help us improve our quality</string>
+    <string name="write_review">Write\nReview</string>
+    <string name="get_your_e_receipt_here"><u>Get Your e-receipt here</u></string>
+    <string name="payment">Payment</string>
+    <string name="cash">Cash</string>
+    <string name="service_booked">"Service Booked "</string>
+    <string name="in_service_outlet">In Service Outlet</string>
+    <string name="completed">Completed</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="driver_for_pickup">Driver for Pickup,</string>
+    <string name="driver_for_drop">"Driver for Drop, "</string>
+    <string name="booking_id">Booking ID: %s</string>
+    <string name="provide_feed_back">Provide Feedback</string>
+    <string name="rating">Rating</string>
+    <string name="review">Review</string>
+    <string name="please_enter_feedback">Please enter the feedback</string>
+    <string name="are_you_sure_you_want_you_cancel_booking">Are you sure you want to cancel booking?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="permium_membershp">Premium Membership</string>
+    <string name="membership_percentage">9% OFF</string>
+    <string name="your_booking_has_been_confirmed">Your booking has been confirmed</string>
+    <string name="error_in_payment_gateway">%s\n\nNo worries, your order has been placed you can pay with Cash/Card while taking delivery</string>
+    <string name="no_pick_time_slot">No Slots available for the day, Please try with different date or outlet</string>
+    <string name="audio_instruction">audio_instruction.mp3</string>
+    <string name="do_you_want_to_delete_audio_instructions">Do you want to delete audio instructions?</string>
 </resources>

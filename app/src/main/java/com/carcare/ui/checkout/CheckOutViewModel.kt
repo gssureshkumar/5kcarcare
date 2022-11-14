@@ -9,6 +9,7 @@ import com.carcare.viewmodel.request.booking.AddBookingRequest
 import com.carcare.viewmodel.response.GeneralResponse
 import com.carcare.viewmodel.response.addBookingResponse.AddBookingResponse
 import com.carcare.viewmodel.response.outlets.OutletsResponse
+import com.carcare.viewmodel.response.signedUrlResponse.SignedUrlResponse
 import com.carcare.viewmodel.response.timeslot.TimeSlotsResponse
 import com.carcare.viewmodel.response.vouchers.VouchersResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,6 +24,7 @@ class CheckOutViewModel(application: Application) : BaseViewModel(application) {
     val vouchersResponse = MutableLiveData<VouchersResponse>()
     val addBookingResponse = MutableLiveData<AddBookingResponse>()
     val paymentStatusResponse = MutableLiveData<GeneralResponse>()
+    val signedUrlResponse = MutableLiveData<SignedUrlResponse>()
     val errorMessage = MutableLiveData<String?>()
     val isLoading = MutableLiveData<Boolean>()
 
@@ -123,6 +125,27 @@ class CheckOutViewModel(application: Application) : BaseViewModel(application) {
                 .subscribeWith(object : DisposableSingleObserver<GeneralResponse>() {
                     override fun onSuccess(response: GeneralResponse) {
                         paymentStatusResponse.value = response
+                        isLoading.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        isLoading.value = false
+                        errorMessage.value = ErrorResponseParser.getErrorResponse(e)
+
+                    }
+                })
+        )
+    }
+
+    fun getSignedUrl(options: HashMap<String, Any>) {
+        isLoading.value = true
+        disposable.add(
+            RetrofitInstance.api.getSignedUrl(options)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<SignedUrlResponse>() {
+                    override fun onSuccess(response: SignedUrlResponse) {
+                        signedUrlResponse.value = response
                         isLoading.value = false
                     }
 

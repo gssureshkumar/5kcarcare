@@ -1,151 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/backAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_arrow_back_icon" />
+
+        <TextView
+            android:id="@+id/serviceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/backAction"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@string/my_bookings"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/cancelBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@string/cancel"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/mainContainer"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_marginBottom="10dp"
-        android:visibility="gone"
-        android:layout_above="@+id/addCartView">
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="200dp">
-
-                <ImageView
-                    android:id="@+id/bannerImage"
-                    android:layout_width="match_parent"
-                    android:src="@drawable/car_wash"
-                    android:layout_height="match_parent" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:background="@drawable/white_black_gradient_drawable"
-                    android:alpha=".8"
-                    android:layout_height="match_parent" />
-
-                <ImageView
-                    android:id="@+id/backIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_arrow_back_icon"
-                    app:tint="@color/white" />
-
-                <TextView
-                    android:id="@+id/serviceName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/opensans_bold"
-                    android:text="@string/sedan"
-                    android:gravity="center"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_alignParentBottom="true"
-                    android:textSize="28sp" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/opensans_bold"
-                    android:text="@string/about"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:textSize="20sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="#B2BEB5" />
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/timeTaken"
+                android:id="@+id/bookingIdTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/opensans_regular"
-                android:text="@string/about"
-                android:drawablePadding="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="20dp"
-                android:textSize="20sp"
-                app:drawableStartCompat="@drawable/ic_timer_icon" />
-
-            <TextView
-                android:id="@+id/securityTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/opensans_regular"
-                android:text="@string/about"
-                android:drawablePadding="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="20dp"
-                android:textSize="20sp"
-                app:drawableStartCompat="@drawable/ic_security_icon" />
-
-            <TextView
-                android:id="@+id/ratingTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/opensans_regular"
-                android:text="@string/about"
-                android:drawablePadding="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="20dp"
-                android:textSize="20sp"
-                app:drawableStartCompat="@drawable/ic_thumbs_up_icon"
-                app:drawableEndCompat="@drawable/ic_star_icon" />
-
-            <TextView
-                android:id="@+id/freePickUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="@font/opensans_regular"
-                android:text="@string/about"
-                android:drawablePadding="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="20dp"
-                android:textSize="20sp"
-                app:drawableStartCompat="@drawable/ic_free_pick_icon" />
+                android:textColor="@color/text_gray"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/opensans_medium"
+                android:text="@string/cancel"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -160,7 +84,6 @@
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/opensans_bold"
                     android:text="@string/service_included"
-                    android:layout_marginStart="10dp"
                     android:drawablePadding="3dp"
                     app:drawableBottomCompat="@drawable/tour_header_line"
                     android:layout_marginEnd="10dp"
@@ -170,17 +93,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginTop="1dp"
-                    android:layout_marginStart="10dp"
                     android:layout_marginBottom="8dp"
-                    android:background="#B2BEB5" />
+                    android:background="@color/dark" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
                 android:id="@+id/servicesList" />
 
             <LinearLayout
@@ -189,93 +110,371 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/customReview"
+                    android:id="@+id/jobStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/opensans_bold"
-                    android:text="@string/customer_review"
-                    android:layout_marginStart="10dp"
+                    android:text="@string/job_status"
+                    android:drawablePadding="3dp"
+                    app:drawableBottomCompat="@drawable/tour_header_line"
                     android:layout_marginEnd="10dp"
                     android:textSize="20sp" />
 
                 <View
-                    android:id="@+id/customReviewLine"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginTop="1dp"
-                    android:layout_marginStart="10dp"
                     android:layout_marginBottom="8dp"
-                    android:background="#B2BEB5" />
+                    android:background="@color/dark" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:id="@+id/reviewList" />
+                android:id="@+id/jobStatusList" />
+
+            <LinearLayout
+                android:id="@+id/feedBackContainer"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/feedBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/opensans_bold"
+                        android:text="@string/feed_back"
+                        android:drawablePadding="3dp"
+                        app:drawableBottomCompat="@drawable/tour_header_line"
+                        android:layout_marginEnd="10dp"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/dark" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/line_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_gray"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/opensans_medium"
+                    android:text="@string/provide_your_valuable_feedback"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        android:id="@+id/ratingCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:theme="@style/RatingBar"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:id="@+id/writeRatingTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_color"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/opensans_medium"
+                        android:text="@string/write_review"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/line_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/priceDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/price_details"
+                    android:drawablePadding="3dp"
+                    app:drawableBottomCompat="@drawable/tour_header_line"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/dark" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/actual_price"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/actualPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:ellipsize="marquee"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/offer_price"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/offerPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:ellipsize="marquee"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/voucherAppliedView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/voucherApplied"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/voucher_applied"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/voucherCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#65C466"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/voucherApplied"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/voucher_applied"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/voucherTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#65C466"
+                    android:ellipsize="marquee"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/membershipView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/membership"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/permium_membershp"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/membershipPer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#65C466"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/membership"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/membership_percentage"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/membershipTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#65C466"
+                    android:ellipsize="marquee"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/total_amount"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/totalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:ellipsize="marquee"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/invoiceDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_500"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/opensans_medium"
+                android:text="@string/get_your_e_receipt_here"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/payment"
+                    android:drawablePadding="3dp"
+                    app:drawableBottomCompat="@drawable/tour_header_line"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="20sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/dark" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/paymentType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:clickable="false"
+                    android:checked="true"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/cash"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/finalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:ellipsize="marquee"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <RelativeLayout
-        android:id="@+id/addCartView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="5dp"
-        android:visibility="gone"
-        android:background="@color/primary_text_color"
-        android:layout_alignParentBottom="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/addToCart"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/priceAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/opensans_semibold"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/offerAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/opensans_semibold"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/addToCart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:text="@string/add_to_cart"
-            android:layout_centerVertical="true"
-            android:gravity="end|center_vertical"
-            android:fontFamily="@font/opensans_semibold"
-            android:layout_marginStart="10dp"
-            android:textAllCaps="true"
-            android:layout_marginEnd="10dp"
-            android:textSize="20sp" />
-    </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

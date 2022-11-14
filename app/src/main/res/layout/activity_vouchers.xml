@@ -34,11 +34,11 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/voucherView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:background="@drawable/draw_vouchers_fill_view">
+        android:layout_margin="10dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -47,16 +47,19 @@
             android:background="@color/white"
             android:id="@+id/vouchersList" />
 
-        <TextView
-            android:id="@+id/timeSlotCount"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/black"
-            android:gravity="center"
-            android:visibility="gone"
-            android:layout_gravity="clip_vertical"
-            android:fontFamily="@font/opensans_semibold"
-            android:text="@string/no_vouchers_found"
-            android:textSize="16sp" />
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/noDataFound"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_margin="30dp"
+        android:layout_gravity="clip_vertical"
+        android:fontFamily="@font/opensans_semibold"
+        android:text="@string/no_vouchers_found"
+        android:textSize="16sp" />
 </LinearLayout>

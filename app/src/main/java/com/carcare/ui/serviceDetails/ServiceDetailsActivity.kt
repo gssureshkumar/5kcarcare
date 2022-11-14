@@ -9,12 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.carcare.R
 import com.carcare.app.CarCareApplication
 import com.carcare.database.CartModelData
-import com.carcare.databinding.ActivityBookingDetailsBinding
+import com.carcare.databinding.ActivityServiceDetailsBinding
 import com.carcare.ui.BaseActivity
 import com.carcare.ui.cart.CartListActivity
 import com.carcare.ui.serviceDetails.adapter.RatingListAdapter
 import com.carcare.ui.serviceDetails.adapter.ServiceIncludedAdapter
-import com.carcare.utils.Constants
 import com.carcare.utils.Constants.CITY
 import com.carcare.utils.Constants.SERVICE_ID
 import com.carcare.utils.Constants.STATE
@@ -25,7 +24,7 @@ import kotlinx.coroutines.launch
 
 class ServiceDetailsActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityBookingDetailsBinding
+    private lateinit var binding: ActivityServiceDetailsBinding
     private lateinit var serviceDetailsViewModel: ServiceDetailsViewModel
     private lateinit var serviceDetailsResponse: ServiceDetailsResponse
 
@@ -36,7 +35,7 @@ class ServiceDetailsActivity : BaseActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityBookingDetailsBinding.inflate(layoutInflater)
+        binding = ActivityServiceDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val serviceId = intent.extras?.getInt(SERVICE_ID)
@@ -72,7 +71,14 @@ class ServiceDetailsActivity : BaseActivity() {
                 binding.bannerImage.loadImage(response.data.banner)
                 binding.serviceName.text = response.data.name
                 binding.mainContainer.visibility =View.VISIBLE
-                binding.timeTaken.text = getString(R.string.mins_taken, response.data.duration)
+                val hours: Int = response.data.duration / 60 //since both are ints, you get an int
+                val minutes: Int = response.data.duration % 60
+                if(hours>0) {
+                    binding.timeTaken.text = String.format("%dHr %02dMins", hours, minutes)
+                }else {
+                    binding.timeTaken.text = String.format("%02dMins", minutes)
+
+                }
                 binding.securityTxt.text = getString(R.string.ro_treated_water)
                 binding.ratingTxt.text = response.data.rating.toString()
                 binding.freePickUp.text = getString(R.string.free_pick_up_drop)
@@ -124,7 +130,8 @@ class ServiceDetailsActivity : BaseActivity() {
         val query = HashMap<String, Any>()
         query["id"] = serviceId!!
         query["city"] = city!!
-        query["state"] = "TN"
+//        query["city"] ="Coimbatore"
+            query["state"] = "TN"
         query["vehicleType"] = vehicleType!!
 
         serviceDetailsViewModel.fetchDetailsResponse(query)

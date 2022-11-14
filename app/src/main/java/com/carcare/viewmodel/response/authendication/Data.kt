@@ -10,5 +10,7 @@ data class Data (
 	@SerializedName("refCode") val refCode : String,
 	@SerializedName("updated_at") val updated_at : String,
 	@SerializedName("accessToken") val accessToken : String,
+	@SerializedName("refreshToken") val refreshToken : String,
+	@SerializedName("type") val type : String,
 	@SerializedName("vehicles") val vehicles : List<Vehicles>
 )

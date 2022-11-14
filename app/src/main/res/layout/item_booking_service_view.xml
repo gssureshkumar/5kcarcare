@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/serviceImage"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/serviceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toEndOf="@+id/serviceImage"
+            android:fontFamily="@font/opensans_semibold"
+            android:text="@string/add_voice_instruction"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/priceAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#8D8C91"
+            android:text="10"
+            android:layout_toEndOf="@+id/serviceImage"
+            android:layout_below="@+id/serviceName"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/opensans_semibold"
+            android:layout_marginEnd="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/offerAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="10"
+            android:layout_below="@+id/serviceName"
+            android:layout_toEndOf="@+id/priceAmount"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/opensans_medium"
+            android:layout_marginEnd="10dp"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:background="#C6C6C8" />
+</LinearLayout>

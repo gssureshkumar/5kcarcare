@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_gravity="center_vertical"
         android:fontFamily="@font/opensans_bold"
         android:text="@string/about"
@@ -35,7 +35,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp"
         android:layout_marginEnd="10dp"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <androidx.appcompat.widget.AppCompatRatingBar
         android:id="@+id/ratingCount"
@@ -44,11 +44,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/raterName"
         android:text="@string/about"
+        android:rating="3"
         android:layout_toEndOf="@+id/profileTxt"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:textSize="20sp" />
+       android:theme="@style/RatingBar"
+        android:layout_marginEnd="10dp" />
 
     <TextView
         android:id="@+id/commentsTxt"
@@ -63,5 +64,5 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
-        android:textSize="14sp" />
+        android:textSize="13sp" />
 </RelativeLayout>

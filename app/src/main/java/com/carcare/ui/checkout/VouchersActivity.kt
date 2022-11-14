@@ -3,6 +3,7 @@ package com.carcare.ui.checkout
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carcare.app.CarCareApplication
@@ -31,6 +32,8 @@ class VouchersActivity: BaseActivity() {
 
         checkOutViewModel.vouchersResponse.observe(this) { response ->
             if (response != null && response.vouches.isNotEmpty()) {
+                binding.noDataFound.visibility =View.GONE
+                binding.voucherView.visibility =View.VISIBLE
                 val adapter = VouchersAdapter(response.vouches, object :VouchersAdapter.ItemClickListener{
                     override fun itemClick(voucher: Voucher) {
                         val data = Intent()
@@ -42,6 +45,9 @@ class VouchersActivity: BaseActivity() {
                 })
 
                 binding.vouchersList.adapter = adapter
+            }else {
+                binding.noDataFound.visibility =View.VISIBLE
+                binding.voucherView.visibility =View.GONE
             }
         }
 

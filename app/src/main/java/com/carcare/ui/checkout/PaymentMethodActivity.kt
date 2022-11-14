@@ -3,10 +3,10 @@ package com.carcare.ui.checkout
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.carcare.BuildConfig
 import com.carcare.MainActivity
@@ -38,8 +38,10 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
     private lateinit var addBookingResponse: AddBookingResponse
     private var serviceIds: MutableList<Int> = mutableListOf()
     var totalAmount = 0.0
+    var finalAmount = 0.0
     var paymentMethod = ""
     var vehicleId = ""
+    var paymentError: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPaymentConfirmationBinding.inflate(layoutInflater)
@@ -61,13 +63,16 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
         val bookingDate = intent.extras?.getString(Constants.BOOKING_DATE)
         val pickUpRequired = intent.extras?.getBoolean(Constants.PICK_UP_REQUIRED)
 
+
+
+
         binding.placeOrderAction.setOnClickListener {
 
             if (paymentMethod.isEmpty()) {
                 showToast(getString(R.string.please_select_payment_mode))
             } else {
 
-                val body = if (pickUpRequired!! && binding.voucherCode.text.toString().isNotEmpty()) {
+                val body = if (pickUpRequired!!) {
                     AddBookingRequest.BookingRequest(
                         serviceIds, outletId!!, timeSlot!!,
                         paymentMethod, bookingDate!!, vehicleId, pickUpRequired, binding.voucherCode.text.toString(),
@@ -117,15 +122,31 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
                     }
                 }
                 totalAmount = offerAmount
+
+                if (prefsHelper.intUserTypePref != "normal") {
+                    val memberValue = (totalAmount / 100) * 9
+                    totalAmount -= memberValue
+                    binding.membershipView.visibility = View.VISIBLE
+                    binding.membershipTotal.text = "₹ -${memberValue}"
+                } else {
+                    binding.membershipView.visibility = View.GONE
+                }
+
                 binding.actualPrice.text = "₹ ${priceAmount.roundToInt()}"
                 binding.offerPrice.text = "₹ ${offerAmount.roundToInt()}"
+                finalAmount = totalAmount
+
                 checkOutViewModel.fetchVouchers()
 
             }
         }
 
         checkOutViewModel.paymentStatusResponse.observe(this) { response ->
-            moveToNext()
+            if (paymentError.isNullOrEmpty()) {
+                moveToNext(getString(R.string.your_booking_has_been_confirmed))
+            } else {
+                moveToNext(getString(R.string.error_in_payment_gateway, paymentError))
+            }
         }
 
         checkOutViewModel.addBookingResponse.observe(this) { response ->
@@ -134,7 +155,7 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
                     addBookingResponse = response
                     startPayment()
                 } else {
-                    moveToNext()
+                    moveToNext(getString(R.string.your_booking_has_been_confirmed))
                 }
             }
         }
@@ -180,10 +201,11 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
         binding.voucherType.text = voucher.type
         binding.voucherTotal.text = "₹ ${voucher.value}"
 
-        totalAmount -= voucher.value
+        totalAmount = finalAmount - voucher.value
         if (totalAmount < 0) {
             totalAmount = 0.0
         }
+
         binding.totalPrice.text = "₹ ${totalAmount.roundToInt()}"
         binding.orderAmount.text = "₹ ${totalAmount.roundToInt()}"
     }
@@ -202,8 +224,8 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
             options.put("image", "")
             options.put("theme.color", "#0E2D61");
             options.put("currency", "INR");
-//            options.put("order_id", addBookingResponse.data.id);
-            options.put("amount", totalAmount*100)
+            options.put("order_id", addBookingResponse.data.rzpOrderId);
+            options.put("amount", totalAmount * 100)
 //            options.put("amount", 100)
             val retryObj = JSONObject();
             retryObj.put("enabled", true);
@@ -222,8 +244,6 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
     }
 
     override fun onPaymentSuccess(p0: String?, paymentData: PaymentData?) {
-
-
         val body = paymentData?.let {
             AddBookingRequest.PaymentStatusRequest(
                 addBookingResponse.data.id,
@@ -237,17 +257,40 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
 
     }
 
-    override fun onPaymentError(p0: Int, error: String?, p2: PaymentData?) {
-        error?.let { Log.e("error", "onPaymentError: " + it) }
+    override fun onPaymentError(p0: Int, error: String?, paymentData: PaymentData?) {
+        if (error != null) {
+            val json = JSONObject(error)
+            if (json.has("error")) {
+                val jsonObject = json.getJSONObject("error")
+                paymentError = jsonObject.getString("description")
+            }
+        }
+        val body =
+            AddBookingRequest.PaymentStatusRequest(
+                addBookingResponse.data.id,
+                "",
+                "failed"
+            )
+        checkOutViewModel.paymentStatusRequest(body)
     }
 
-    fun moveToNext() {
+
+    fun moveToNext(message: String) {
         CarCareApplication.instance.applicationScope.launch {
             CarCareApplication.instance.cartRepository.deleteAll()
         }
-        val intent = Intent(this@PaymentMethodActivity, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(message)
+        builder.setCancelable(true)
+        builder.setPositiveButton(R.string.yes) { dialog, which ->
+            val intent = Intent(this@PaymentMethodActivity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+
+        }
+
+        builder.show()
+
 
     }
 

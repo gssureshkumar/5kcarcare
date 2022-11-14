@@ -10,6 +10,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.view.View
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -140,6 +141,8 @@ class CheckOutActivity : BaseActivity() {
         checkOutViewModel.timeSlotsResponse.observe(this) { response ->
 
             if (response != null && response.data.slots.isNotEmpty()) {
+                binding.noTimeSlot.visibility = View.GONE
+                binding.pickTimeList.visibility = View.VISIBLE
                 val builder = SpannableStringBuilder()
                 val word: Spannable = SpannableString(getString(R.string.pick_time_slot))
                 word.setSpan(ForegroundColorSpan(Color.BLACK), 0, word.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -155,6 +158,9 @@ class CheckOutActivity : BaseActivity() {
 
                 })
                 binding.pickTimeList.adapter = timeSlotAdapter
+            }else {
+                binding.noTimeSlot.visibility = View.VISIBLE
+                binding.pickTimeList.visibility = View.GONE
             }
         }
 

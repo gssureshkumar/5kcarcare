@@ -58,7 +58,7 @@ class VehicleModelAdapter(private var items: List<VehicleModel>, private var ite
             items[position].type!!.lowercase(Locale.getDefault()).contains(context.getString(R.string.suv).lowercase(Locale.getDefault())) -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_suv_back_icon)
             }
-            items[position].type!!.lowercase(Locale.getDefault()).contains("7seater") -> {
+            items[position].type!!.lowercase(Locale.getDefault()).contains("premium") -> {
                 vehicleViewBinding.carModelIcon.setImageResource(R.drawable.ic_7_rect_seaters_icon)
             }
         }

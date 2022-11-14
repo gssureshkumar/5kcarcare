@@ -2,6 +2,7 @@ package com.carcare
 
 import android.content.Intent
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,13 +21,18 @@ import com.carcare.ui.BaseActivity
 import com.carcare.ui.authentication.NameUpdateBottomSheetFragment
 import com.carcare.ui.home.AddCarModelBottomSheetFragment
 import com.carcare.ui.home.HomeFragment
+import com.carcare.utils.Constants
 import com.carcare.utils.PreferenceHelper
 import com.carcare.viewmodel.request.LoginRequestBodies
 import com.carcare.viewmodel.request.vehicle.VehicleRequest
 import com.carcare.viewmodel.response.LocationInfoData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import com.google.firebase.dynamiclinks.DynamicLink.AndroidParameters
+import com.google.firebase.dynamiclinks.DynamicLink.IosParameters
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import kotlinx.coroutines.launch
+
 
 class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
     val prefsHelper: PreferenceHelper by lazy {
@@ -114,6 +120,27 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
         }
         mainViewModel.errorMessage.observe(this) { errorMessage ->
             showToast(errorMessage.toString())
+        }
+
+        if(prefsHelper.intShortLinkPref.isNullOrEmpty()){
+            val link = "https://carcare.page.link/finally?invitedby="+prefsHelper.intRefCodePref
+            FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse(link))
+                .setDomainUriPrefix("https://carcare.page.link")
+                .setAndroidParameters(
+                    AndroidParameters.Builder(BuildConfig.APPLICATION_ID)
+                        .setMinimumVersion(1)
+                        .build()
+                )
+                .setIosParameters(IosParameters.Builder("com.5k.userapp").setAppStoreId("6443796046")
+                    .setMinimumVersion("1.0.1").build())
+                .buildShortDynamicLink()
+                .addOnSuccessListener { shortDynamicLink ->
+                    prefsHelper.intShortLinkPref = shortDynamicLink.shortLink?.toString()
+
+                }.addOnFailureListener{
+                    it.printStackTrace()
+                }
         }
     }
 
@@ -222,5 +249,15 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
             })
         fragment.isCancelable = false
         fragment.show(supportFragmentManager, fragment.tag)
+    }
+
+    fun shareToOtherApp(){
+        val shareIntent = Intent()
+        shareIntent.action = Intent.ACTION_SEND
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.use_referral_code_txt,  "₹100", prefsHelper.intShortLinkPref));
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.app_name)))
+
+
     }
 }

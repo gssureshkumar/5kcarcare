@@ -37,6 +37,7 @@
         <item name="colorControlActivated">@color/primary_text_color</item>
     </style>
 
+
     <style name="Widget.AppTheme.TextInputLayoutList" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxCornerRadiusBottomEnd">10dp</item>
         <item name="boxCornerRadiusBottomStart">10dp</item>
@@ -45,5 +46,9 @@
         <item name="colorPrimary">@color/primary_text_color</item>
         <item name="colorPrimaryVariant">@color/primary_text_color</item>
         <item name="colorOnPrimary">@color/primary_text_color</item>
+    </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#828282</item>
+        <item name="colorControlActivated">#FFD700</item>
     </style>
 </resources>

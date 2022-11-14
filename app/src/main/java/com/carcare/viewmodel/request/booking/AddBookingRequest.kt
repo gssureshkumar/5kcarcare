@@ -22,4 +22,8 @@ object AddBookingRequest {
         val paymentId: String,
         val status: String
     )
+
+    data class CancelBooking(
+        val id: String
+    )
 }

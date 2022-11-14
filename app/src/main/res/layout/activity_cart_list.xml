@@ -86,6 +86,49 @@
                 android:src="@drawable/ic_arrow_forward_icon" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/playVoiceNotes"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_below="@+id/addVoiceNotes"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/playIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/ic_play_circle_icon" />
+
+            <TextView
+                android:id="@+id/playVoiceMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#8D8C91"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_toEndOf="@+id/playIcon"
+                android:layout_toStartOf="@+id/deleteIcon"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/opensans_semibold"
+                android:text="@string/audio_instruction"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/deleteIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_delete_forever_icon" />
+        </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/recommendedView"
             android:layout_width="match_parent"
@@ -93,7 +136,7 @@
             android:background="@color/white"
             android:layout_marginTop="25dp"
             android:layout_above="@+id/addCheckoutView"
-            android:layout_below="@+id/addVoiceNotes"
+            android:layout_below="@+id/playVoiceNotes"
             android:orientation="vertical">
 
             <TextView

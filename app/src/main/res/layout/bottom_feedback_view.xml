@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/closeView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="@font/opensans_medium"
+        android:text="@string/provide_feed_back"
+        android:textSize="16sp"
+        app:drawableEndCompat="@drawable/ic_no_background_close_icon" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/line_color" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/opensans_medium"
+        android:text="@string/rating"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/RatingBar"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/opensans_medium"
+        android:text="@string/review"
+        android:textSize="16sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etReviewBox"
+        android:autoLink="all"
+        android:background="@drawable/draw_rounded_gray_corner_view"
+        android:lines="5"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="top|left"
+        android:minHeight="150dp"
+        android:scrollbars="none"
+        android:inputType="textMultiLine|textCapSentences" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/button_selector"
+        android:enabled="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/opensans_bold"
+        android:text="@string/save"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/splash_background"
+        app:cornerRadius="10dp" />
+</LinearLayout>

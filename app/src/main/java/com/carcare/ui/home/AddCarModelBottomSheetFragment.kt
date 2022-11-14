@@ -71,7 +71,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         binding.muvIcon.setOnClickListener {
-            type = "7Seater"
+            type = "Premium"
             binding.muvIcon.setBackgroundResource(R.drawable.draw_blue_circle_corner_view)
             binding.sedanIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
             binding.suvIcon.setBackgroundResource(R.drawable.draw_white_circle_gray_corner_view)
@@ -118,6 +118,7 @@ class AddCarModelBottomSheetFragment : BottomSheetDialogFragment() {
 
                         override fun onItemClick(vehicleModel: VehicleModel) {
                             itemClickListener.onItemClick(vehicleModel)
+                            dismiss()
                         }
 
                     })

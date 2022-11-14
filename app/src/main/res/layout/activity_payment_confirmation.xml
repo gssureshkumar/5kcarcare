@@ -258,6 +258,46 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/membershipView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/membership"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#8E8E92"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/permium_membershp"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/membershipPer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#65C466"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/membership"
+                    android:fontFamily="@font/opensans_regular"
+                    android:text="@string/membership_percentage"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/membershipTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#65C466"
+                    android:ellipsize="marquee"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:text="150"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

@@ -8,7 +8,8 @@ object LoginRequestBodies {
 
     data class LoginRequestBody(
         val mobileNumber: String,
-        val otp: String
+        val otp: String,
+        val refCode: String?
     )
 
     data class UpdateNameBody(
@@ -25,5 +26,10 @@ object LoginRequestBodies {
         val state: String,
         val deviceType: String,
         val token: String,
+    )
+
+
+    data class RefreshTokenBody(
+        val userId: String
     )
 }

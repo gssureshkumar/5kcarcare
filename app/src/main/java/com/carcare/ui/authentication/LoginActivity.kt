@@ -9,14 +9,18 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.ViewModelProvider
+import com.carcare.BuildConfig
 import com.carcare.MainActivity
 import com.carcare.R
 import com.carcare.app.CarCareApplication
 import com.carcare.database.VehicleModel
 import com.carcare.databinding.ActivityLoginBinding
 import com.carcare.ui.BaseActivity
+import com.carcare.utils.Constants
 import com.carcare.utils.PreferenceHelper
 import com.carcare.viewmodel.request.LoginRequestBodies
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
@@ -54,12 +58,12 @@ class LoginActivity : BaseActivity() {
             }
         }
 
-        binding.phoneNumberEdt.addTextChangedListener(object :TextWatcher{
+        binding.phoneNumberEdt.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.btnLogin.isEnabled = p0.toString().length==10
+                binding.btnLogin.isEnabled = p0.toString().length == 10
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -68,17 +72,17 @@ class LoginActivity : BaseActivity() {
         })
 
         binding.termAction.setOnClickListener {
-            loadCustomTabs("https://loremipsum.io/privacy-policy/")
+            loadCustomTabs(Constants.TERMS_CONDITION)
         }
 
         binding.privacyAction.setOnClickListener {
-            loadCustomTabs("https://loremipsum.io/privacy-policy/")
+            loadCustomTabs(Constants.PRIVACY_POLICY)
         }
         binding.resendAction.setOnClickListener {
             binding.btnLogin.performClick()
         }
 
-        binding.otpView.otpListener = object :OTPListener{
+        binding.otpView.otpListener = object : OTPListener {
             override fun onInteractionListener() {
                 binding.btnSubmit.isEnabled = false
             }
@@ -94,7 +98,8 @@ class LoginActivity : BaseActivity() {
             } else {
                 val body = LoginRequestBodies.LoginRequestBody(
                     binding.phoneNumberEdt.text.toString(),
-                    binding.otpView.otp
+                    binding.otpView.otp,
+                    prefsHelper.intUserReferPref
                 )
                 viewModel.doLogin(body)
             }
@@ -113,8 +118,10 @@ class LoginActivity : BaseActivity() {
             if (response.data != null) {
                 prefsHelper.intUserIDPref = response.data.id
                 prefsHelper.intUserNamePref = response.data.name
-                prefsHelper.intMobileNumberPref =binding.phoneNumberEdt.text.toString()
+                prefsHelper.intMobileNumberPref = binding.phoneNumberEdt.text.toString()
                 prefsHelper.intAuthTokenPref = response.data.accessToken
+                prefsHelper.intRefreshTokenPref = response.data.refreshToken
+                prefsHelper.intUserTypePref = response.data.type
                 prefsHelper.intRefCodePref = response.data.refCode
                 if (response.data.vehicles.isNotEmpty()) {
                     val listOfVehicle = mutableListOf<VehicleModel>()
@@ -126,6 +133,28 @@ class LoginActivity : BaseActivity() {
                         CarCareApplication.instance.repository.insert(listOfVehicle)
                     }
                 }
+
+                val link = "https://carcare.page.link/finally?invitedby=" + prefsHelper.intRefCodePref
+                FirebaseDynamicLinks.getInstance().createDynamicLink()
+                    .setLink(Uri.parse(link))
+                    .setDomainUriPrefix("https://carcare.page.link")
+                    .setAndroidParameters(
+                        DynamicLink.AndroidParameters.Builder(BuildConfig.APPLICATION_ID)
+                            .setMinimumVersion(1)
+                            .build()
+                    )
+                    .setIosParameters(
+                        DynamicLink.IosParameters.Builder("com.5k.userapp").setAppStoreId("6443796046")
+                            .setMinimumVersion("1.0.0").build()
+                    )
+                    .buildShortDynamicLink()
+                    .addOnSuccessListener { shortDynamicLink ->
+                        prefsHelper.intShortLinkPref = shortDynamicLink.shortLink?.toString()
+
+                    }.addOnFailureListener {
+                        it.printStackTrace()
+                    }
+
 
                 if (response.data.name.isEmpty()) {
                     val fragment =

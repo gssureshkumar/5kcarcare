@@ -10,11 +10,12 @@ import com.carcare.databinding.ItemBookingListBinding
 import com.carcare.utils.loadImage
 import com.carcare.viewmodel.response.bookingList.Bookings
 import com.carcare.viewmodel.response.bookingList.Services
+import org.apache.commons.lang3.StringUtils
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-class BookingListAdapter(private var items: List<Bookings>) :
+class BookingListAdapter(private var items: List<Bookings>, private var itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<BookingListAdapter.ItemViewHolder>() {
 
     private var services: MutableList<Services> = mutableListOf()
@@ -49,11 +50,15 @@ class BookingListAdapter(private var items: List<Bookings>) :
         }
         binding.localAddress.text = item.name
         updateDate(item.bookingDate, binding.bookedDate)
-        binding.bookingStatus.text = item.status
+        binding.bookingStatus.text = StringUtils.capitalize(item.status);
         if(item.offer>0) {
             binding.bookingPriceTxt.text = "₹ " + item.offer.roundToInt()
         }else {
-            binding.bookingPriceTxt.text = "₹ " + item.actual.roundToInt()
+            binding.bookingPriceTxt.text = "₹ " + item.finalPrice.roundToInt()
+        }
+
+        binding.bookingContainer.setOnClickListener {
+            itemClickListener.itemClick(item)
         }
 
     }
@@ -61,11 +66,12 @@ class BookingListAdapter(private var items: List<Bookings>) :
 
     fun updateDate(dateStr: String, bookingDate: TextView) {
         try {
-            val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+            val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
             val mDate = formatter.parse(dateStr)
-            val format = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            val format = SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH)
             bookingDate.text = format.format(mDate)
         } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -75,7 +81,11 @@ class BookingListAdapter(private var items: List<Bookings>) :
 
     fun getService(serviceId: Int): Services? {
         return services.find { service -> service.id == serviceId }
+    }
 
+
+    interface ItemClickListener{
+        fun itemClick(data: Bookings)
     }
 
 }

@@ -1,6 +1,7 @@
 package com.carcare.ui.splash
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -17,14 +18,15 @@ import com.carcare.ui.authentication.LoginActivity
 import com.carcare.ui.splash.adapter.SlidingImagesAdapter
 import com.carcare.utils.PreferenceHelper
 import com.carcare.utils.TutorialDataManager
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.FirebaseApp
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.concurrent.schedule
 
 
-class SplashActivity :BaseActivity() {
+class SplashActivity : BaseActivity() {
     private lateinit var slidingImageDots: Array<ImageView?>
     private var slidingDotsCount = 0
     private lateinit var binding: ActivitySplashBinding
@@ -36,7 +38,7 @@ class SplashActivity :BaseActivity() {
     private val slidingCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
 
-            if(position == (slidingDotsCount-1)){
+            if (position == (slidingDotsCount - 1)) {
                 binding.skipAction.text = getString(R.string.done)
             }
             for (i in 0 until slidingDotsCount) {
@@ -50,7 +52,7 @@ class SplashActivity :BaseActivity() {
 
             slidingImageDots[position]?.setImageDrawable(
                 ContextCompat.getDrawable(
-                   this@SplashActivity,
+                    this@SplashActivity,
                     R.drawable.active_dot
                 )
             )
@@ -58,6 +60,7 @@ class SplashActivity :BaseActivity() {
 
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
@@ -68,9 +71,7 @@ class SplashActivity :BaseActivity() {
 
         binding.skipAction.setOnClickListener {
             prefsHelper.intTutorialPref = true
-            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            moveToLogin()
         }
 
 
@@ -84,25 +85,52 @@ class SplashActivity :BaseActivity() {
                 }
             }
 
+//        prefsHelper.intAuthTokenPref = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjODI0YTViNi0yMzY2LTQyMzUtODM2NC1jMGI2ODBkYTE2NjEiLCJpc3MiOiJmdmsiLCJhdWQiOiJmdmsiLCJleHAiOjE2NTg2MTQ3NTgsImlhdCI6MTY2ODAwOTk1OH0.2kT_VI_PNHUz4Pm04iatXHeOXDmxBjTdGOQNtysJANM"
+
+        CarCareApplication.instance.applicationScope.launch {
+            CarCareApplication.instance.cartRepository.deleteAll()
+        }
+
         binding.splashView.visibility = View.VISIBLE
         binding.promotionContainer.visibility = View.GONE
         Timer().schedule(2000) {
             runOnUiThread {
                 if (prefsHelper.intTutorialPref) {
                     if (prefsHelper.intUserIDPref.isNullOrEmpty()) {
-                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-                        startActivity(intent)
+                        moveToLogin()
                     } else {
                         val intent = Intent(this@SplashActivity, MainActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
-                    finish()
                 } else {
                     binding.splashView.visibility = View.GONE
                     binding.promotionContainer.visibility = View.VISIBLE
                 }
             }
         }
+
+
+    }
+
+    fun moveToLogin() {
+        FirebaseDynamicLinks.getInstance()
+            .getDynamicLink(intent)
+            .addOnSuccessListener(this@SplashActivity) { pendingDynamicLinkData ->
+                var deepLink: Uri? = null
+                if (pendingDynamicLinkData != null) {
+                    deepLink = pendingDynamicLinkData.link
+                }
+                var referrerUid: String? = null
+                if (deepLink != null && deepLink.getBooleanQueryParameter("invitedby", false)) {
+                    referrerUid = deepLink.getQueryParameter("invitedby")
+                    prefsHelper.intUserReferPref = referrerUid
+                }
+
+                val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
     }
 
     private fun setUpSlidingViewPager() {

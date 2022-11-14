@@ -10,9 +10,13 @@ class PreferenceHelper(context: Context) {
     private val USER_NAME = "user_name"
     private val MOBILE_NUMBER = "mobile_number"
     private val AUTH_TOKEN = "auth_token"
+    private val REFRESH_TOKEN = "refresh_token"
     private val TUTORIAL_UPDATED = "tutorial_updated"
     private val REF_CODE = "ref_code"
+    private val USER_REF_CODE = "user_ref_code"
+    private val SHORT_LINK = "short_link"
     private val DEVICE_TOKEN = "device_token"
+    private val USER_TYPE = "user_type"
 
 
     private val preferences: SharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
@@ -33,6 +37,10 @@ class PreferenceHelper(context: Context) {
         get() = preferences.getString(AUTH_TOKEN, "")
         set(value) = preferences.edit().putString(AUTH_TOKEN, value).apply()
 
+    var intRefreshTokenPref: String?
+        get() = preferences.getString(REFRESH_TOKEN, "")
+        set(value) = preferences.edit().putString(REFRESH_TOKEN, value).apply()
+
     var intRefCodePref: String?
         get() = preferences.getString(REF_CODE, "")
         set(value) = preferences.edit().putString(REF_CODE, value).apply()
@@ -45,6 +53,18 @@ class PreferenceHelper(context: Context) {
     var intMobileNumberPref: String?
         get() = preferences.getString(MOBILE_NUMBER, "")
         set(value) = preferences.edit().putString(MOBILE_NUMBER, value).apply()
+
+    var intUserReferPref: String?
+        get() = preferences.getString(USER_REF_CODE, null)
+        set(value) = preferences.edit().putString(USER_REF_CODE, value).apply()
+
+    var intShortLinkPref: String?
+        get() = preferences.getString(SHORT_LINK, "")
+        set(value) = preferences.edit().putString(SHORT_LINK, value).apply()
+
+    var intUserTypePref: String?
+        get() = preferences.getString(USER_TYPE, "")
+        set(value) = preferences.edit().putString(USER_TYPE, value).apply()
 
 
 

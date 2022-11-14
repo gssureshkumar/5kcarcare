@@ -104,6 +104,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-perf'
+    implementation 'com.google.firebase:firebase-dynamic-links'
     // Audio Recorder
     implementation 'com.github.AsynctaskCoffee:VoiceRecorder:beta-0.5'
    // razorpay
@@ -112,6 +113,9 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.3"
     kapt "androidx.room:room-compiler:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"
+
+    //Apache's
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

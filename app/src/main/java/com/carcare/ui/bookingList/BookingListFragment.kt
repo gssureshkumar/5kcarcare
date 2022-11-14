@@ -1,5 +1,6 @@
 package com.carcare.ui.bookingList
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.carcare.MainActivity
 import com.carcare.databinding.FragmentDashboardBinding
+import com.carcare.ui.bookingDetails.BookingDetailsActivity
 import com.carcare.ui.bookingList.adapter.BookingListAdapter
+import com.carcare.utils.Constants
+import com.carcare.viewmodel.response.bookingList.Bookings
 
 class BookingListFragment : Fragment() {
 
@@ -40,7 +44,15 @@ class BookingListFragment : Fragment() {
             if (response != null && response.data.bookings.isNotEmpty()) {
                 _binding.bookingList.visibility = View.VISIBLE
                 _binding.noDataFound.visibility = View.GONE
-                val bookingListAdapter = BookingListAdapter(response.data.bookings)
+                val bookingListAdapter = BookingListAdapter(response.data.bookings, object :BookingListAdapter.ItemClickListener{
+                    override fun itemClick(data: Bookings) {
+                        val intent = Intent(requireActivity(), BookingDetailsActivity::class.java)
+                        intent.putExtra(Constants.BOOKING_ID, data.id)
+                        startActivity(intent)
+
+                    }
+
+                })
                 bookingListAdapter.updateService(response.data.services)
                 _binding.bookingList.adapter = bookingListAdapter
             } else {

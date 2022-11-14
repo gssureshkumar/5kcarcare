@@ -2,39 +2,40 @@ package com.carcare.network
 
 import com.carcare.BuildConfig
 import com.carcare.app.CarCareApplication
+import com.carcare.utils.Constants
 import com.carcare.utils.PreferenceHelper
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "http://3.110.83.71:443/"
 
 object RetrofitInstance {
 
     val prefsHelper: PreferenceHelper by lazy {
         CarCareApplication.prefs!!
     }
+
     /**
      * Use the Retrofit builder to build a retrofit object using a Moshi converter.
      */
     private val retrofit by lazy {
-        val builder =  OkHttpClient.Builder()
+        val builder = OkHttpClient.Builder()
         builder.readTimeout(60, TimeUnit.SECONDS)
         builder.connectTimeout(60, TimeUnit.SECONDS)
         builder.apply {
-                addInterceptor(
-                    Interceptor { chain ->
-                        val builder = chain.request().newBuilder()
-                        builder.header("Authorization", "Bearer "+prefsHelper.intAuthTokenPref)
-                        return@Interceptor chain.proceed(builder.build())
-                    }
-                )
-            }
+            authenticator(AccessTokenAuthenticator())
+            addInterceptor(
+                Interceptor { chain ->
+                    val builder = chain.request().newBuilder()
+                    builder.header("Authorization", "Bearer " + prefsHelper.intAuthTokenPref)
+                    return@Interceptor chain.proceed(builder.build())
+                }
+            )
+        }
         if (BuildConfig.DEBUG) {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -42,7 +43,28 @@ object RetrofitInstance {
         }
 
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Constants.BASE_URL)
+            .client(builder.build())
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+    }
+
+    /**
+     * Use the Retrofit builder to build a retrofit object using a Moshi converter.
+     */
+    private val refreshBuilder by lazy {
+        val builder = OkHttpClient.Builder()
+        builder.readTimeout(60, TimeUnit.SECONDS)
+        builder.connectTimeout(60, TimeUnit.SECONDS)
+        if (BuildConfig.DEBUG) {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            builder.addInterceptor(interceptor)
+        }
+
+        Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
             .client(builder.build())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -52,5 +74,9 @@ object RetrofitInstance {
 
     val api: API by lazy {
         retrofit.create(API::class.java)
+    }
+
+    val refreshAPI: API by lazy {
+        refreshBuilder.create(API::class.java)
     }
 }
