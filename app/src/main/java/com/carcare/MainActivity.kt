@@ -19,6 +19,7 @@ import com.carcare.location.Listener
 import com.carcare.location.LocationData
 import com.carcare.ui.BaseActivity
 import com.carcare.ui.authentication.NameUpdateBottomSheetFragment
+import com.carcare.ui.bookingDetails.BookingDetailsActivity
 import com.carcare.ui.home.AddCarModelBottomSheetFragment
 import com.carcare.ui.home.HomeFragment
 import com.carcare.utils.Constants
@@ -122,8 +123,8 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
             showToast(errorMessage.toString())
         }
 
-        if(prefsHelper.intShortLinkPref.isNullOrEmpty()){
-            val link = "https://carcare.page.link/finally?invitedby="+prefsHelper.intRefCodePref
+        if (prefsHelper.intShortLinkPref.isNullOrEmpty()) {
+            val link = "https://carcare.page.link/finally?invitedby=" + prefsHelper.intRefCodePref
             FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLink(Uri.parse(link))
                 .setDomainUriPrefix("https://carcare.page.link")
@@ -132,15 +133,25 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
                         .setMinimumVersion(1)
                         .build()
                 )
-                .setIosParameters(IosParameters.Builder("com.5k.userapp").setAppStoreId("6443796046")
-                    .setMinimumVersion("1.0.1").build())
+                .setIosParameters(
+                    IosParameters.Builder("com.5k.userapp").setAppStoreId("6443796046")
+                        .setMinimumVersion("1.0.1").build()
+                )
                 .buildShortDynamicLink()
                 .addOnSuccessListener { shortDynamicLink ->
                     prefsHelper.intShortLinkPref = shortDynamicLink.shortLink?.toString()
 
-                }.addOnFailureListener{
+                }.addOnFailureListener {
                     it.printStackTrace()
                 }
+        }
+
+        val bookingId = intent.extras?.getString(Constants.BOOKING_ID)
+
+        if (!bookingId.isNullOrEmpty()) {
+            val intent = Intent(this@MainActivity, BookingDetailsActivity::class.java)
+            intent.putExtra(Constants.BOOKING_ID, bookingId)
+            startActivity(intent)
         }
     }
 
@@ -251,11 +262,11 @@ class MainActivity : BaseActivity(), Listener, LocationData.AddressCallBack {
         fragment.show(supportFragmentManager, fragment.tag)
     }
 
-    fun shareToOtherApp(){
+    fun shareToOtherApp() {
         val shareIntent = Intent()
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.type = "text/plain"
-        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.use_referral_code_txt,  "₹100", prefsHelper.intShortLinkPref));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.use_referral_code_txt, "₹100", prefsHelper.intShortLinkPref));
         startActivity(Intent.createChooser(shareIntent, getString(R.string.app_name)))
 
 

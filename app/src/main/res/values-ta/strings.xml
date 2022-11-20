@@ -7,7 +7,7 @@
     <string name="cancel">ரத்து செய்</string>
     <string name="check_out">சரிபார்</string>
     <string name="contact_us">எங்களை தொடர்பு கொள்ள</string>
-    <string name="use_referral_code_txt">5K கார் கேர் ஆப்ஸைப் பயன்படுத்த உங்களை அழைக்கிறேன், \n\nஅருகிலுள்ள 5K அவுட்லெட்டில் இருந்து பிரீமியம் கார் பராமரிப்பு சேவையைப் பெறுங்கள். கீழே உள்ள இணைப்பைப் பயன்படுத்தி 5K ஆப்ஸில் பதிவுசெய்து ₹100 மதிப்புள்ள வவுச்சரைப் பெறுங்கள் \n%s</string>
+    <string name="use_referral_code_txt">5K கார் கேர் ஆப்ஸைப் பயன்படுத்த உங்களை அழைக்கிறேன், \n\nஅருகிலுள்ள 5K அவுட்லெட்டில் இருந்து பிரீமியம் கார் பராமரிப்பு சேவையைப் பெறுங்கள். கீழே உள்ள இணைப்பைப் பயன்படுத்தி 5K ஆப்ஸில் பதிவுசெய்து %s மதிப்புள்ள வவுச்சரைப் பெறுங்கள் \n%s</string>
     <string name="free_pick_up_drop_service">இலவச பிக்அப்/டிராப் சேவை</string>
     <string name="title_help">உதவி</string>
     <string name="title_home">டாஷ்போர்டு</string>
@@ -102,17 +102,17 @@
     <string name="sedan">SEDAN</string>
     <string name="suv">SUV</string>
     <string name="no_data_found">No Data Found</string>
-    <string name="referral_vouchers_applied">Referral Vouchers Applied!</string>
-    <string name="issued_for_successful_referral">Issued for Successful Referral</string>
-    <string name="no_vouchers_found">You have no vouchers. \nRefer a friend to earn exiting Gift Vouchers</string>
-    <string name="please_select_payment_mode">Please select the payment mode</string>
+    <string name="referral_vouchers_applied">பரிந்துரை வவுச்சர் பயன்படுத்தப்பட்டது!</string>
+    <string name="issued_for_successful_referral">வெற்றிகரமான பரிந்துரைக்காக வழங்கப்பட்டது</string>
+    <string name="no_vouchers_found">உங்களிடம் வவுச்சர்கள் இல்லை. \nஉற்சாகமான பரிசு வவுச்சர்களைப் பெற நண்பரைப் பார்க்கவும்</string>
+    <string name="please_select_payment_mode">கட்டண முறையைத் தேர்ந்தெடுக்கவும்</string>
     <string name="k_networks">5K Networks</string>
     <string name="k_networks_address">54A, Bharathi colony Main Road,\nPeelamedu, Coimbatore - 641004, Tamil Nadu, India.</string>
     <string name="customer_care_number">+91 9159855555</string>
-    <string name="offer">OFFER:</string>
-    <string name="provide_your_valuable_feedback">Provide your valuable feedback to help us improve our quality</string>
-    <string name="cash">Cash</string>
-    <string name="booking_id">Booking ID: %s</string>
+    <string name="offer">சலுகை:</string>
+    <string name="provide_your_valuable_feedback">எங்கள் தரத்தை மேம்படுத்த உங்கள் மதிப்புமிக்க கருத்தை வழங்கவும்</string>
+    <string name="cash">பணம்</string>
+    <string name="booking_id">முன்பதிவு ஐடி: %s</string>
     <string name="provide_feed_back">கருத்துக்களை வழங்கவும்</string>
     <string name="rating">மதிப்பீடு</string>
     <string name="review">விமர்சனம்</string>
@@ -139,5 +139,6 @@
     <string name="your_number_will_be_safe_with_us_txt">உங்கள் எண் எங்களிடம் பாதுகாப்பாக இருக்கும், உங்கள் விவரங்களை யாருடனும் பகிர்ந்து கொள்ள மாட்டோம்</string>
     <string name="please_enter_6_digit_code_sent">உங்கள் பதிவு செய்யப்பட்ட மொபைல் எண்ணான %sக்கு அனுப்பப்பட்ட 6 இலக்கக் குறியீட்டை உள்ளிடவும்</string>
     <string name="muv">Premium</string>
+    <string name="default_notification_channel_id">5K Car</string>
 
 </resources>

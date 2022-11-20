@@ -13,7 +13,8 @@ object AddBookingRequest {
         var voucherCode: String?,
         val lat: Double,
         val long: Double,
-        val address: String
+        val address: String,
+        val audioId:String?
     )
 
 

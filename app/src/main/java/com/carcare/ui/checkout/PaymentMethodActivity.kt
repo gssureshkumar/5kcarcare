@@ -42,6 +42,7 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
     var paymentMethod = ""
     var vehicleId = ""
     var paymentError: String? = null
+    var audioId : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPaymentConfirmationBinding.inflate(layoutInflater)
@@ -62,7 +63,7 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
         val timeSlot = intent.extras?.getInt(Constants.TIME_SLOT)
         val bookingDate = intent.extras?.getString(Constants.BOOKING_DATE)
         val pickUpRequired = intent.extras?.getBoolean(Constants.PICK_UP_REQUIRED)
-
+        audioId= intent.extras?.getString(Constants.AUDIO_ID)
 
 
 
@@ -76,13 +77,13 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
                     AddBookingRequest.BookingRequest(
                         serviceIds, outletId!!, timeSlot!!,
                         paymentMethod, bookingDate!!, vehicleId, pickUpRequired, binding.voucherCode.text.toString(),
-                        CarCareApplication.instance.locationInfoData.latitude, CarCareApplication.instance.locationInfoData.longitude, CarCareApplication.instance.locationInfoData.fullAddress
+                        CarCareApplication.instance.locationInfoData.latitude, CarCareApplication.instance.locationInfoData.longitude, CarCareApplication.instance.locationInfoData.fullAddress,audioId
                     )
                 } else {
                     AddBookingRequest.BookingRequest(
                         serviceIds, outletId!!, timeSlot!!,
                         paymentMethod, bookingDate!!, vehicleId, pickUpRequired, binding.voucherCode.text.toString(),
-                        0.0, 0.0, ""
+                        0.0, 0.0, "",audioId
                     )
                 }
 

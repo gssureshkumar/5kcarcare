@@ -43,13 +43,14 @@ class CheckOutActivity : BaseActivity() {
     var timesolt: Int = 0
     var orderPrice = ""
     var bookedDate = ""
-
+    var audioId : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckOutViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         selectDate = Calendar.getInstance()
         orderPrice = intent.extras?.getString(Constants.ORDER_PRICE).toString()
+        audioId= intent.extras?.getString(Constants.AUDIO_ID)
         checkOutViewModel = ViewModelProvider(this)[CheckOutViewModel::class.java]
         binding.backAction.setOnClickListener {
             finish()
@@ -72,6 +73,7 @@ class CheckOutActivity : BaseActivity() {
                 intent.putExtra(Constants.TIME_SLOT, timesolt)
                 intent.putExtra(Constants.PICK_UP_REQUIRED, binding.freePickUp.isChecked)
                 intent.putExtra(Constants.BOOKING_DATE,bookedDate)
+                intent.putExtra(Constants.AUDIO_ID,audioId)
                 startActivity(intent)
             }else{
                 showToast("Please select the timeslot")

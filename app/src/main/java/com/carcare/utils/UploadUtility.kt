@@ -2,6 +2,7 @@ package com.carcare.utils
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import okhttp3.*
@@ -9,13 +10,13 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-class UploadUtility(activity: Activity) {
+class UploadUtility(activity: Activity ) {
 
     var activity = activity;
     var dialog: ProgressDialog? = null
     val client = OkHttpClient()
 
-    fun uploadFile(sourceFile: File, serverURL: String) {
+    fun uploadFile(sourceFile: File, serverURL: String, uploadListener: UploadListener) {
         Thread {
             val mimeType = getMimeType(sourceFile) ?: return@Thread;
             val fileName: String =   sourceFile.name
@@ -26,14 +27,16 @@ class UploadUtility(activity: Activity) {
                         .addFormDataPart("audio", fileName,sourceFile.asRequestBody(mimeType.toMediaTypeOrNull()))
                         .build()
 
-                val request: Request = Request.Builder().url(serverURL).post(requestBody).build()
+                val request: Request = Request.Builder().url(serverURL).put(requestBody).build()
 
                 val response: Response = client.newCall(request).execute()
 
                 if (response.isSuccessful) {
                     showToast("File uploaded successfully")
+                    uploadListener.uploaded()
                 } else {
                     showToast("File uploading failed" +response.message)
+                    uploadListener.failed()
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
@@ -69,4 +72,8 @@ class UploadUtility(activity: Activity) {
         }
     }
 
+    interface UploadListener{
+        fun  uploaded()
+        fun failed()
+    }
 }

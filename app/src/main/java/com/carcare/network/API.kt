@@ -19,8 +19,11 @@ import com.carcare.viewmodel.response.signedUrlResponse.SignedUrlResponse
 import com.carcare.viewmodel.response.timeslot.TimeSlotsResponse
 import com.carcare.viewmodel.response.vouchers.VouchersResponse
 import io.reactivex.Single
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
+
 
 interface API {
 
@@ -90,4 +93,12 @@ interface API {
     @GET("media/url")
     fun getSignedUrl(@QueryMap options: HashMap<String, Any>): Single<SignedUrlResponse>
 
+
+    @Multipart
+    @PUT
+    fun uploadAudio(
+        @Header("Content-Type") contentType: String,
+        @Url uploadUrl: String,
+        @Part file: MultipartBody.Part
+    ): Single<ResponseBody>
 }

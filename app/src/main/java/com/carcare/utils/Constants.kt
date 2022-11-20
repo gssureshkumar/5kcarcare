@@ -15,6 +15,7 @@ object Constants {
     const val OUTLET_ID ="outletId"
     const val TIME_SLOT ="timesolt"
     const val PICK_UP_REQUIRED ="pickupRequired"
+    const val AUDIO_ID ="audio_id"
     const val VOUCHER_CODE ="voucherCode"
     const val REFERRER_CODE ="referrer_code"
     const val BOOKING_DATE ="bookingDate"

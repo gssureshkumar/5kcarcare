@@ -47,6 +47,7 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
     private var vehicleType = ""
     private var recordAudioPath: String? = null
     private var mediaPlayer: MediaPlayer? = null
+    var audioId: String? = null
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -67,6 +68,7 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
         binding.checkOutAction.setOnClickListener {
             val intent = Intent(this@CartListActivity, CheckOutActivity::class.java)
             intent.putExtra(Constants.ORDER_PRICE, binding.priceAmount.text.toString())
+            intent.putExtra(Constants.AUDIO_ID, audioId)
             startActivity(intent)
         }
 
@@ -114,7 +116,7 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
                     start()
                 }
             } else {
-               pauseMediaPlayer()
+                pauseMediaPlayer()
             }
         }
 
@@ -170,9 +172,23 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
             binding.recommendedList.adapter = serviceListAdapter
         }
         checkOutViewModel.signedUrlResponse.observe(this) { response ->
-           if(response !=null){
-               UploadUtility(this@CartListActivity).uploadFile(File(recordAudioPath), response.data.url)
-           }
+            if (response != null) {
+                UploadUtility(this@CartListActivity).uploadFile(File(recordAudioPath), response.data.url, object : UploadUtility.UploadListener {
+                    override fun uploaded() {
+                        runOnUiThread {
+                            binding.playVoiceNotes.visibility = View.VISIBLE
+                            binding.addVoiceNotes.visibility = View.GONE
+                            audioId = response.data.objectId
+                        }
+
+                    }
+
+                    override fun failed() {
+
+                    }
+
+                })
+            }
         }
 
         checkOutViewModel.isLoading.observe(this) { isLoading ->
@@ -186,10 +202,8 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
 
     override fun onAudioReady(audioUri: String?) {
         recordAudioPath = audioUri
-        binding.playVoiceNotes.visibility = View.VISIBLE
-        binding.addVoiceNotes.visibility = View.GONE
+
         val hashMap = HashMap<String, Any>()
-        hashMap["bookingId"] = "bookingId"
         hashMap["mediaType"] = "audio"
         hashMap["urlType"] = "1"
         checkOutViewModel.getSignedUrl(hashMap)
@@ -208,7 +222,7 @@ class CartListActivity : BaseActivity(), AudioRecordListener {
     override fun onPause() {
         super.onPause()
 
-            pauseMediaPlayer()
+        pauseMediaPlayer()
 
     }
 
