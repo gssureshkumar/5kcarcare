@@ -1,6 +1,7 @@
 package com.carcare.ui.bookingDetails
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.carcare.network.RetrofitInstance
 import com.carcare.utils.ErrorResponseParser
@@ -9,17 +10,23 @@ import com.carcare.viewmodel.request.booking.AddBookingRequest
 import com.carcare.viewmodel.request.booking.FeedbackRequest
 import com.carcare.viewmodel.response.GeneralResponse
 import com.carcare.viewmodel.response.bookingDetails.BookingDetailsResponse
-import com.carcare.viewmodel.response.servicesDetailsResponse.ServiceDetailsResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.*
+
 
 class BookingDetailsViewModel(application: Application) : BaseViewModel(application) {
     private val disposable = CompositeDisposable()
 
     val bookingDetailsResponse = MutableLiveData<BookingDetailsResponse>()
     val feedbackResponse = MutableLiveData<GeneralResponse>()
+    val invoiceResponse = MutableLiveData<Boolean>()
     val cancelBookingResponse = MutableLiveData<GeneralResponse>()
     val errorMessage = MutableLiveData<String?>()
     val isLoading = MutableLiveData<Boolean>()
@@ -43,6 +50,28 @@ class BookingDetailsViewModel(application: Application) : BaseViewModel(applicat
                     }
                 })
         )
+    }
+
+    fun downloadInvoiceResponse(query: String, file:File) {
+        isLoading.value = true
+        Log.e("absolutePath -->", "downloadInvoiceResponse: "+file.absolutePath )
+        RetrofitInstance.api.downloadInvoice(query)!!.enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                if (response.isSuccessful) {
+                    invoiceResponse.value =  response.body()?.let { writeResponseBodyToDisk(it, file) }
+                    isLoading.value = false
+                } else {
+                    isLoading.value = false
+                    errorMessage.value = ErrorResponseParser.getErrorResponse(Exception("Invalid file!!"))
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>?, e: Throwable) {
+                isLoading.value = false
+                errorMessage.value = ErrorResponseParser.getErrorResponse(e)
+            }
+        })
+
     }
 
     fun updateFeedback(query: FeedbackRequest.Request) {
@@ -90,5 +119,42 @@ class BookingDetailsViewModel(application: Application) : BaseViewModel(applicat
     override fun onCleared() {
         super.onCleared()
         disposable.clear()
+    }
+
+    private fun writeResponseBodyToDisk(body: ResponseBody, file:File): Boolean {
+        return try {
+            // todo change the file location/name according to your needs
+            var inputStream: InputStream? = null
+            var outputStream: OutputStream? = null
+            try {
+                val fileReader = ByteArray(4096)
+                val fileSize = body.contentLength()
+                var fileSizeDownloaded: Long = 0
+                inputStream = body.byteStream()
+                outputStream = FileOutputStream(file)
+                while (true) {
+                    val read: Int = inputStream.read(fileReader)
+                    if (read == -1) {
+                        break
+                    }
+                    outputStream!!.write(fileReader, 0, read)
+                    fileSizeDownloaded += read.toLong()
+
+                }
+                outputStream!!.flush()
+                true
+            } catch (e: IOException) {
+                false
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close()
+                }
+                if (outputStream != null) {
+                    outputStream.close()
+                }
+            }
+        } catch (e: IOException) {
+            false
+        }
     }
 }

@@ -140,5 +140,6 @@
     <string name="please_enter_6_digit_code_sent">உங்கள் பதிவு செய்யப்பட்ட மொபைல் எண்ணான %sக்கு அனுப்பப்பட்ட 6 இலக்கக் குறியீட்டை உள்ளிடவும்</string>
     <string name="muv">Premium</string>
     <string name="default_notification_channel_id">5K Car</string>
-
+    <string name="invoice_downloaded_successfully">விலைப்பட்டியல் வெற்றிகரமாக பதிவிறக்கம் செய்யப்பட்டது %s</string>
+    <string name="error_message_action_view">இந்த உள்ளடக்கத்தைத் திறக்க உங்களிடம் சரியான பயன்பாடு இல்லாமல் இருக்கலாம்.</string>
 </resources>

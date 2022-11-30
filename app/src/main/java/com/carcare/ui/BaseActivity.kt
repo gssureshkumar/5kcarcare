@@ -1,8 +1,7 @@
 package com.carcare.ui
 
 import android.Manifest
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.Manifest.permission.*
 import android.app.Dialog
 import android.content.pm.PackageManager
 import android.os.Build
@@ -42,6 +41,17 @@ open class BaseActivity : AppCompatActivity() {
             permissionListener.permissionGranted()
         } else {
             requestPermission(arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION))
+        }
+
+    }
+
+
+    fun checkStoragePermission(listener: PermissionListener) {
+        permissionListener = listener
+        if (permissionIsGranted(arrayOf(READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE))) {
+            permissionListener.permissionGranted()
+        } else {
+            requestPermission(arrayOf(READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE))
         }
 
     }

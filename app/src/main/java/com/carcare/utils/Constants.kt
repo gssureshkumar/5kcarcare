@@ -22,5 +22,6 @@ object Constants {
     const val LONG ="long"
     const val ADDRESS ="address"
     const val BOOKING_ID ="booking_id"
+    const val PROVIDER = ".provider"
 
 }

@@ -141,4 +141,6 @@
     <string name="audio_instruction">audio_instruction.mp3</string>
     <string name="do_you_want_to_delete_audio_instructions">Do you want to delete audio instructions?</string>
     <string name="default_notification_channel_id">5K Car</string>
+    <string name="invoice_downloaded_successfully">Invoice downloaded successfully %s</string>
+    <string name="error_message_action_view">You may not have the right app to open this content.</string>
 </resources>

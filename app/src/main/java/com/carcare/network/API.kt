@@ -94,6 +94,14 @@ interface API {
     fun getSignedUrl(@QueryMap options: HashMap<String, Any>): Single<SignedUrlResponse>
 
 
+    @GET("invoice")
+    fun downloadInvoice(
+        @Query(
+            value = "id",
+            encoded = true
+        ) id: String?
+    ): Call<ResponseBody?>?
+
     @Multipart
     @PUT
     fun uploadAudio(
