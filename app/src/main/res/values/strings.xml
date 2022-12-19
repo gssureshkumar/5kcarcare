@@ -50,6 +50,7 @@
     <string name="save">Save</string>
     <string name="muv">Premium</string>
     <string name="please_enter_car_model">Please enter the car model</string>
+    <string name="please_select_primary_vehicle">Please select the primary vehicle</string>
     <string name="please_enter_registration_number">Please enter the registration number</string>
     <string name="primary">Primary</string>
     <string name="add_new_car">+ Add New Car</string>
@@ -59,7 +60,7 @@
     <string name="car_accessories_text">Sunflim, Floor mats, Perfumes, Car cleaning kit</string>
     <string name="car_maintance">4. Car Maintenance</string>
     <string name="car_maintance_text">Carbon cleaning, Dent removal, Thar removal, Painting Job</string>
-    <string name="ear_700_for_every_friend_you_refer">Earn ₹750 for every friend you refer</string>
+    <string name="ear_700_for_every_friend_you_refer">Earn ₹150 for every friend you refer</string>
     <string name="get_a_friend_to_start_using_5k_car_care">Get a friend to start \nusing 5K Car Care</string>
     <string name="refer_now">Refer Now</string>
     <string name="use_referral_code_txt">I’m inviting you to use 5K Car Care App, \n Get premium car care service from nearest 5K outlet now. Get a voucher worth %s on registering to 5K app by using below link \n %s</string>
@@ -102,7 +103,7 @@
     <string name="total_amount">Total Amount</string>
     <string name="place_order">Place Order</string>
     <string name="no_vouchers_found">You have no vouchers. \nRefer a friend to earn exiting Gift Vouchers</string>
-    <string name="pay_now">Pay Now</string>
+    <string name="pay_now">Book Now</string>
     <string name="please_select_payment_mode">Please select the payment mode</string>
     <string name="you_have_not_placed_any_order_yet">You have not placed any order yet</string>
     <string name="book_now">Book Now</string>
@@ -133,6 +134,7 @@
     <string name="are_you_sure_you_want_you_cancel_booking">Are you sure you want to cancel booking?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="continue_txt">Continue</string>
     <string name="permium_membershp">Premium Membership</string>
     <string name="membership_percentage">9% OFF</string>
     <string name="your_booking_has_been_confirmed">Your booking has been confirmed</string>
@@ -143,4 +145,9 @@
     <string name="default_notification_channel_id">5K Car</string>
     <string name="invoice_downloaded_successfully">Invoice downloaded successfully %s</string>
     <string name="error_message_action_view">You may not have the right app to open this content.</string>
+    <string name="please_select_terms_conditions">Please accept Terms &amp; Conditions, to books the services </string>
+    <string name="are_you_sure_you_want_you_logout">Are you sure you want to logout?</string>
+    <string name="accept_terms_conditons" > Accept <b><u><font color='#1D2588'>Terms &amp; Conditions</font></u></b></string>
+    <string name="elite">Elite</string>
+    <string name="edit_review">மதிப்பாய்வைத் திருத்து</string>
 </resources>

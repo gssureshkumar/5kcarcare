@@ -76,6 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cod"
+                    android:visibility="gone"
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/opensans_medium"
@@ -323,6 +324,44 @@
                     android:textSize="18sp" />
             </RelativeLayout>
         </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/termsView"
+            android:background="#66999999"/>
+        <LinearLayout
+            android:id="@+id/termsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_above="@+id/addCheckoutView"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkBoxInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:ellipsize="end"
+                android:fontFamily="@font/opensans_regular"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:textColor="#2D2F39"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/termsConditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#8E8E92"
+                android:fontFamily="@font/opensans_regular"
+                android:text="@string/accept_terms_conditons"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
 
         <RelativeLayout
             android:id="@+id/addCheckoutView"

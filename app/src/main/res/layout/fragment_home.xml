@@ -92,13 +92,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:visibility="gone"
         android:id="@+id/progressBar" />
 
     <LinearLayout
         android:id="@+id/mainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <FrameLayout
@@ -132,6 +132,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/ourServiceView"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#EFEFEF"
@@ -155,6 +156,7 @@
                     android:id="@+id/ourServiceList" />
 
                 <LinearLayout
+                    android:id="@+id/trendingServicesView"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#EFEFEF"
@@ -178,6 +180,7 @@
                     android:id="@+id/trendingServicesList" />
 
                 <LinearLayout
+                    android:id="@+id/recommendedView"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#EFEFEF"

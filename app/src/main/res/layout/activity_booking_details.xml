@@ -45,6 +45,7 @@
             android:layout_alignParentEnd="true"
             android:fontFamily="@font/opensans_semibold"
             android:text="@string/cancel"
+            android:visibility="gone"
             android:textSize="16sp" />
     </RelativeLayout>
 
@@ -201,6 +202,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
                         android:theme="@style/RatingBar"
+                        android:stepSize="1"
                         android:layout_marginEnd="10dp" />
 
                     <TextView

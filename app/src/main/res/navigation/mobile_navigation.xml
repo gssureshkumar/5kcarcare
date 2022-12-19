@@ -6,23 +6,23 @@
     app:startDestination="@+id/navigation_home">
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.carcare.ui.home.HomeFragment"
+        android:name="com.fivek.userapp.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_booking"
-        android:name="com.carcare.ui.bookingList.BookingListFragment"
+        android:name="com.fivek.userapp.ui.bookingList.BookingListFragment"
         android:label="@string/title_booking"
         tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/navigation_contacts"
-        android:name="com.carcare.ui.outlet.OutletListFragment"
+        android:name="com.fivek.userapp.ui.outlet.OutletListFragment"
         android:label="@string/title_help"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.carcare.ui.profile.ProfileFragment"
+        android:name="com.fivek.userapp.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

@@ -105,8 +105,8 @@
     public static int wtf(...);
 }
 
--keep class com.carcare.viewmodel** { *; }
--keep class com.carcare.location** { *; }
+-keep class com.fivek.userapp.viewmodel** { *; }
+-keep class com.fivek.userapp.location** { *; }
 
 
 -keepclassmembers class * {

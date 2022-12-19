@@ -125,7 +125,7 @@
     <string name="do_you_want_to_delete_audio_instructions">ஆடியோ வழிமுறைகளை நீக்க விரும்புகிறீர்களா?</string>
     <string name="please_enter_car_model">கார் மாதிரியை உள்ளிடவும்</string>
     <string name="please_enter_registration_number">பதிவு எண்ணை உள்ளிடவும்</string>
-    <string name="ear_700_for_every_friend_you_refer">நீங்கள் குறிப்பிடும் ஒவ்வொரு நண்பருக்கும் ₹100 பெறுங்கள்</string>
+    <string name="ear_700_for_every_friend_you_refer">நீங்கள் குறிப்பிடும் ஒவ்வொரு நண்பருக்கும் ₹150 பெறுங்கள்</string>
     <string name="get_a_friend_to_start_using_5k_car_care">5K ஐப் பயன்படுத்த \nநண்பரைப் பரிந்துரைக்கவும்</string>
     <string name="please_enter_valid_mobile_number">சரியான மொபைல் எண்ணை உள்ளிடவும்</string>
     <string name="please_enter_valid_otp">சரியான OTP ஐ உள்ளிடவும்</string>
@@ -139,7 +139,14 @@
     <string name="your_number_will_be_safe_with_us_txt">உங்கள் எண் எங்களிடம் பாதுகாப்பாக இருக்கும், உங்கள் விவரங்களை யாருடனும் பகிர்ந்து கொள்ள மாட்டோம்</string>
     <string name="please_enter_6_digit_code_sent">உங்கள் பதிவு செய்யப்பட்ட மொபைல் எண்ணான %sக்கு அனுப்பப்பட்ட 6 இலக்கக் குறியீட்டை உள்ளிடவும்</string>
     <string name="muv">Premium</string>
+    <string name="please_select_primary_vehicle">முதன்மை வாகனத்தைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="continue_txt">தொடரவும்</string>
     <string name="default_notification_channel_id">5K Car</string>
     <string name="invoice_downloaded_successfully">விலைப்பட்டியல் வெற்றிகரமாக பதிவிறக்கம் செய்யப்பட்டது %s</string>
     <string name="error_message_action_view">இந்த உள்ளடக்கத்தைத் திறக்க உங்களிடம் சரியான பயன்பாடு இல்லாமல் இருக்கலாம்.</string>
+    <string name="please_select_terms_conditions">விதிமுறைகளை ஏற்கவும் &amp; நிபந்தனைகள், சேவைகளை பதிவு செய்ய</string>
+    <string name="are_you_sure_you_want_you_logout">நிச்சயமாக வெளியேற விரும்புகிறீர்களா?</string>
+    <string name="accept_terms_conditons"> <b><u><font color='#1D2588'>விதிமுறைகள் மற்றும் நிபந்தனைகளை</font></u></b> ஏற்கவும்</string>
+    <string name="elite">Elite</string>
+    <string name="edit_review">Edit Review</string>
 </resources>

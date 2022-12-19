@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:711031639620:android:d2352f6136aeeec06a7611",
+        "mobilesdk_app_id": "1:711031639620:android:e89ae9ae000b12ce6a7611",
         "android_client_info": {
-          "package_name": "com.carcare"
+          "package_name": "com.fivek.admin"
         }
       },
       "oauth_client": [
@@ -31,10 +31,48 @@
               "client_type": 3
             },
             {
-              "client_id": "711031639620-j7q1643do6t2tpbm2dn9cufh92thpmgk.apps.googleusercontent.com",
+              "client_id": "711031639620-ar9mh49hksmghaq6oa0o5i6rq146u17f.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.5k.userapp"
+                "bundle_id": "com.5k.userapp",
+                "app_store_id": "6443796046"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711031639620:android:dfd18e02cf67ef7a6a7611",
+        "android_client_info": {
+          "package_name": "com.fivek.userapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711031639620-apsjortp25tpo9a616ejdtdr84m5sfdn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKXZWOLRKmWwL2DNIE-J3TtDVaXribuqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711031639620-apsjortp25tpo9a616ejdtdr84m5sfdn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "711031639620-ar9mh49hksmghaq6oa0o5i6rq146u17f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.5k.userapp",
+                "app_store_id": "6443796046"
               }
             }
           ]

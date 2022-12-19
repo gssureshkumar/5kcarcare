@@ -27,11 +27,33 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:text="10"
+        android:layout_toStartOf="@+id/eliteView"
         android:layout_toEndOf="@+id/radioGrp"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical"
         android:fontFamily="@font/opensans_semibold"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/eliteView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/elite"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:textAllCaps="true"
+        android:visibility="gone"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/button_selector"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/opensans_semibold"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/outletRating"

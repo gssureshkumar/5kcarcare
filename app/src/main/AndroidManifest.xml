@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.carcare">
+    package="com.fivek.userapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".app.CarCareApplication"
+        android:name="com.fivek.userapp.app.CarCareApplication"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,7 +22,7 @@
         android:theme="@style/Theme.5KCarCare"
         tools:targetApi="31">
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name="com.fivek.userapp.ui.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.5KCarCare.NoActionBar"
             android:label="@string/app_name">
@@ -44,53 +44,53 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.fivek.userapp.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
 
         <activity
-            android:name=".ui.setaddress.MapsActivity"
+            android:name="com.fivek.userapp.ui.setaddress.MapsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
         <activity
-            android:name=".ui.authentication.LoginActivity"
+            android:name="com.fivek.userapp.ui.authentication.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
 
         <activity
-            android:name=".ui.serviceDetails.ServiceDetailsActivity"
+            android:name="com.fivek.userapp.ui.serviceDetails.ServiceDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
 
         <activity
-            android:name=".ui.bookingDetails.BookingDetailsActivity"
+            android:name="com.fivek.userapp.ui.bookingDetails.BookingDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
 
         <activity
-            android:name=".ui.cart.CartListActivity"
+            android:name="com.fivek.userapp.ui.cart.CartListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
 
         <activity
-            android:name=".ui.checkout.CheckOutActivity"
+            android:name="com.fivek.userapp.ui.checkout.CheckOutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
 
         <activity
-            android:name=".ui.checkout.PaymentMethodActivity"
+            android:name="com.fivek.userapp.ui.checkout.PaymentMethodActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
 
         <activity
-            android:name=".ui.checkout.VouchersActivity"
+            android:name="com.fivek.userapp.ui.checkout.VouchersActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.5KCarCare.NoActionBar" />
 
         <service
-            android:name=".utils.MyFirebaseMessagingService"
+            android:name="com.fivek.userapp.utils.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
