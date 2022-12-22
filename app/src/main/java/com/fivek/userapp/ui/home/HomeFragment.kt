@@ -92,8 +92,7 @@ class HomeFragment : Fragment() {
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
 
-        val address =  (activity as? MainActivity)?.getCurrentAddress()
-        updateAddress(address)
+        updateAddress(CarCareApplication.instance.locationInfoData)
 
         _binding.addressView.setOnClickListener {
             val intent = Intent(requireActivity(), MapsActivity::class.java)

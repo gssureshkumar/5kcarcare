@@ -34,14 +34,12 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import kotlinx.coroutines.launch
 
 
-class MainActivity : BaseActivity(), Listener, AddressCallBack {
+class MainActivity : BaseActivity() {
     val prefsHelper: PreferenceHelper by lazy {
         CarCareApplication.prefs!!
     }
     private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-    private lateinit var fetchLocation: FetchLocation
-    private lateinit var getLocationDetail: GetLocationDetail
     private lateinit var navView: BottomNavigationView
     private var vehicleModel: VehicleModel? = null
     private var currentAddress = ""
@@ -57,15 +55,11 @@ class MainActivity : BaseActivity(), Listener, AddressCallBack {
 
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        getLocationDetail = GetLocationDetail(this, this)
-        fetchLocation = FetchLocation(this, false, this)
-
         navView = binding.navView
         navView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView.setupWithNavController(navController)
-        getLocationResult()
 
         if (prefsHelper.intUserNamePref?.isEmpty() == true) {
             val fragment =
@@ -172,18 +166,6 @@ class MainActivity : BaseActivity(), Listener, AddressCallBack {
     }
 
 
-    fun getLocationResult() {
-        checkLocationPermission(object : PermissionListener {
-            override fun permissionGranted() {
-                fetchLocation.startLocation()
-            }
-
-            override fun permissionDenied() {
-                fetchLocation.showAlertDialog(getString(R.string.location_error_message))
-            }
-
-        })
-    }
 
 
     fun moveToNext(selectedItemId: Int) {
@@ -191,89 +173,8 @@ class MainActivity : BaseActivity(), Listener, AddressCallBack {
     }
 
 
-    override fun locationOn() {
-        getLocationResult()
-    }
-
-    override fun currentLocation(location: Location?) {
-//        if (location != null && !isApiCalled) {
-//            if (currentAddress.isEmpty()) {
-//                isApiCalled = true
-//                getLocationDetail.getAddressFromApi(
-//                    location.latitude,
-//                    location.longitude,
-//                    getString(R.string.google_maps_key)
-//                )
-//            }
-//        }
-
-        if (location != null) {
-            if (currentAddress.isEmpty()) {
-                locationInfoData = fetchLocation.getAddress(this@MainActivity, location.latitude, location.longitude)
-                if (locationInfoData != null) {
-                    CarCareApplication.instance.locationInfoData = locationInfoData!!
-                    currentAddress = locationInfoData!!.fullAddress
-                    val fragment = getForegroundFragment()
-                    if (fragment is HomeFragment) {
-                        fragment.updateAddress(locationInfoData)
-                    }
-                    val body = prefsHelper.intDeviceTokenPref?.let { LoginRequestBodies.UpdateProfileBody(locationInfoData!!.latitude, locationInfoData!!.longitude, locationInfoData!!.fullAddress, locationInfoData!!.city, locationInfoData!!.state, "android", it) }
-                    body?.let { mainViewModel.updateProfile(it) }
-                }else {
-                    locationCancelled()
-                }
-            }
-        }
-    }
-
-    override fun locationCancelled() {
-        fetchLocation.showAlertDialog(getString(R.string.location_error_message))
-    }
-
-    override fun locationData(locationData: LocationInfoData?) {
-        locationInfoData = locationData
-        if (locationInfoData != null) {
-            CarCareApplication.instance.locationInfoData = locationInfoData!!
-            currentAddress = locationInfoData!!.fullAddress
-            val fragment = getForegroundFragment()
-            if (fragment is HomeFragment) {
-                fragment.updateAddress(locationInfoData)
-            }
-            val body = prefsHelper.intDeviceTokenPref?.let {
-                LoginRequestBodies.UpdateProfileBody(
-                    locationInfoData!!.latitude,
-                    locationInfoData!!.longitude,
-                    locationInfoData!!.fullAddress,
-                    locationInfoData!!.city,
-                    locationInfoData!!.state,
-                    "android",
-                    it
-                )
-            }
-            body?.let { mainViewModel.updateProfile(it) }
-        } else {
-            locationCancelled()
-        }
-
-    }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == LOCATION_SETTING_REQUEST_CODE) {
-            fetchLocation.onActivityResult(resultCode)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        fetchLocation.startLocation()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        fetchLocation.endUpdates()
-    }
 
     fun getCurrentAddress(): LocationInfoData? {
         if (locationInfoData != null && currentAddress.isNotEmpty()) {
@@ -326,10 +227,6 @@ class MainActivity : BaseActivity(), Listener, AddressCallBack {
             })
         fragment.isCancelable = false
         fragment.show(supportFragmentManager, fragment.tag)
-    }
-    override fun onError(message: String?) {
-        isApiCalled = false
-        fetchLocation.showAlertDialog(message)
     }
 
     fun shareToOtherApp() {

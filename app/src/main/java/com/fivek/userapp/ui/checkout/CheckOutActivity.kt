@@ -12,6 +12,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fivek.userapp.R
@@ -22,6 +23,7 @@ import com.fivek.userapp.ui.checkout.adapter.OutletsAdapter
 import com.fivek.userapp.ui.checkout.adapter.PreferredDateAdapter
 import com.fivek.userapp.ui.checkout.adapter.TimeSlotsAdapter
 import com.fivek.userapp.utils.Constants
+import com.fivek.userapp.viewmodel.request.booking.AddBookingRequest
 import com.fivek.userapp.viewmodel.response.LocationInfoData
 import com.fivek.userapp.viewmodel.response.outlets.Outlet
 import com.fivek.userapp.viewmodel.response.preferredDate.PreferredDate
@@ -36,26 +38,29 @@ class CheckOutActivity : BaseActivity() {
     private lateinit var checkOutViewModel: CheckOutViewModel
     val days = listOf("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT")
     var outletId = 0
+    var outletData: Outlet? = null
     lateinit var selectDate: Calendar
     var timesolt: Int = 0
     var orderPrice = ""
     var bookedDate = ""
-    var isElite =false
-    var audioId : String? = null
+    var isElite = false
+    var audioId: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckOutViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
         selectDate = Calendar.getInstance()
         orderPrice = intent.extras?.getString(Constants.ORDER_PRICE).toString()
-        audioId= intent.extras?.getString(Constants.AUDIO_ID)
-        isElite= intent.extras?.getBoolean(Constants.IS_ELITE) == true
+        audioId = intent.extras?.getString(Constants.AUDIO_ID)
+        isElite = intent.extras?.getBoolean(Constants.IS_ELITE) == true
         checkOutViewModel = ViewModelProvider(this)[CheckOutViewModel::class.java]
         binding.backAction.setOnClickListener {
             finish()
         }
-        binding.pickTimeList.layoutManager = LinearLayoutManager(this@CheckOutActivity, LinearLayoutManager.HORIZONTAL, false)
-        binding.preferredDateList.layoutManager = LinearLayoutManager(this@CheckOutActivity, LinearLayoutManager.HORIZONTAL, false)
+        binding.pickTimeList.layoutManager =
+            LinearLayoutManager(this@CheckOutActivity, LinearLayoutManager.HORIZONTAL, false)
+        binding.preferredDateList.layoutManager =
+            LinearLayoutManager(this@CheckOutActivity, LinearLayoutManager.HORIZONTAL, false)
         binding.nearByOutletsList.layoutManager = LinearLayoutManager(this)
 
 
@@ -66,32 +71,38 @@ class CheckOutActivity : BaseActivity() {
 //        }
 
         binding.checkOutAction.setOnClickListener {
-            if(timesolt>0) {
+            if (timesolt > 0) {
                 val intent = Intent(this@CheckOutActivity, PaymentMethodActivity::class.java)
                 intent.putExtra(Constants.OUTLET_ID, outletId)
                 intent.putExtra(Constants.TIME_SLOT, timesolt)
                 intent.putExtra(Constants.PICK_UP_REQUIRED, binding.freePickUp.isChecked)
-                intent.putExtra(Constants.BOOKING_DATE,bookedDate)
-                intent.putExtra(Constants.AUDIO_ID,audioId)
+                intent.putExtra(Constants.BOOKING_DATE, bookedDate)
+                intent.putExtra(Constants.AUDIO_ID, audioId)
                 startActivity(intent)
-            }else{
+            } else {
                 showToast("Please select the timeslot")
             }
         }
 
         binding.freePickUp.setOnClickListener {
-            if(binding.freePickUp.isChecked){
+            if (binding.freePickUp.isChecked) {
                 binding.pickView.setBackgroundResource(R.drawable.draw_pick_up_fill_red_view)
                 binding.pickupHint.setTextColor(Color.parseColor("#d32f2f"))
                 binding.localAddress.setTextColor(Color.parseColor("#000000"))
-                binding.forwardArrow.setColorFilter(Color.parseColor("#d32f2f"), PorterDuff.Mode.SRC_ATOP)
-            }else {
+                binding.forwardArrow.setColorFilter(
+                    Color.parseColor("#d32f2f"),
+                    PorterDuff.Mode.SRC_ATOP
+                )
+            } else {
                 binding.pickView.setBackgroundResource(R.drawable.draw_rounded_gray_view)
                 binding.pickupHint.setTextColor(Color.parseColor("#828282"))
                 binding.localAddress.setTextColor(Color.parseColor("#828282"))
-                binding.forwardArrow.setColorFilter(Color.parseColor("#828282"), PorterDuff.Mode.SRC_ATOP)
+                binding.forwardArrow.setColorFilter(
+                    Color.parseColor("#828282"),
+                    PorterDuff.Mode.SRC_ATOP
+                )
             }
-
+            pickAlert()
         }
 
 
@@ -100,40 +111,60 @@ class CheckOutActivity : BaseActivity() {
         var preferredDateList = mutableListOf<PreferredDate>()
         for (i in 0..3) {
             val calendar = getCalculatedDate(i)
-            preferredDateList.add(PreferredDate(calendar, calendar.get(Calendar.DATE).toString(), days[calendar.get(Calendar.DAY_OF_WEEK) - 1], i == 0))
+            preferredDateList.add(
+                PreferredDate(
+                    calendar,
+                    calendar.get(Calendar.DATE).toString(),
+                    days[calendar.get(Calendar.DAY_OF_WEEK) - 1],
+                    i == 0
+                )
+            )
 
         }
 
-        val preferredAdapter = PreferredDateAdapter(preferredDateList, object : PreferredDateAdapter.ItemClickListener {
-            override fun itemClick(slot: PreferredDate) {
-                selectDate = slot.calender
-                getTimeSlots()
-            }
+        val preferredAdapter = PreferredDateAdapter(
+            preferredDateList,
+            object : PreferredDateAdapter.ItemClickListener {
+                override fun itemClick(slot: PreferredDate) {
+                    selectDate = slot.calender
+                    getTimeSlots()
+                }
 
-        })
+            })
         binding.preferredDateList.adapter = preferredAdapter
 
         checkOutViewModel.outletsResponse.observe(this) { response ->
 
             if (response != null && response.data.isNotEmpty()) {
-                for (i in response.data.indices) {
+                binding.noNearbyOutlet.visibility =View.GONE
+                binding.nearByOutletsList.visibility =View.VISIBLE
+                val outletsList = response.data
+                outletsList.sortedBy { it.distance }
+                for (i in outletsList.indices) {
                     if (i == 0) {
-                        val item = response.data[i]
+                        val item = outletsList[i]
                         outletId = item.id
                         item.selected = true
-                        response.data[i] = item
+                        outletsList[i] = item
+                        outletData = item
                         getTimeSlots()
+
                         break
                     }
                 }
-                val outletsAdapter = OutletsAdapter(response.data, object : OutletsAdapter.ItemClickListener {
-                    override fun itemClick(slot: Outlet) {
-                        outletId = slot.id
-                        getTimeSlots()
-                    }
+                val outletsAdapter =
+                    OutletsAdapter(outletsList, object : OutletsAdapter.ItemClickListener {
+                        override fun itemClick(outlet: Outlet) {
+                            outletData = outlet
+                            outletId = outlet.id
+                            getTimeSlots()
+                        }
 
-                })
+                    })
                 binding.nearByOutletsList.adapter = outletsAdapter
+            }else{
+                binding.noNearbyOutlet.visibility =View.VISIBLE
+                binding.nearByOutletsList.visibility =View.GONE
             }
 
 
@@ -146,20 +177,34 @@ class CheckOutActivity : BaseActivity() {
                 binding.pickTimeList.visibility = View.VISIBLE
                 val builder = SpannableStringBuilder()
                 val word: Spannable = SpannableString(getString(R.string.pick_time_slot))
-                word.setSpan(ForegroundColorSpan(Color.BLACK), 0, word.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                word.setSpan(
+                    ForegroundColorSpan(Color.BLACK),
+                    0,
+                    word.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
                 builder.append(word)
-                val wordTwo: Spannable = SpannableString(getString(R.string.slot_available, response.data.slots.size))
-                wordTwo.setSpan(ForegroundColorSpan(Color.parseColor("#35C759")), 0, wordTwo.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                val wordTwo: Spannable =
+                    SpannableString(getString(R.string.slot_available, response.data.slots.size))
+                wordTwo.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#35C759")),
+                    0,
+                    wordTwo.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
                 builder.append(wordTwo)
                 binding.timeSlotCount.setText(builder, TextView.BufferType.SPANNABLE);
-                val timeSlotAdapter = TimeSlotsAdapter(response.data.slots, object : TimeSlotsAdapter.ItemClickListener {
-                    override fun itemClick(slot: Slots) {
-                        timesolt = slot.id
-                    }
+                val timeSlotAdapter = TimeSlotsAdapter(
+                    response.data.slots,
+                    object : TimeSlotsAdapter.ItemClickListener {
+                        override fun itemClick(slot: Slots) {
+                            timesolt = slot.id
 
-                })
+                        }
+
+                    })
                 binding.pickTimeList.adapter = timeSlotAdapter
-            }else {
+            } else {
                 binding.noTimeSlot.visibility = View.VISIBLE
                 binding.pickTimeList.visibility = View.GONE
             }
@@ -174,28 +219,35 @@ class CheckOutActivity : BaseActivity() {
             showToast(errorMessage.toString())
         }
 
+        getOutLets()
+    }
+
+    fun getOutLets() {
         val query = HashMap<String, Any>()
-        query["city"] = "CBE"
+//        query["city"] = "CBE"
+        query["city"] =  CarCareApplication.instance.locationInfoData.city
         query["lat"] = CarCareApplication.instance.locationInfoData.latitude
         query["long"] = CarCareApplication.instance.locationInfoData.longitude
         query["isElite"] = isElite
+        query["pickupRequired"] = binding.freePickUp.isChecked
         checkOutViewModel.fetchOutLets(query)
     }
 
-    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            // There are no request codes
-            val data: Intent? = result.data
-            if (data != null) {
-                val address = data.getStringExtra(Constants.NEW_ADDRESS_UPDATE)
-                address?.let {
-                    val data = Gson().fromJson(it, LocationInfoData::class.java)
-                    CarCareApplication.instance.locationInfoData = data
-                    binding.localAddress.text = data.fullAddress
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                val data: Intent? = result.data
+                if (data != null) {
+                    val address = data.getStringExtra(Constants.NEW_ADDRESS_UPDATE)
+                    address?.let {
+                        val data = Gson().fromJson(it, LocationInfoData::class.java)
+                        CarCareApplication.instance.locationInfoData = data
+                        binding.localAddress.text = data.fullAddress
+                    }
                 }
             }
         }
-    }
 
     fun getCalculatedDate(days: Int): Calendar {
         val cal = Calendar.getInstance()
@@ -210,5 +262,24 @@ class CheckOutActivity : BaseActivity() {
         query["outletId"] = outletId
         query["date"] = bookedDate
         checkOutViewModel.fetchTimeSlots(query)
+        pickAlert()
     }
+
+    fun pickAlert() {
+        if (outletData != null) {
+            val distance = outletData!!.distance / 1000
+            if (distance > 10) {
+                binding.freePickUp.isChecked = false
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle(getString(R.string.free_pick_up_drop_diabled))
+                builder.setMessage(getString(R.string.pick_up_drop_service_is_available_for_outlets))
+                builder.setPositiveButton(R.string.yes) { dialog, which ->
+
+                }
+                builder.show()
+            }
+        }
+
+    }
+
 }

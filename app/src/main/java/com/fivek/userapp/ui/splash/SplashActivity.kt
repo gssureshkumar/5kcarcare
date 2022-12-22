@@ -1,6 +1,7 @@
 package com.fivek.userapp.ui.splash
 
 import android.content.Intent
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -13,11 +14,18 @@ import com.fivek.userapp.MainActivity
 import com.fivek.userapp.R
 import com.fivek.userapp.app.CarCareApplication
 import com.fivek.userapp.databinding.ActivitySplashBinding
+import com.fivek.userapp.location.AddressCallBack
+import com.fivek.userapp.location.FetchLocation
+import com.fivek.userapp.location.GetLocationDetail
+import com.fivek.userapp.location.Listener
 import com.fivek.userapp.ui.BaseActivity
 import com.fivek.userapp.ui.authentication.LoginActivity
+import com.fivek.userapp.ui.home.HomeFragment
 import com.fivek.userapp.ui.splash.adapter.SlidingImagesAdapter
 import com.fivek.userapp.utils.PreferenceHelper
 import com.fivek.userapp.utils.TutorialDataManager
+import com.fivek.userapp.viewmodel.request.LoginRequestBodies
+import com.fivek.userapp.viewmodel.response.LocationInfoData
 import com.google.firebase.FirebaseApp
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.messaging.FirebaseMessaging
@@ -26,15 +34,16 @@ import java.util.*
 import kotlin.concurrent.schedule
 
 
-class SplashActivity : BaseActivity() {
+class SplashActivity : BaseActivity(), Listener, AddressCallBack {
     private lateinit var slidingImageDots: Array<ImageView?>
     private var slidingDotsCount = 0
     private lateinit var binding: ActivitySplashBinding
     val prefsHelper: PreferenceHelper by lazy {
         CarCareApplication.prefs!!
     }
-
-
+    private lateinit var fetchLocation: FetchLocation
+    private lateinit var getLocationDetail: GetLocationDetail
+    private var isApiCalled = false
     private val slidingCallback = object : ViewPager2.OnPageChangeCallback() {
         override fun onPageSelected(position: Int) {
 
@@ -69,6 +78,9 @@ class SplashActivity : BaseActivity() {
         TutorialDataManager.init(this@SplashActivity)
         setUpSlidingViewPager()
 
+
+        getLocationDetail = GetLocationDetail(this, this)
+        fetchLocation = FetchLocation(this, false, this)
         binding.skipAction.setOnClickListener {
             prefsHelper.intTutorialPref = true
             moveToLogin()
@@ -92,25 +104,26 @@ class SplashActivity : BaseActivity() {
         }
 
         binding.splashView.visibility = View.VISIBLE
+        binding.fetchingAddress.visibility = View.VISIBLE
         binding.promotionContainer.visibility = View.GONE
-        Timer().schedule(2000) {
-            runOnUiThread {
-                if (prefsHelper.intTutorialPref) {
-                    if (prefsHelper.intUserIDPref.isNullOrEmpty()) {
-                        moveToLogin()
-                    } else {
-                        val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                } else {
-                    binding.splashView.visibility = View.GONE
-                    binding.promotionContainer.visibility = View.VISIBLE
-                }
-            }
-        }
+//        Timer().schedule(2000) {
+//            runOnUiThread {
+//                if (prefsHelper.intTutorialPref) {
+//                    if (prefsHelper.intUserIDPref.isNullOrEmpty()) {
+//                        moveToLogin()
+//                    } else {
+//                        val intent = Intent(this@SplashActivity, MainActivity::class.java)
+//                        startActivity(intent)
+//                        finish()
+//                    }
+//                } else {
+//                    binding.splashView.visibility = View.GONE
+//                    binding.promotionContainer.visibility = View.VISIBLE
+//                }
+//            }
+//        }
 
-
+        getLocationResult()
     }
 
     fun moveToLogin() {
@@ -170,5 +183,82 @@ class SplashActivity : BaseActivity() {
             )
         )
 
+    }
+    override fun locationOn() {
+        getLocationResult()
+    }
+
+    override fun currentLocation(location: Location?) {
+        if (location != null && !isApiCalled) {
+                isApiCalled = true
+                getLocationDetail.getAddressFromApi(
+                    location.latitude,
+                    location.longitude,
+                    getString(R.string.google_maps_key)
+                )
+        }
+
+
+    }
+
+    override fun locationCancelled() {
+        fetchLocation.showAlertDialog(getString(R.string.location_error_message))
+    }
+
+    override fun locationData(locationInfoData: LocationInfoData?) {
+        if (locationInfoData != null) {
+            CarCareApplication.instance.locationInfoData = locationInfoData
+            if (prefsHelper.intTutorialPref) {
+                if (prefsHelper.intUserIDPref.isNullOrEmpty()) {
+                    moveToLogin()
+                } else {
+                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            } else {
+                binding.splashView.visibility = View.GONE
+                binding.fetchingAddress.visibility = View.GONE
+                binding.promotionContainer.visibility = View.VISIBLE
+            }
+        } else {
+            locationCancelled()
+        }
+
+    }
+
+    override fun onError(message: String?) {
+        isApiCalled = false
+        fetchLocation.showAlertDialog(message)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == FetchLocation.LOCATION_SETTING_REQUEST_CODE) {
+            fetchLocation.onActivityResult(resultCode)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchLocation.startLocation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        fetchLocation.endUpdates()
+    }
+
+    fun getLocationResult() {
+        checkLocationPermission(object : PermissionListener {
+            override fun permissionGranted() {
+                fetchLocation.startLocation()
+            }
+
+            override fun permissionDenied() {
+                fetchLocation.showAlertDialog(getString(R.string.location_error_message))
+            }
+
+        })
     }
 }

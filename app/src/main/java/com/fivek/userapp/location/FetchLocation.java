@@ -19,6 +19,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.fivek.userapp.R;
 import com.fivek.userapp.viewmodel.response.LocationInfoData;
@@ -590,6 +591,7 @@ public class FetchLocation {
             List<Address> addresses = geoCoder.getFromLocation(latitude, longitude, 1);
 
             if (addresses.size() > 0) {
+                Log.e("addresses -->", "getAddress: "+addresses.get(0) );
                 String fullAddress = addresses.get(0).getAddressLine(0);
                 String cityName = addresses.get(0).getLocality();
                 String subAdmin = addresses.get(0).getSubAdminArea();

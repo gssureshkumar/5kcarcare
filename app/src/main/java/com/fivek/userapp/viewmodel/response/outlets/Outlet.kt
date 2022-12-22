@@ -14,5 +14,6 @@ data class Outlet (
 	@SerializedName("address") val address : String,
 	@SerializedName("city") val city : String,
 	@SerializedName("state") val state : String,
+	@SerializedName("distance") val distance : Long,
 	@SerializedName("selected") var selected : Boolean
 )

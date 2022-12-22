@@ -148,5 +148,8 @@
     <string name="are_you_sure_you_want_you_logout">நிச்சயமாக வெளியேற விரும்புகிறீர்களா?</string>
     <string name="accept_terms_conditons"> <b><u><font color='#1D2588'>விதிமுறைகள் மற்றும் நிபந்தனைகளை</font></u></b> ஏற்கவும்</string>
     <string name="elite">Elite</string>
-    <string name="edit_review">Edit Review</string>
+    <string name="edit_review">மதிப்பாய்வைத் திருத்து</string>
+    <string name="free_pick_up_drop_diabled">பிக்அப்/டிராப் முடக்கப்பட்டுள்ளது</string>
+    <string name="pick_up_drop_service_is_available_for_outlets">10KM க்கும் குறைவான விற்பனை நிலையங்களுக்கு பிக்அப்/டிராப் சேவை கிடைக்கிறது</string>
+    <string name="fetching_address">முகவரியைப் பெறுகிறது...</string>
 </resources>

@@ -57,7 +57,8 @@ class OutletsAdapter(private var items: MutableList<Outlet>, private var itemCli
         val word: Spannable = SpannableString(items[position].name)
         word.setSpan(FontSpan(ResourcesCompat.getFont(context, R.font.opensans_regular)), 0, word.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         builder.append(word)
-        val wordTwo: Spannable = SpannableString(" (" + (10 + position) + " KM)")
+        val  distance =items[position].distance/1000
+        val wordTwo: Spannable = SpannableString(" ($distance KM)")
         wordTwo.setSpan(FontSpan(ResourcesCompat.getFont(context, R.font.opensans_bold)), 0, wordTwo.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         builder.append(wordTwo)
         binding.outletName.setText(builder, TextView.BufferType.SPANNABLE);
@@ -93,7 +94,7 @@ class OutletsAdapter(private var items: MutableList<Outlet>, private var itemCli
 
 
     interface ItemClickListener {
-        fun itemClick(slot: Outlet)
+        fun itemClick(outlet: Outlet)
     }
 
     fun updateNotify() {

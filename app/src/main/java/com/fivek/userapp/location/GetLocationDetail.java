@@ -58,56 +58,53 @@ public class GetLocationDetail {
                 try {
 
                     JSONObject jsonObject = new JSONObject(response.body());
-                    Log.e("jsonObject -->", "onResponse: "+ jsonObject);
+                    Log.e("jsonObject -->", "onResponse: " + jsonObject);
                     JSONArray Results = jsonObject.getJSONArray("results");
                     JSONObject zero = Results.getJSONObject(0);
                     JSONArray address_components = zero.getJSONArray("address_components");
                     String fullAddress = zero.getString("formatted_address");
-                    String locality=null, city =null, state =null,country =null;
+                    String city = "", state = "", country = "";
                     for (int i = 0; i < address_components.length(); i++) {
                         JSONObject zero2 = address_components.getJSONObject(i);
                         String long_name = zero2.getString("long_name");
                         String short_name = zero2.getString("short_name");
                         JSONArray mtypes = zero2.getJSONArray("types");
                         String Type = mtypes.getString(0);
-                        if (TextUtils.isEmpty(long_name) == false || !long_name.equals(null) || long_name.length() > 0 || long_name != "") {
-                            if (Type.equalsIgnoreCase("street_number")) {
-                                //Address1 = long_name + " ";
-                            } else if (Type.equalsIgnoreCase("route")) {
-                                //Address1 = Address1 + long_name;
-                            } else if (Type.equalsIgnoreCase("sublocality")) {
-                                // Address2 = long_name;
-                            } else if (Type.equalsIgnoreCase("locality")) {
-                                // Address2 = Address2 + long_name + ", ";
-                                locality = long_name;
-                                city = long_name;
-                            } else if (Type.equalsIgnoreCase("administrative_area_level_2")) {
-                                 country = long_name;
-                            } else if (Type.equalsIgnoreCase("administrative_area_level_1")) {
-                                state = short_name;
-                            } else if (Type.equalsIgnoreCase("country")) {
-                                country =long_name;
-                            } else if (Type.equalsIgnoreCase("postal_code")) {
-                            }
+
+
+                        if (Type.equalsIgnoreCase("administrative_area_level_2")) {
+                            city = long_name;
+                        } else if (Type.equalsIgnoreCase("administrative_area_level_3")) {
+                            city = long_name;
+                        } else if (Type.equalsIgnoreCase("locality")) {
+                            city = long_name;
+                        }
+
+                        if (Type.equalsIgnoreCase("administrative_area_level_1")) {
+                            state = short_name;
+                        }
+
+                        if (Type.equalsIgnoreCase("country")) {
+                            country = long_name;
                         }
                     }
 
-                    if(locality!=null && city !=null && state !=null) {
-                        addressCallBack.locationData(new LocationInfoData(fullAddress, locality, latitude, longitude, city, state, country));
-                    }else {
+
+                    if (!TextUtils.isEmpty(country) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(state)) {
+                        addressCallBack.locationData(new LocationInfoData(fullAddress, city, latitude, longitude, city, state, country));
+                    } else {
                         addressCallBack.onError("Error in Fetching Location");
                     }
                 } catch (JSONException e) {
-                    Logger.INSTANCE.logDebug(TAG,"From getAddressFromApi JSONException "+e.getMessage());
-                }
-                catch (NullPointerException e){
-                    Logger.INSTANCE.logDebug(TAG,"From getAddressFromApi NullPointerException "+e.getMessage());
+                    Logger.INSTANCE.logDebug(TAG, "From getAddressFromApi JSONException " + e.getMessage());
+                } catch (NullPointerException e) {
+                    Logger.INSTANCE.logDebug(TAG, "From getAddressFromApi NullPointerException " + e.getMessage());
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Logger.INSTANCE.logDebug(TAG,"From getAddressFromApi onFailure "+ t.toString());
+                Logger.INSTANCE.logDebug(TAG, "From getAddressFromApi onFailure " + t.toString());
                 addressCallBack.onError("Error in Fetching Location");
             }
         });

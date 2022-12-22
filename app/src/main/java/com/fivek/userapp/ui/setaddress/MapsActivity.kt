@@ -21,6 +21,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -55,11 +57,13 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener, AddressCallBa
                 CarCareApplication.instance.applicationScope.launch {
                     CarCareApplication.instance.cartRepository.deleteAll()
                 }
-                CarCareApplication.instance.locationInfoData = locationInfoData!!
-                val data = Intent()
-                data.putExtra(Constants.NEW_ADDRESS_UPDATE, Gson().toJson(locationInfoData))
-                setResult(RESULT_OK, data)
-                finish()
+                setDialog(true)
+                getLocationDetail.getAddressFromApi(
+                    locationInfoData!!.latitude,
+                    locationInfoData!!.longitude,
+                    getString(R.string.google_maps_key)
+                )
+
             }
         }
     }
@@ -93,19 +97,23 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener, AddressCallBa
         mMap.setOnCameraIdleListener {
             val location = mMap.cameraPosition.target
 //            if(!isApiCalled) {
-                isApiCalled = true
+            isApiCalled = true
 
-                locationInfoData = fetchLocation.getAddress(this@MapsActivity, location.latitude, location.longitude)
+            GlobalScope.launch {
+                locationInfoData = fetchLocation.getAddress(
+                    this@MapsActivity,
+                    location.latitude,
+                    location.longitude
+                )
                 if (locationInfoData != null) {
+                    runOnUiThread {
+                        setLocation(locationInfoData!!.fullAddress)
+                    }
 
-                    setLocation(locationInfoData!!.fullAddress)
                 }
-//                getLocationDetail.getAddressFromApi(
-//                    location.latitude,
-//                    location.longitude,
-//                    getString(R.string.google_maps_key)
-//                )
-//            }
+            }
+
+
         }
 
     }
@@ -145,14 +153,19 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener, AddressCallBa
     }
 
     fun setLocation(location: String) {
-        Log.e("isApiCalled -->", "onMapReady: "+location )
+        Log.e("isApiCalled -->", "onMapReady: " + location)
         binding.carLocationTxt.text = location
         if (location.isEmpty() || location == getString(R.string.loading)) {
             binding.btnConfirmAction.isEnabled = false
             binding.carLocationTxt.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
         } else {
             binding.btnConfirmAction.isEnabled = true
-            binding.carLocationTxt.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_green_tick_icon, 0, 0, 0)
+            binding.carLocationTxt.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_green_tick_icon,
+                0,
+                0,
+                0
+            )
         }
 
     }
@@ -160,9 +173,13 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback, Listener, AddressCallBa
     override fun locationData(locationData: LocationInfoData?) {
         isApiCalled = false
         locationInfoData = locationData
+        setDialog(false)
         if (locationData != null) {
             CarCareApplication.instance.locationInfoData = locationData!!
-            setLocation(locationData!!.fullAddress)
+            val data = Intent()
+            data.putExtra(Constants.NEW_ADDRESS_UPDATE, Gson().toJson(locationInfoData))
+            setResult(RESULT_OK, data)
+            finish()
         } else {
             locationCancelled()
         }

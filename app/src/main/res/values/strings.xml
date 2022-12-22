@@ -149,5 +149,9 @@
     <string name="are_you_sure_you_want_you_logout">Are you sure you want to logout?</string>
     <string name="accept_terms_conditons" > Accept <b><u><font color='#1D2588'>Terms &amp; Conditions</font></u></b></string>
     <string name="elite">Elite</string>
-    <string name="edit_review">மதிப்பாய்வைத் திருத்து</string>
+    <string name="edit_review">Edit Review</string>
+    <string name="free_pick_up_drop_diabled">Pickup/Drop has been disabled</string>
+    <string name="pick_up_drop_service_is_available_for_outlets">Pickup/Drop service is available for outlets less than 10KM</string>
+    <string name="fetching_address">Fetching Address...</string>
+    <string name="no_near_by_outlet">No near by outlets found. Try changing the pickup location.</string>
 </resources>
