@@ -89,6 +89,8 @@ public class GetLocationDetail {
                         }
                     }
 
+                    String[] split = city.split("\\s+");
+                    city = split[0];
 
                     if (!TextUtils.isEmpty(country) && !TextUtils.isEmpty(city) && !TextUtils.isEmpty(state)) {
                         addressCallBack.locationData(new LocationInfoData(fullAddress, city, latitude, longitude, city, state, country));

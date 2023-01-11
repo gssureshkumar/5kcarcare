@@ -82,7 +82,11 @@ class OutletListFragment : Fragment() {
 
 
         val query = HashMap<String, Any>()
-        query["city"] = "CBE"
+        query["city"] =  CarCareApplication.instance.locationInfoData.city
+        query["lat"] = CarCareApplication.instance.locationInfoData.latitude
+        query["long"] = CarCareApplication.instance.locationInfoData.longitude
+        query["isElite"] = false
+        query["pickupRequired"] = false
         checkOutViewModel.fetchOutLets(query)
     }
 

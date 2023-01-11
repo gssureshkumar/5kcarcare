@@ -1,7 +1,10 @@
 package com.fivek.userapp.utils
 
+import com.fivek.userapp.BuildConfig
+
 object Constants {
-    const val BASE_URL = "http://3.110.83.71:443/"
+//    const val BASE_URL = "http://3.110.83.71:443/"
+    const val BASE_URL = BuildConfig.BASE_URL
     const val PRIVACY_POLICY = "https://www.5kcarcare.com/privacy-policy.html"
     const val TERMS_CONDITION = "https://www.5kcarcare.com/terms-and-conditions.html"
     const val ABOUT_US = "https://www.5kcarcare.com/about.html"

@@ -46,7 +46,7 @@
     <string name="model_name">Model Name</string>
     <string name="car_model">Car Model</string>
     <string name="registration">Registration</string>
-    <string name="registration_hint" translatable="false">TN 00 XX 0000</string>
+    <string name="registration_hint" translatable="false">TN00XX0000</string>
     <string name="save">Save</string>
     <string name="muv">Premium</string>
     <string name="please_enter_car_model">Please enter the car model</string>

@@ -14,7 +14,7 @@ android {
         minSdk 23
         targetSdk 32
         versionCode 2
-        versionName "22.12.02"
+        versionName "23.01.02"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,7 +39,6 @@ android {
     buildTypes {
         debug {
             manifestPlaceholders = [crashlyticsCollectionEnabled: false]
-            buildConfigField "String", "RAZOR_KEY", RazorPayKey
             signingConfig signingConfigs.debug
             minifyEnabled false
             debuggable true
@@ -48,12 +47,26 @@ android {
         }
         release {
             manifestPlaceholders = [crashlyticsCollectionEnabled: true]
-            buildConfigField "String", "RAZOR_KEY", RazorPRODKey
             signingConfig signingConfigs.release
             minifyEnabled true
             debuggable false
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "mode"
+    productFlavors {
+        dev {
+            dimension "mode"
+            buildConfigField "String", "RAZOR_KEY", RazorPayKey
+            buildConfigField "String", "BASE_URL", devBaseUrl
+        }
+
+        prod {
+            dimension "mode"
+            buildConfigField "String", "RAZOR_KEY", RazorPRODKey
+            buildConfigField "String", "BASE_URL", prodBaseUrl
         }
     }
     compileOptions {
