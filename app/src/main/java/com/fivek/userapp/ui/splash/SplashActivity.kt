@@ -5,6 +5,7 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -189,6 +190,8 @@ class SplashActivity : BaseActivity(), Listener, AddressCallBack {
     }
 
     override fun currentLocation(location: Location?) {
+
+        Log.e("location -->", "currentLocation: "+location )
         if (location != null && !isApiCalled) {
                 isApiCalled = true
                 getLocationDetail.getAddressFromApi(

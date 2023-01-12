@@ -142,41 +142,19 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
         CarCareApplication.instance.repository.primaryVehicle.observe(this) { vehile ->
             vehicleId = vehile.id
         }
-        CarCareApplication.instance.cartRepository.cartList.observe(this) { cartList ->
-            if (cartList != null && cartList.isNotEmpty()) {
-                var priceAmount = 0.0
-                var offerAmount = 0.0
-                for (item in cartList) {
-                    serviceIds.add(item.serviceId)
-                    priceAmount += item.price
-                    if (item.offer > 0) {
-                        offerAmount += item.offer
-                    }
-                }
-                totalAmount = offerAmount
 
-                if (prefsHelper.intUserTypePref != "normal") {
-                    val memberValue = ((totalAmount / 100) * 9).roundToInt()
-                    totalAmount -= memberValue
-                    binding.membershipView.visibility = View.VISIBLE
-                    binding.membershipTotal.text = "₹ -${memberValue}"
-                } else {
-                    binding.membershipView.visibility = View.GONE
-                }
-
-                binding.actualPrice.text = "₹ ${priceAmount.roundToInt()}"
-                binding.offerPrice.text = "₹ ${offerAmount.roundToInt()}"
-                finalAmount = totalAmount
-
-                checkOutViewModel.fetchVouchers()
-
-            }
-        }
 
         checkOutViewModel.paymentStatusResponse.observe(this) { response ->
                 moveToNext(getString(R.string.your_booking_has_been_confirmed), true)
         }
 
+        checkOutViewModel.userTypeResponse.observe(this) { response ->
+            if (response != null) {
+                prefsHelper.intUserTypePref = response.data.type
+                fetchCartList()
+            }
+
+        }
         checkOutViewModel.addBookingResponse.observe(this) { response ->
             if (response != null) {
                 if (paymentMethod == "online") {
@@ -207,7 +185,10 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
             showToast(errorMessage.toString())
         }
 
+        checkOutViewModel.fetchUserType()
+
     }
+
 
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -219,6 +200,45 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
                     val data = Gson().fromJson(it, Voucher::class.java)
                     updateVoucher(data)
                 }
+            }
+        }
+    }
+
+    fun fetchCartList(){
+        CarCareApplication.instance.cartRepository.cartList.observe(this) { cartList ->
+            if (cartList != null && cartList.isNotEmpty()) {
+                var priceAmount = 0.0
+                var offerAmount = 0.0
+                for (item in cartList) {
+                    serviceIds.add(item.serviceId)
+                    priceAmount += item.price
+                    totalAmount += if (item.offer > 0) {
+                        item.offer
+                    }else{
+                        item.price
+                    }
+                    if (item.offer > 0) {
+                        offerAmount += item.offer
+                    }
+
+                }
+
+
+                if (prefsHelper.intUserTypePref != "normal") {
+                    val memberValue = ((totalAmount / 100) * 9).roundToInt()
+                    totalAmount -= memberValue
+                    binding.membershipView.visibility = View.VISIBLE
+                    binding.membershipTotal.text = "₹ -${memberValue}"
+                } else {
+                    binding.membershipView.visibility = View.GONE
+                }
+
+                binding.actualPrice.text = "₹ ${priceAmount.roundToInt()}"
+                binding.offerPrice.text = "₹ ${offerAmount.roundToInt()}"
+                finalAmount = totalAmount
+
+                checkOutViewModel.fetchVouchers()
+
             }
         }
     }
@@ -282,7 +302,7 @@ class PaymentMethodActivity : BaseActivity(), PaymentResultWithDataListener {
             AddBookingRequest.PaymentStatusRequest(
                 addBookingResponse!!.data.id,
                 paymentData.paymentId,
-                "payment"
+                "success"
             )
         }
         if (body != null) {

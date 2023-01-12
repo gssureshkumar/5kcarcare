@@ -188,7 +188,7 @@
                     android:ellipsize="marquee"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/opensans_semibold"
-                    android:text="150"
+                    android:text=""
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -214,7 +214,7 @@
                     android:ellipsize="marquee"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/opensans_semibold"
-                    android:text="150"
+                    android:text=""
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -254,7 +254,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/opensans_semibold"
-                    android:text="150"
+                    android:text=""
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -294,7 +294,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/opensans_semibold"
-                    android:text="150"
+                    android:text=""
                     android:textSize="18sp" />
             </RelativeLayout>
 
@@ -320,7 +320,7 @@
                     android:ellipsize="marquee"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/opensans_semibold"
-                    android:text="150"
+                    android:text=""
                     android:textSize="18sp" />
             </RelativeLayout>
         </LinearLayout>

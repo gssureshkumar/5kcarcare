@@ -8,6 +8,7 @@ import com.fivek.userapp.viewmodel.BaseViewModel
 import com.fivek.userapp.viewmodel.request.booking.AddBookingRequest
 import com.fivek.userapp.viewmodel.response.GeneralResponse
 import com.fivek.userapp.viewmodel.response.addBookingResponse.AddBookingResponse
+import com.fivek.userapp.viewmodel.response.authendication.userType.UserTypeResponse
 import com.fivek.userapp.viewmodel.response.outlets.OutletsResponse
 import com.fivek.userapp.viewmodel.response.signedUrlResponse.SignedUrlResponse
 import com.fivek.userapp.viewmodel.response.timeslot.TimeSlotsResponse
@@ -25,6 +26,7 @@ class CheckOutViewModel(application: Application) : BaseViewModel(application) {
     val addBookingResponse = MutableLiveData<AddBookingResponse>()
     val paymentStatusResponse = MutableLiveData<GeneralResponse>()
     val signedUrlResponse = MutableLiveData<SignedUrlResponse>()
+    val userTypeResponse = MutableLiveData<UserTypeResponse>()
     val errorMessage = MutableLiveData<String?>()
     val isLoading = MutableLiveData<Boolean>()
 
@@ -158,6 +160,26 @@ class CheckOutViewModel(application: Application) : BaseViewModel(application) {
         )
     }
 
+    fun fetchUserType() {
+        isLoading.value = true
+        disposable.add(
+            RetrofitInstance.api.fetchUserType()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<UserTypeResponse>() {
+                    override fun onSuccess(response: UserTypeResponse) {
+                        userTypeResponse.value = response
+                        isLoading.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        isLoading.value = false
+                        errorMessage.value = ErrorResponseParser.getErrorResponse(e)
+
+                    }
+                })
+        )
+    }
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

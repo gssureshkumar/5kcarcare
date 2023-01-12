@@ -10,8 +10,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_marginBottom="10dp"
         android:visibility="gone"
+        android:layout_marginBottom="10dp"
         android:layout_above="@+id/addCartView">
 
         <LinearLayout
@@ -226,7 +226,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:visibility="gone"
         android:background="@color/primary_text_color"
         android:layout_alignParentBottom="true">
 
@@ -270,6 +269,8 @@
             android:layout_alignParentEnd="true"
             android:layout_gravity="center"
             android:text="@string/add_to_cart"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_centerVertical="true"
             android:gravity="end|center_vertical"
             android:fontFamily="@font/opensans_semibold"
