@@ -133,6 +133,7 @@ class CheckOutViewModel(application: Application) : BaseViewModel(application) {
                     override fun onError(e: Throwable) {
                         isLoading.value = false
                         errorMessage.value = ErrorResponseParser.getErrorResponse(e)
+                        paymentStatusRequest(body)
 
                     }
                 })
